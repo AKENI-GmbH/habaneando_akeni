@@ -44,8 +44,9 @@ class User extends Authenticatable implements FilamentUser
         'email_verified_at'    => 'datetime',
     ];
 
+
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
+        return $this->hasVerifiedEmail();
     }
 }
