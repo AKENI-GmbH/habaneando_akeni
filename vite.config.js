@@ -8,6 +8,7 @@ export default defineConfig({
             refresh: [
                 true
             ],
+            detectTls: 'https://octopus-app-pek75.ondigitalocean.app'
         }),
     ],
 })
