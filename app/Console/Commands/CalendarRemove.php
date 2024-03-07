@@ -40,8 +40,12 @@ class CalendarRemove extends Command
             if ($confirmed) {
                 $this->info('Deleting entry with ID ' . $id . '...');
                 $event = Event::find($id);
-                $event->delete();
-                $this->info('Event with ID ' . $id . ' deleted successfully.');
+                if ($event) {
+                    $event->delete();
+                    $this->info('Event with ID ' . $id . ' deleted successfully.');
+                } else {
+                    $this->info('Event with ID ' . $id . ' not found.');
+                }
             } else {
                 $this->info('Operation canceled.');
             }
@@ -53,11 +57,9 @@ class CalendarRemove extends Command
 
                 $this->info("Deleting $totalEvents events...");
 
-                foreach ($events as $event) {
+                foreach($events as $event) {
                     $event->delete();
                 }
-
-                $this->removeIds();
 
                 $this->info("All events deleted successfully.");
             } else {
@@ -70,11 +72,18 @@ class CalendarRemove extends Command
 
     protected function removeIds()
     {
+        $confirmed = $this->confirm('Are you sure you want to delete all entries?');
 
-        $courses = Course::withTrashed()->get();
+        if ($confirmed) {
+            $courses = Course::withTrashed()->get();
 
-        foreach ($courses as $course) {
-            $course->update(['google_event_id' => null]);
+            foreach ($courses as $course) {
+                $course->update(['google_event_id' => null]);
+            }
+
+            $this->info('Done');
+        } else {
+            $this->info('Operation canceled.');
         }
     }
 }
