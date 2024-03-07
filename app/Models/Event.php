@@ -52,6 +52,23 @@ class Event extends Model
         'extras' => 'json',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($event) {
+            event(new \App\Events\EventCreated($event));
+        });
+
+        static::updated(function ($event) {
+            event(new \App\Events\EventUpdated($event));
+        });
+
+        static::deleted(function ($event) {
+            event(new \App\Events\EventDeleted($event));
+        });
+    }
+    
 
     /**
      * Get the options for generating the slug.
