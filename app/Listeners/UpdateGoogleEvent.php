@@ -3,7 +3,9 @@
 namespace App\Listeners;
 
 use App\Events\CourseUpdated;
+use Carbon\Carbon;
 use Spatie\GoogleCalendar\Event;
+
 
 class UpdateGoogleEvent
 {
@@ -20,16 +22,21 @@ class UpdateGoogleEvent
      */
     public function handle(CourseUpdated $event): void
     {
+
         $course = $event->course;
+
+        $data = [
+            'name' => $course->name,
+            'startDateTime' => Carbon::parse($course->start_date . ' ' . $course->schedule_time_from),
+            'endDateTime' => Carbon::parse($course->start_date . ' ' . $course->schedule_time_to),
+        ];
 
         if ($course->google_event_id) {
             $google_event = Event::find($course->google_event_id);
-
-            $google_event->update([
-                'name' => $course->name,
-                'startDateTime' => \Carbon\Carbon::parse($course->start_date)->addHour($course->schedule_time_from),
-                'endDateTime' => \Carbon\Carbon::parse($course->start_date)->addHour($course->schedule_time_from),
-            ]);
+            $google_event->update($data);
+        } else {
+            $google_event = Event::create($data);
+            $course->update(['google_event_id' => $google_event->id]);
         }
     }
 }

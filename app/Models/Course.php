@@ -181,4 +181,14 @@ class Course extends Model
     {
         return $this->morphOne(Header::class, 'headerable');
     }
+
+    public function getScheduleTimeFromAttribute($value)
+    {
+        return Carbon::parse($value)->format('H:i');
+    }
+
+    public function getScheduleTimeToAttribute($value)
+    {
+        return Carbon::parse($value)->format('H:i');
+    }
 }

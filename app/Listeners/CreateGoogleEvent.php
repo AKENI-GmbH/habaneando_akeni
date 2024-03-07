@@ -4,6 +4,8 @@ namespace App\Listeners;
 
 use App\Events\CourseCreated;
 use Spatie\GoogleCalendar\Event;
+use Carbon\Carbon;
+
 
 class CreateGoogleEvent
 {
@@ -25,8 +27,8 @@ class CreateGoogleEvent
 
         $gEvent = Event::create([
             'name' => $course->name,
-            'startDateTime' => \Carbon\Carbon::parse($course->start_date)->addHour($course->schedule_time_from),
-            'endDateTime' => \Carbon\Carbon::parse($course->start_date)->addHour($course->schedule_time_from),
+            'startDateTime' => Carbon::parse($course->start_date . ' ' . $course->schedule_time_from),
+            'endDateTime' => Carbon::parse($course->start_date . ' ' . $course->schedule_time_to),
         ]);
 
         $course->update(['google_event_id' => $gEvent->id]);

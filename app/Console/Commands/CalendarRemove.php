@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Course;
 use Spatie\GoogleCalendar\Event;
 use Illuminate\Console\Command;
 
@@ -26,6 +27,11 @@ class CalendarRemove extends Command
      */
     public function handle()
     {
+        $this->removeEvents();
+    }
+
+    protected function removeEvents()
+    {
         $id = $this->argument('id');
         $allOption = $this->option('all');
 
@@ -34,12 +40,8 @@ class CalendarRemove extends Command
             if ($confirmed) {
                 $this->info('Deleting entry with ID ' . $id . '...');
                 $event = Event::find($id);
-                if ($event) {
-                    $event->delete();
-                    $this->info('Event with ID ' . $id . ' deleted successfully.');
-                } else {
-                    $this->info('Event with ID ' . $id . ' not found.');
-                }
+                $event->delete();
+                $this->info('Event with ID ' . $id . ' deleted successfully.');
             } else {
                 $this->info('Operation canceled.');
             }
@@ -50,9 +52,12 @@ class CalendarRemove extends Command
                 $totalEvents = $events->count();
 
                 $this->info("Deleting $totalEvents events...");
-                $events->each(function ($event) {
+
+                foreach ($events as $event) {
                     $event->delete();
-                });
+                }
+
+                $this->removeIds();
 
                 $this->info("All events deleted successfully.");
             } else {
@@ -60,6 +65,16 @@ class CalendarRemove extends Command
             }
         } else {
             $this->info('Please specify an ID or use --all flag.');
+        }
+    }
+
+    protected function removeIds()
+    {
+
+        $courses = Course::withTrashed()->get();
+
+        foreach ($courses as $course) {
+            $course->update(['google_event_id' => null]);
         }
     }
 }
