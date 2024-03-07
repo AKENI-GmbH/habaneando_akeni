@@ -31,12 +31,7 @@ class UpdateGoogleEvent
             'endDateTime' => Carbon::parse($course->start_date . ' ' . $course->schedule_time_to),
         ];
 
-        if ($course->google_event_id) {
-            $google_event = Event::find($course->google_event_id);
-            $google_event->update($data);
-        } else {
-            $google_event = Event::create($data);
-            $course->update(['google_event_id' => $google_event->id]);
-        }
+        $google_event = Event::find($course->google_event_id);
+        $google_event->update($data);
     }
 }
