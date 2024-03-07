@@ -33,5 +33,7 @@ class UpdateGoogleEvent
 
         $google_event = Event::find($course->google_event_id);
         $google_event->update($data);
+
+        $course->update(['google_event_id' => $google_event->id]);
     }
 }

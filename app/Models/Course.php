@@ -76,9 +76,9 @@ class Course extends Model
             event(new \App\Events\CourseCreated($course));
         });
 
-        // static::updated(function ($course) {
-        //     event(new \App\Events\CourseUpdated($course));
-        // });
+        static::updated(function ($course) {
+            event(new \App\Events\CourseUpdated($course));
+        });
 
         static::deleted(function ($course) {
             event(new \App\Events\CourseDeleted($course));
