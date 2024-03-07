@@ -66,7 +66,10 @@ class Course extends Model
         });
 
         static::updating(function ($course) {
-            $course->course_id = $course->generateCourseId();
+
+            if(!$course->course_id){
+                $course->course_id = $course->generateCourseId();
+            }
         });
 
         static::created(function ($course) {
