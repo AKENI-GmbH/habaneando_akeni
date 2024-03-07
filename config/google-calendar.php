@@ -39,7 +39,7 @@ return [
     /*
      *  The id of the Google Calendar that will be used by default.
      */
-    'calendar_id' => env('GOOGLE_CALENDAR_ID'),
+    'calendar_id' => "98436f353eb4875aa73e22b17a479e196402739deb3ba8d7284dbbc82659d299@group.calendar.google.com",
 
      /*
      *  The email address of the user account to impersonate.

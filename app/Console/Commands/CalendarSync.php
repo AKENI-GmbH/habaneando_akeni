@@ -33,8 +33,8 @@ class CalendarSync extends Command
         foreach ($courses as $course) {
             $event = Event::create([
                 'name' => $course->name,
-                'startDateTime' => Carbon::parse($course->start_date)->addHour($course->schedule_time_from),
-                'endDateTime' => Carbon::parse($course->start_date)->addHour($course->schedule_time_from),
+                'startDateTime' => Carbon::parse($course->start_date . ' ' . $course->schedule_time_from),
+                'endDateTime' => Carbon::parse($course->start_date . ' ' . $course->schedule_time_to),
             ]);
 
             $course->update(['google_event_id' => $event->id]);
