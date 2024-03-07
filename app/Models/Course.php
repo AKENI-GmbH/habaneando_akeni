@@ -68,6 +68,18 @@ class Course extends Model
         static::updating(function ($course) {
             $course->course_id = $course->generateCourseId();
         });
+
+        static::created(function ($course) {
+            event(new \App\Events\CourseCreated($course));
+        });
+
+        static::updated(function ($course) {
+            event(new \App\Events\CourseUpdated($course));
+        });
+
+        static::deleted(function ($course) {
+            event(new \App\Events\CourseDeleted($course));
+        });
     }
 
     /**
