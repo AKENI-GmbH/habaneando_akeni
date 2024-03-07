@@ -1,32 +1,40 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8" />
 
-        <meta name="application-name" content="{{ config('app.name') }}" />
-        <meta name="csrf-token" content="{{ csrf_token() }}" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+    <meta charset="utf-8">
+    <title>{{ config('app.name', 'Habaneando') }} @yield('title')</title>
 
-        <title>{{ config('app.name') }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <style>
-            [x-cloak] {
-                display: none !important;
-            }
-        </style>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
 
-        @filamentStyles
-        @vite('resources/css/app.css')
-    </head>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Inter:wght@400;500;600;700;800&family=Lexend:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
 
-    <body class="antialiased">
-        <livewire:frontendTopNavigation/>
-        {{ $slot }}
-        <x-footer />
+    <!-- Swiper -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
-        @livewire('notifications')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/css/splide.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/js/splide.min.js"></script>
 
-        @filamentScripts
-        @vite('resources/js/app.js')
-    </body>
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
+    @yield('css')
+</head>
+
+<body>
+    <livewire:frontendTopNavigation />
+    {{ $slot }}
+    <x-footer />
+
+    @livewireScripts
+
+    @yield('js')
+</body>
+
 </html>
