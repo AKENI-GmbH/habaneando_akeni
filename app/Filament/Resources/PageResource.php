@@ -3,56 +3,91 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PageResource\Pages;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\Split;
+use Filament\Forms\Components\Radio;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Filament\Forms\Form;
-use App\Models\Page;
 use Filament\Tables;
-use Filament\Tables\Columns\IconColumn;
+use App\Models\Page;
+use Filament\Forms\Components\ColorPicker;
+use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\Tabs;
+use Filament\Tables\Columns\ImageColumn;
+
+
 
 class PageResource extends Resource
 {
-  
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Split::make([
-                    Section::make([
-                        TextInput::make('name'),
-                        RichEditor::make('body')
-                            ->toolbarButtons([
-                                'blockquote',
-                                'bold',
-                                'bulletList',
-                                'h2',
-                                'h3',
-                                'italic',
-                                'orderedList',
-                                'redo',
-                                'strike',
-                                'underline',
-                                'undo',
-                                'tables'
-                            ])
-                            ->disableToolbarButtons([
-                                'codeBlock',
-                                'attachFiles',
-                                'link',
+
+                Tabs::make('Tabs')
+                    ->tabs([
+                        Tabs\Tab::make(__('Page'))
+                            ->schema([
+                                Section::make([
+                                    TextInput::make('name'),
+                                    RichEditor::make('body')
+                                        ->toolbarButtons([
+                                            'blockquote',
+                                            'bold',
+                                            'bulletList',
+                                            'h2',
+                                            'h3',
+                                            'italic',
+                                            'orderedList',
+                                            'redo',
+                                            'strike',
+                                            'underline',
+                                            'undo',
+                                            'tables'
+                                        ])
+                                        ->disableToolbarButtons([
+                                            'codeBlock',
+                                            'attachFiles',
+                                            'link',
+                                        ]),
+                                    Toggle::make('status'),
+                                ]),
                             ]),
-                    ]),
-                    Section::make([
-                        Toggle::make('status'),
-                    ])->grow(false),
-                ])->from('md'),
+                        Tabs\Tab::make(__('Page Header'))
+                            ->schema([
+                                Fieldset::make(__('Page header'))
+                                    ->relationship('header')
+                                    ->schema([
+                                        FileUpload::make('cover')->columnSpan(2),
+                                        Radio::make('mediaType')
+                                            ->options([
+                                                'image' => 'Image',
+                                                'video' => 'Video',
+                                            ])->inline(),
+                                        TextInput::make('videoId'),
+                                        ColorPicker::make('overlayColor'),
+                                        ColorPicker::make('textColor'),
+                                        TextInput::make('overlayOpacity')->numeric(),
+                                        Toggle::make('overlay'),
+                                        Toggle::make('caption'),
+                                    ])->columns(2)
+                            ]),
+
+                    ])
+
+
+
+
+
+
 
             ])->columns(1);
     }
@@ -61,6 +96,7 @@ class PageResource extends Resource
     {
         return $table
             ->columns([
+                ImageColumn::make('header.cover')->width('100px'),
                 TextColumn::make('name'),
                 IconColumn::make('status')->boolean()
             ])
@@ -73,9 +109,7 @@ class PageResource extends Resource
                 ]),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-
-                ]),
+                Tables\Actions\BulkActionGroup::make([]),
             ]);
     }
 

@@ -11,10 +11,16 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
 use App\Models\CourseCategory;
+use Filament\Forms\Components\ColorPicker;
+use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Tabs;
 use Filament\Tables\Table;
 use Filament\Forms\Form;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 
 class CourseCategoryResource extends Resource
 {
@@ -22,12 +28,42 @@ class CourseCategoryResource extends Resource
     {
         return $form
             ->schema([
-                Section::make(__('Details'))
-                    ->schema([
-                        TextInput::make('name')->required(),
-                        TextInput::make('description'),
-                        Toggle::make('status'),
+
+                Tabs::make('Tabs')
+                    ->tabs([
+                        Tabs\Tab::make('Course Category')
+                            ->schema([
+                                Section::make([
+                                    TextInput::make('name')->required(),
+                                    TextInput::make('description'),
+                                    Toggle::make('status'),
+                                ]),
+
+                            ]),
+                        Tabs\Tab::make(__('Page Header'))
+                            ->schema([
+                                Fieldset::make(__('Page header'))
+                                    ->relationship('header')
+                                    ->schema([
+                                        FileUpload::make('cover')->columnSpan(2),
+                                        Radio::make('mediaType')
+                                            ->options([
+                                                'image' => 'Image',
+                                                'video' => 'Video',
+                                            ])->inline(),
+                                        TextInput::make('videoId'),
+                                        ColorPicker::make('overlayColor'),
+                                        ColorPicker::make('textColor'),
+                                        TextInput::make('overlayOpacity')->numeric(),
+                                        Toggle::make('overlay'),
+                                        Toggle::make('caption'),
+                                    ])->columns(2)->label(false),
+                            ]),
                     ])
+
+
+
+
             ])->columns(1);
     }
 
@@ -35,6 +71,7 @@ class CourseCategoryResource extends Resource
     {
         return $table
             ->columns([
+                ImageColumn::make('header.cover')->width('100px'),
                 TextColumn::make('name'),
                 IconColumn::make('status')->label(__('Status'))
             ])

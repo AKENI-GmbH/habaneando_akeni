@@ -230,6 +230,7 @@ class CourseResource extends Resource
         return [
             'index' => Pages\ListCourses::route('/'),
             'create' => Pages\CreateCourse::route('/create'),
+            'show' => Pages\ShowCourse::route('/{record}/show'),
             'edit' => Pages\EditCourse::route('/{record}/edit'),
         ];
     }

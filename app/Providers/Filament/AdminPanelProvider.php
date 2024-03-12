@@ -83,18 +83,19 @@ class AdminPanelProvider extends PanelProvider
             ])->navigationGroups([
                 NavigationGroup::make()
                     ->label('Habaneando')
-                    ->icon('heroicon-o-musical-note'),
+                    ->icon('heroicon-o-musical-note')
+                    ->collapsed(true),
 
                 NavigationGroup::make()
                     ->label(__('Pricing'))
                     ->icon('heroicon-o-currency-euro')
-                    ->collapsed(true),
+                    ->collapsed(false),
 
 
                 NavigationGroup::make()
                     ->label(__('Settings'))
                     ->icon('heroicon-o-cog-6-tooth')
-                    ->collapsed(),
+                    ->collapsed(false),
             ]);
     }
 }

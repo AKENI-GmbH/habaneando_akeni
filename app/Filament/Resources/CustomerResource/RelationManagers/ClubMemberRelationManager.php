@@ -56,7 +56,8 @@ class ClubMemberRelationManager extends RelationManager
                     ->maxValue(42949672.95),
 
                 DatePicker::make('created_at')
-                    ->label(__('Date')),
+                    ->label(__('Date'))
+                    ->native(false),
             ])->columns(1);
     }
 
