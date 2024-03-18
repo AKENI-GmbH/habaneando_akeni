@@ -29,7 +29,7 @@ class CourseSubscription extends Model
         'numberOfWomen' => 'integer',
     ];
 
-    public function customer()
+    public function customers()
     {
         return $this->belongsTo(Customer::class, 'customer_id');
     }

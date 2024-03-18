@@ -7,6 +7,8 @@ use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CourseSubscriptionsRelationManager extends RelationManager
 {
@@ -16,7 +18,7 @@ class CourseSubscriptionsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('course_id')
+                Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
             ]);
@@ -25,9 +27,9 @@ class CourseSubscriptionsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('course_id')
+            ->recordTitleAttribute('name')
             ->columns([
-                Tables\Columns\TextColumn::make('course_id'),
+                Tables\Columns\TextColumn::make('name'),
             ])
             ->filters([
                 //

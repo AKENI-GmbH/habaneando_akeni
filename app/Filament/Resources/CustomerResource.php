@@ -2,11 +2,11 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CustomerResource\RelationManagers\CourseSubscriptionsRelationManager;
 use App\Filament\Resources\CustomerResource\RelationManagers\EventSubscriptionsRelationManager;
 use App\Filament\Resources\CustomerResource\RelationManagers\ClubMemberRelationManager;
 use Filament\Resources\RelationManagers\RelationGroup;
 use App\Filament\Resources\CustomerResource\Pages;
+use App\Filament\Resources\CustomerResource\RelationManagers\CourseSubscriptionsRelationManager;
 use Filament\Forms\Components\DatePicker;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Actions\ActionGroup;
