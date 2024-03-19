@@ -8,6 +8,8 @@
     "Location": "Ubicación",
     "Pages": "Páginas",
     "Page": "Página",
+    "Date": "Fecha",
+    "Comment": "Comentario",
     "Teachers": "Instructores",
     "First name": "Nombre",
     "Last name": "Apellido",
@@ -36,5 +38,6 @@
     "Limit": "Limite",
 
 
-    "This option affects where on your page this event will be visible.": "Esta opción afecta en qué parte de su página será visible este evento."
+    "This option affects where on your page this event will be visible.": "Esta opción afecta en qué parte de su página será visible este evento.",
+    "Leave the field empty to use the default club rate price": "Deja el campo vacío para utilizar el precio de tarifa del club predeterminado"
 }

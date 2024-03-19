@@ -25,10 +25,24 @@ class ClubMember extends Model
     {
         parent::boot();
 
+        static::updating(function ($clubMember) {
+
+            if (empty($clubMember->amount) || $clubMember->amount <= 0) {
+                $clubMember->amount = $clubMember->clubRate->amount;
+            }
+
+            $duration = $clubMember->clubRate->category->duration;
+            $clubMember->valid_date_until = Carbon::parse($clubMember->created_at)->addYear($duration);
+        });
+
         static::creating(function ($clubMember) {
             if (empty($clubMember->membership_id)) {
                 $membershipId = $clubMember->customer_id . $clubMember->club_rate_id . now()->format('ymd');
                 $clubMember->membership_id = $membershipId;
+            }
+
+            if (empty($clubMember->amount) || $clubMember->amount <= 0) {
+                $clubMember->amount = $clubMember->clubRate->amount;
             }
 
             if (!$clubMember->created_at) {
@@ -36,7 +50,8 @@ class ClubMember extends Model
             }
 
             if (empty($clubMember->valid_date_until)) {
-                $clubMember->valid_date_until = Carbon::parse($clubMember->created_at)->addYear(1);
+                $duration = $clubMember->clubRate->category->duration;
+                $clubMember->valid_date_until = Carbon::parse($clubMember->created_at)->addYear($duration);
             }
         });
     }
@@ -56,7 +71,8 @@ class ClubMember extends Model
         return  number_format($this->amount, 2, ',', '.') . '€';
     }
 
-    public function getDeadlineAttribute(){
+    public function getDeadlineAttribute()
+    {
         return Carbon::parse($this->valid_date_until)->subMonth(1);
     }
 }

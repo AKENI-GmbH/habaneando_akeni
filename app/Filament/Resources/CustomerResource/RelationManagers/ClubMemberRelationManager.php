@@ -19,6 +19,8 @@ class ClubMemberRelationManager extends RelationManager
 {
     protected static string $relationship = 'clubMember';
 
+    protected static bool $canCreateAnother = false;
+
     public function create(array $data)
     {
         $clubMember = parent::create($data);
@@ -34,7 +36,6 @@ class ClubMemberRelationManager extends RelationManager
     {
         return $form
             ->schema([
-
                 Select::make('club_rate_id')
                     ->label(__('Club Rate'))
                     ->required()
@@ -53,9 +54,11 @@ class ClubMemberRelationManager extends RelationManager
                     ->label(__('Price'))
                     ->numeric()
                     ->prefix('€')
-                    ->maxValue(42949672.95),
+                    ->maxValue(42949672.95)
+                    ->helperText(__('Leave the field empty to use the default club rate price')),
 
                 DatePicker::make('created_at')
+                    ->required()
                     ->label(__('Date'))
                     ->native(false),
             ])->columns(1);
@@ -94,7 +97,9 @@ class ClubMemberRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make()->visible(!isset($this->getOwnerRecord()->clubMember)),
+                Tables\Actions\CreateAction::make()
+                    ->createAnother(false)
+                    ->visible(!isset($this->getOwnerRecord()->clubMember)),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -104,5 +109,4 @@ class ClubMemberRelationManager extends RelationManager
                 //
             ]);
     }
-
 }
