@@ -7,6 +7,7 @@ use App\Filament\Resources\CustomerResource\RelationManagers\EventSubscriptionsR
 use App\Filament\Resources\CustomerResource\RelationManagers\ClubMemberRelationManager;
 use Filament\Resources\RelationManagers\RelationGroup;
 use App\Filament\Resources\CustomerResource\Pages;
+use App\Filament\Resources\CustomerResource\Widgets\SingleCustomerOverview;
 use Filament\Forms\Components\DatePicker;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Actions\ActionGroup;

@@ -13,6 +13,7 @@ class ListCustomers extends ListRecords
 
     protected function getHeaderWidgets(): array
     {
+       
         return [
             CustomerResource\Widgets\CustomerOverview::class,
         ];

@@ -2,13 +2,20 @@
 
 namespace App\Filament\Resources\CustomerResource\RelationManagers;
 
-use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Tables;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use App\Enum\SubscriptionTypeEnum;
+use App\Enum\PaymentMethodEnum;
+use App\Enum\PaymentStatusEnum;
+use App\Models\Course;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Form;
+use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
 
 class CourseSubscriptionsRelationManager extends RelationManager
 {
@@ -18,18 +25,63 @@ class CourseSubscriptionsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+
+                Select::make('course_id')
+                    ->label('Course')
+                    ->options(Course::where('start_date', '>', now())->get()->mapWithKeys(function ($course) {
+                        return [$course->id => "{$course->name} ({$course->start_date})"];
+                    }))
+                    ->getOptionLabelFromRecordUsing(fn ($course) => "{$course->name} ({$course->start_date})")
+                    ->searchable()->columnSpan(2),
+
+                Select::make('subscriptionType')
                     ->required()
-                    ->maxLength(255),
+                    ->options(SubscriptionTypeEnum::toSelectArray()),
+
+
+                Select::make('method')
+                    ->label(__('Payment method'))
+                    ->required()
+                    ->options(PaymentMethodEnum::toSelectArray()),
+
+
+                TextInput::make('amount')
+                    ->label(__('Price'))
+                    ->numeric()
+                    ->prefix('€')
+                    ->required()
+                    ->maxValue(42949672.95),
+
+
+                Select::make('payment_status')
+                    ->label(__('Payment status'))
+                    ->required()
+                    ->options(PaymentStatusEnum::toSelectArray()),
+
+
+                DatePicker::make('created_at')
+                    ->native(false),
+
+
+                DatePicker::make('valid_to')
+                    ->native(false),
             ]);
     }
 
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('name')
+            ->recordTitleAttribute('course.name')
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                TextColumn::make('course.name'),
+                TextColumn::make('created_at')->date('d-m-Y'),
+                TextColumn::make('amount'),
+                TextColumn::make('method'),
+                TextColumn::make('payment_status'),
+                IconColumn::make('is_active')
+                    ->label(__('Is active'))
+                    ->boolean(),
+
             ])
             ->filters([
                 //
@@ -38,8 +90,10 @@ class CourseSubscriptionsRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

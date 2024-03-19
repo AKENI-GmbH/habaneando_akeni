@@ -177,6 +177,10 @@ class Course extends Model
         return $this->morphOne(Header::class, 'headerable');
     }
 
+    public function getSelectNameAttribute(){
+        return $this->name;
+    }
+
     public function getScheduleTimeFromAttribute($value)
     {
         return Carbon::parse($value)->format('H:i');

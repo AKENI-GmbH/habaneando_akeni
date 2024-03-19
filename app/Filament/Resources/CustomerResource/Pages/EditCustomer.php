@@ -15,6 +15,14 @@ class EditCustomer extends EditRecord
         return true;
     }
 
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            CustomerResource\Widgets\SingleCustomerOverview::class,
+        ];
+    }
+
     protected function getHeaderActions(): array
     {
         return [
