@@ -14,6 +14,9 @@
     "First name": "Nombre",
     "Last name": "Apellido",
     "Membership": "Membresía",
+    "Send notification": "Enviar notificación",
+    "Subject": "Asunto",
+    "Body": "Mensaje",
     "No Membership": "Ninguna Membresía",
     "Phone number": "Número de teléfono",
     "Birthday": "Fecha de nacimiento",
@@ -36,7 +39,6 @@
     "Ticket Groups": "Ticket Groups",
     "Price": "Precio",
     "Limit": "Limite",
-
 
     "This option affects where on your page this event will be visible.": "Esta opción afecta en qué parte de su página será visible este evento.",
     "Leave the field empty to use the default club rate price": "Deja el campo vacío para utilizar el precio de tarifa del club predeterminado"

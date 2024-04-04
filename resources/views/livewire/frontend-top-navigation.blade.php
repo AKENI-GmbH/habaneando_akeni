@@ -36,12 +36,12 @@
 
                             <!-- Pages dropdown -->
                             <div style="display: none"
-                                class="absolute right-0 z-20 mt-3 w-52 space-y-1  bg-gray-100 rounded-md drop-shadow filter focus:outline-none outline-none"
+                                class="absolute right-0 z-20 mt-3 w-52  bg-gray-100 rounded-md drop-shadow filter focus:outline-none outline-none"
                                 x-show.transition="open" @click.away="open = false">
                                 @foreach ($item['submenu'] as $category)
                                     @if (isset($category['link']))
                                         <a href="{{ $category['link'] }}"
-                                            class="block py-3.5 px-5 font-medium  hover:bg-red-700 text-black  transition duration-300 ease-in-out  hover:text-white">
+                                            class="block px-4 py-2.5 font-base border-none hover:bg-neutral-800 text-neutral-300 bg-neutral-700  transition duration-300 ease-in-out  hover:text-white">
                                             {{ $category['name'] ?? $category['label'] }}
                                         </a>
                                     @elseif(isset($category['form']) && $category['form'])

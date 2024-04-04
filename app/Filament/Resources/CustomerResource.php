@@ -2,18 +2,24 @@
 
 namespace App\Filament\Resources;
 
+
 use App\Filament\Resources\CustomerResource\RelationManagers\CourseSubscriptionsRelationManager;
 use App\Filament\Resources\CustomerResource\RelationManagers\EventSubscriptionsRelationManager;
 use App\Filament\Resources\CustomerResource\RelationManagers\ClubMemberRelationManager;
 use Filament\Resources\RelationManagers\RelationGroup;
 use App\Filament\Resources\CustomerResource\Pages;
-use App\Filament\Resources\CustomerResource\Widgets\SingleCustomerOverview;
+use Illuminate\Database\Eloquent\Collection;
 use Filament\Forms\Components\DatePicker;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Actions\ActionGroup;
+use App\Mail\CourseGlobalNotification;
+use App\Mail\CustomerNotification;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Select;
+use Illuminate\Support\Facades\Mail;
 use Filament\Forms\Components\Tabs;
 use Filament\Tables\Filters\Filter;
 use Filament\Resources\Resource;
@@ -124,7 +130,7 @@ class CustomerResource extends Resource
             ->actions([
                 ActionGroup::make([
                     Tables\Actions\EditAction::make()->label('Edit Customer'),
-                    Action::make(__('Send Notification'))
+                    Action::make(__('Send notification'))
                         ->icon('heroicon-s-envelope'),
                     Action::make(__('Edit Membership'))
                         ->icon('heroicon-m-identification')
@@ -132,9 +138,28 @@ class CustomerResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
+                    BulkAction::make(__('Send notification'))
+                        ->icon('heroicon-s-envelope')
+                        ->form(function () {
+                            return [
+                                TextInput::make('subject')->label(__('Subject')),
+                                TextArea::make('body')->label(__('Body'))
+                                ->rows(10)
+                                ->cols(20),
+                            ];
+                        })
+                        ->action(function (Collection $records, array $data) {
+                            foreach ($records as $customer) {
+                                Mail::to($customer->email)->send(new CustomerNotification($data['subject'], $data['body']));
+                            }
+                            
+                        }
+                        )
+                        ->slideOver(),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
+            ->selectCurrentPageOnly()
             ->persistSearchInSession()
             ->persistColumnSearchesInSession();
     }
