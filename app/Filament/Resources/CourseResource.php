@@ -141,8 +141,10 @@ class CourseResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('course_id'),
-                TextColumn::make('name'),
+                TextColumn::make('course_id')
+                    ->url(fn (Course $record): string => route('filament.admin.resources.courses.show', ['record' => $record])),
+                TextColumn::make('name')
+                    ->url(fn (Course $record): string => route('filament.admin.resources.courses.show', ['record' => $record])),
                 TextColumn::make('subcategory.level')
                     ->searchable(false)
                     ->label('Level'),

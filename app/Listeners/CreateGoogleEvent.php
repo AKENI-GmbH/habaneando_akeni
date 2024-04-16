@@ -25,7 +25,7 @@ class CreateGoogleEvent
         $course = $event->course;
 
 
-        $gEvent = Event::create([
+        $gEvent = Event::create([ //TODO: Revisar
             'name' => $course->name,
             'startDateTime' => Carbon::parse($course->start_date . ' ' . $course->schedule_time_from),
             'endDateTime' => Carbon::parse($course->start_date . ' ' . $course->schedule_time_to),

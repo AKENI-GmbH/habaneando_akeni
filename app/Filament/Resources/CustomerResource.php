@@ -11,17 +11,16 @@ use App\Filament\Resources\CustomerResource\Pages;
 use Illuminate\Database\Eloquent\Collection;
 use Filament\Forms\Components\DatePicker;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Tables\Actions\ActionGroup;
-use App\Mail\CourseGlobalNotification;
-use App\Mail\CustomerNotification;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Select;
 use Illuminate\Support\Facades\Mail;
 use Filament\Forms\Components\Tabs;
 use Filament\Tables\Filters\Filter;
+use App\Mail\CustomerNotification;
 use Filament\Resources\Resource;
 use Filament\Actions\Action;
 use Filament\Tables\Table;
@@ -143,17 +142,17 @@ class CustomerResource extends Resource
                         ->form(function () {
                             return [
                                 TextInput::make('subject')->label(__('Subject')),
-                                TextArea::make('body')->label(__('Body'))
-                                ->rows(10)
-                                ->cols(20),
+                                Textarea::make('body')->label(__('Body'))
+                                    ->rows(10)
+                                    ->cols(20),
                             ];
                         })
-                        ->action(function (Collection $records, array $data) {
-                            foreach ($records as $customer) {
-                                Mail::to($customer->email)->send(new CustomerNotification($data['subject'], $data['body']));
+                        ->action(
+                            function (Collection $records, array $data) {
+                                foreach ($records as $customer) {
+                                    Mail::to($customer->email)->send(new CustomerNotification($data['subject'], $data['body']));
+                                }
                             }
-                            
-                        }
                         )
                         ->slideOver(),
                     Tables\Actions\DeleteBulkAction::make(),

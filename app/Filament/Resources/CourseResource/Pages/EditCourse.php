@@ -3,8 +3,8 @@
 namespace App\Filament\Resources\CourseResource\Pages;
 
 use App\Filament\Resources\CourseResource;
-use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use Filament\Actions;
 
 class EditCourse extends EditRecord
 {

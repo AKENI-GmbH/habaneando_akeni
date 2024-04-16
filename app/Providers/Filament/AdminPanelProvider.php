@@ -51,7 +51,7 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
                 'danger' => Color::Rose,
-                'gray' => Color::Slate,
+                'gray' => Color::Gray,
                 'info' => Color::Blue,
                 'success' => Color::Emerald,
                 'warning' => Color::Orange,

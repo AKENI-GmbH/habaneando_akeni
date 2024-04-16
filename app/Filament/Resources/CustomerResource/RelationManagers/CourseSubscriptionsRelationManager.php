@@ -11,6 +11,7 @@ use App\Enum\PaymentStatusEnum;
 use App\Models\Course;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Forms\Components\DatePicker;
+use Jenssegers\Date\Date;
 use Filament\Tables\Table;
 use Filament\Forms\Form;
 use Filament\Tables;
@@ -26,12 +27,13 @@ class CourseSubscriptionsRelationManager extends RelationManager
         return $form
             ->schema([
 
-                Select::make('course_id')
+                Select::make('course_id') //TODO: Solo clubs
                     ->label('Course')
-                    ->options(Course::where('start_date', '>', now())->get()->mapWithKeys(function ($course) {
-                        return [$course->id => "{$course->name} ({$course->start_date})"];
+                    ->options(Course::where('course.is_club', true)->where('start_date', '>', now())->get()->mapWithKeys(function ($course) {
+                        $date = Date::parse($course->start_date)->format('l');
+                        return [$course->id => "{$course->name}, {$date},  {$course->primaryTeacher->first_name} {$course->primaryTeacher->last_name}"];
                     }))
-                    ->getOptionLabelFromRecordUsing(fn ($course) => "{$course->name} ({$course->start_date})")
+                    ->getOptionLabelFromRecordUsing(fn ($course) => "{$course->name} ({Date::parse($course->start_date)->format('l, j F Y')})")
                     ->searchable()->columnSpan(2),
 
                 Select::make('subscriptionType')

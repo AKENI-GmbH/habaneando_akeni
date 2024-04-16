@@ -38,6 +38,7 @@ class Event extends Model
     ];
 
 
+
     /**
      * The attributes that should be formatted as dates.
      *
@@ -68,7 +69,7 @@ class Event extends Model
             event(new \App\Events\EventDeleted($event));
         });
     }
-    
+
 
     /**
      * Get the options for generating the slug.

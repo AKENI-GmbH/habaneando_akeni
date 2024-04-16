@@ -72,7 +72,7 @@ class Customer extends Authenticatable
 
     public function eventSubscriptions()
     {
-        return $this->hasMany(CourseSubscription::class, 'customer_id');
+        return $this->hasMany(EventSubscription::class, 'customer_id');
     }
 
     public function getBirthdayAttribute($birthday)

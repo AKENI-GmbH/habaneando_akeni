@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\SlugOptions;
-use App\Traits\DateFormatting;
 use Spatie\Sluggable\HasSlug;
 use Carbon\Carbon;
+
+//TODO: Recordar al cliente de empezar el proximo curso nueva incripcion
 
 class Course extends Model
 {
@@ -67,7 +68,7 @@ class Course extends Model
 
         static::updating(function ($course) {
 
-            if(!$course->course_id){
+            if (!$course->course_id) {
                 $course->course_id = $course->generateCourseId();
             }
         });
@@ -177,7 +178,8 @@ class Course extends Model
         return $this->morphOne(Header::class, 'headerable');
     }
 
-    public function getSelectNameAttribute(){
+    public function getSelectNameAttribute()
+    {
         return $this->name;
     }
 
