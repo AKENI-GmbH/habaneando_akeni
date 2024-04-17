@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('profession')->nullable();
             $table->string('iban')->nullable();
             $table->string('kontoinhaber')->nullable();
-            $table->string('IBAN')->nullable();
             $table->string('BIC')->nullable();
             $table->string('address_aux')->nullable();
             $table->string('email')->unique();

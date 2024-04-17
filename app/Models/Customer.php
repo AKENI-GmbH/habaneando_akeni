@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 use App\Traits\DateFormatting;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 
 class Customer extends Authenticatable
@@ -59,6 +60,19 @@ class Customer extends Authenticatable
         'updated_at',
         'created_at',
     ];
+
+
+
+    protected static function boot()
+    {
+        parent::boot();
+    
+        static::creating(function ($customer) {
+            if (!$customer->password) {
+                $customer->password = Hash::make(Str::random(30));
+            }
+        });
+    }
 
     public function clubMember()
     {

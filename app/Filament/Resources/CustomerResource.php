@@ -64,10 +64,10 @@ class CustomerResource extends Resource
                         Tabs\Tab::make(__('Address Details'))
                             ->schema([
 
-                                TextInput::make('address')->required()->label('Street'),
+                                TextInput::make('address')->label('Street'),
                                 TextInput::make('address_aux')->label('Street 2'),
-                                TextInput::make('city')->required(),
-                                TextInput::make('zip')->required()->label('Postal Code'),
+                                TextInput::make('city'),
+                                TextInput::make('zip')->label('Postal Code'),
 
                             ]),
                         Tabs\Tab::make(__('Bank Details'))
