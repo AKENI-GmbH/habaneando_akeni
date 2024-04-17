@@ -27,9 +27,9 @@ class CourseSubscriptionsRelationManager extends RelationManager
         return $form
             ->schema([
 
-                Select::make('course_id') //TODO: Solo clubs
+                Select::make('course_id')
                     ->label('Course')
-                    ->options(Course::where('course.is_club', true)->where('start_date', '>', now())->get()->mapWithKeys(function ($course) {
+                    ->options(Course::where('start_date', '>', now())->get()->mapWithKeys(function ($course) {
                         $date = Date::parse($course->start_date)->format('l');
                         return [$course->id => "{$course->name}, {$date},  {$course->primaryTeacher->first_name} {$course->primaryTeacher->last_name}"];
                     }))
