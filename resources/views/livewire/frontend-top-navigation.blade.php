@@ -13,20 +13,21 @@
             <div class="items-center hidden md:flex md:space-x-6 lg:space-x-8">
                 @foreach ($navigation as $item)
                     @if (isset($item['link']) && $item['link'])
-                        <a href="{{ $item['link'] }}" class="relative text-xs uppercase text-white font-semibold">
+                        <a href="{{ $item['link'] }}"
+                            class="relative text-sm uppercase text-white font-semibold hover:text-stone-400 duration-300">
                             {{ $item['label'] }}
                         </a>
                     @else
                         <div class="relative" x-data="{ open: false }">
                             <!-- Pages dropdown button -->
                             <button type="button"
-                                class="flex items-center relative text-xs uppercase text-white font-semibold duration-200 ease-in-out group"
-                                :class="open ? 'text-white' : 'text-white  hover:text-gray-200'" @click="open = true">
+                                class="flex items-center relative text-sm uppercase text-white hover:text-stone-400 font-semibold duration-300 ease-in-out group"
+                                :class="open ? 'text-white' : 'text-white hover:text-gray-200'" @click="open = true">
                                 <span>{{ $item['label'] }}</span>
 
                                 <!-- Heroicon name: solid/chevron-down -->
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                    class="w-5 h-5 duration-300"
+                                    class="w-5 h-5"
                                     :class="open ? 'rotate-180 text-white' : 'text-white group-hover:text-gray-300'">
                                     <path fill-rule="evenodd"
                                         d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"

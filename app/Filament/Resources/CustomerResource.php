@@ -17,19 +17,24 @@ use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Select;
-use Illuminate\Support\Facades\Mail;
 use Filament\Forms\Components\Tabs;
 use Filament\Tables\Filters\Filter;
-use App\Mail\CustomerNotification;
 use Filament\Resources\Resource;
 use Filament\Actions\Action;
 use Filament\Tables\Table;
 use Filament\Forms\Form;
 use App\Models\Customer;
+use App\Services\MailjetEmailService;
 use Filament\Tables;
 
 class CustomerResource extends Resource
 {
+    protected $mailjetEmailService;
+
+    public function __construct(MailjetEmailService $mailjetEmailService)
+    {
+        $this->mailjetEmailService = $mailjetEmailService;
+    }
 
     public static function form(Form $form): Form
     {
@@ -149,9 +154,25 @@ class CustomerResource extends Resource
                         })
                         ->action(
                             function (Collection $records, array $data) {
-                                foreach ($records as $customer) {
-                                    Mail::to($customer->email)->send(new CustomerNotification($data['subject'], $data['body']));
-                                }
+                                // foreach ($records as $customer) {
+                                // Load the email template
+                                $template = 'mail.default-template';
+
+                                // Data to pass to the template
+                                $emailData = [
+                                    'name' => 'Randy Durán',
+                                    'content' => $data['body']
+                                ];
+
+
+                                // Send email using MailjetEmailService
+                                app(MailjetEmailService::class)->sendEmail(
+                                    'randy.duran@insimia.com',
+                                    $data['subject'],
+                                    $template,
+                                    $emailData
+                                );
+                                // }
                             }
                         )
                         ->slideOver(),
@@ -162,6 +183,7 @@ class CustomerResource extends Resource
             ->persistSearchInSession()
             ->persistColumnSearchesInSession();
     }
+
 
     public static function getRelations(): array
     {

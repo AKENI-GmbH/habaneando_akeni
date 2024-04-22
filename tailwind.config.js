@@ -1,10 +1,10 @@
-import preset from './vendor/filament/support/tailwind.config.preset'
+import preset from "./vendor/filament/support/tailwind.config.preset";
 
 export default {
     presets: [preset],
     content: [
-        './app/Filament/**/*.php',
-        './vendor/filament/**/*.blade.php',
+        "./app/Filament/**/*.php",
+        "./vendor/filament/**/*.blade.php",
         "./resources/views/**/*.blade.php",
         "./storage/framework/views/*.php",
         "./resources/views/**/**/*.blade.php",
@@ -14,14 +14,14 @@ export default {
         "./resources/views/**/**/*.blade.php",
         "./resources/js/**/*.js",
     ],
-
     safelist: [
-        /grid-cols-(\d+)/,
-        /col-span-(\d+|full)/,
-        /(sm|md|lg|xl):col-span-(\d+|full)/,
-        /(sm|md|lg|xl):grid-cols-(\d+)/,
+        "text-2xl",
+        "text-3xl",
+        {
+            pattern: /^(bg-(red|green|blue)-(100|200|300))$/,
+            variants: ["lg", "hover", "focus", "lg:hover"],
+        },
     ],
-
     theme: {
         extend: {
             width: {
@@ -57,4 +57,4 @@ export default {
         require("@tailwindcss/aspect-ratio"),
         require("@tailwindcss/typography"),
     ],
-}
+};
