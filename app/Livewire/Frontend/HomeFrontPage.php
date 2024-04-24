@@ -2,12 +2,15 @@
 
 namespace App\Livewire\Frontend;
 
-use App\Models\Course;
-use Carbon\Carbon;
-use Spatie\GoogleCalendar\Event;
+use App\Models\Blog;
 use Livewire\Component;
 
 class HomeFrontPage extends Component
 {
+ public $posts;
 
+ public function mount()
+ {
+  $this->posts = Blog::all();
+ }
 }

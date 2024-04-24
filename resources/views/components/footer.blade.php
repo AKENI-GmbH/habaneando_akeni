@@ -3,7 +3,7 @@
     <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
         <div class="xl:grid xl:grid-cols-4 xl:gap-8">
             <div class="space-y-8 xl:col-span-1">
-                <img class="h-24" src="{{ asset('images/logo.png') }}" alt="Habaneando">
+                <img class="h-32" src="{{ asset('images/logo.png') }}" alt="Habaneando">
                 <div>
                     <p class="font-bold">Salsa Tanzschule Habaneando</p>
                     <p class="text-sm leading-6 text-gray-600">Brunckstrasse 8, 67346, Speyer</p>
@@ -57,8 +57,8 @@
                         <ul role="list" class="mt-6 space-y-4">
                             @foreach ($section['menu'] as $item)
                                 <li></li>
-                                    <a href="{{$item['link']}}"
-                                        class="text-sm leading-6 text-gray-600 hover:text-gray-900">{{ $item['label'] }}</a>
+                                <a href="{{ $item['link'] }}"
+                                    class="text-sm leading-6 text-gray-600 hover:text-gray-900">{{ $item['label'] }}</a>
                                 </li>
                             @endforeach
                         </ul>
