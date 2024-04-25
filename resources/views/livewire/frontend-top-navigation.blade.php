@@ -4,7 +4,7 @@
             <div class="flex items-center shrink-0">
                 <a href="{{ route('frontend.home') }}" aria-label="Home" class="flex items-center flex-shrink-0">
                     <img src="{{ asset('images/logo.png') }}" alt=""
-                        class="w-auto h-16 sm:h-16 md:hidden lg:block lg:h-24" />
+                        class="w-auto h-16 sm:h-16 md:hidden lg:block lg:h-28" />
                     <img src="{{ asset('images/logo.png') }}" alt=""
                         class="hidden w-auto h-20 md:block lg:hidden" />
                 </a>

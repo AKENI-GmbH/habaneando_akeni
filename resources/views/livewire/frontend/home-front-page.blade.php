@@ -1,4 +1,5 @@
 <section>
+  
     <div class="relative h-screen">
         <img src="{{ asset('images/header.jpeg') }}" alt=""
             class="absolute inset-0 -z-10 h-full w-full object-cover">
@@ -8,6 +9,86 @@
                 <div class="icon-scroll inline-block">
                     <span>Runterscrollen</span>
                     <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex items-center gap-x-6 bg-neutral-900 px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
+        <p class="text-sm leading-6 text-white">
+          <a href="#">
+            <strong class="font-semibold">Mallorca Tanzreisen 2024</strong><svg viewBox="0 0 2 2" class="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true"><circle cx="1" cy="1" r="1" /></svg>Join us in Denver from June 7 – 9 to see what’s coming next&nbsp;<span aria-hidden="true">&rarr;</span>
+          </a>
+        </p>
+        <div class="flex flex-1 justify-end">
+         
+        </div>
+      </div>
+
+
+    <div class="bg-gradient-to-bl bg-white mt-20">
+        <div class="overflow-hidden pt-62 sm:pt-14">
+            <div class="bg-gray-800">
+                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="relative pb-16 pt-48 sm:pb-64">
+                        <div>
+                            <h2 id="sale-heading" class="text-4xl font-bold tracking-tight text-black md:text-5xl">
+                                Erlebe Kuba Hautnah
+                            </h2>
+                        
+                            <div class="mt-6 text-xl">
+                                <a href="#" class="font-semibold text-white">
+                                    Tanzreisen
+                                    <span aria-hidden="true"> &rarr;</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="absolute -top-32 left-1/2 -translate-x-1/2 transform sm:top-6 sm:translate-x-0">
+                            <div class="ml-24 flex min-w-max space-x-6 sm:ml-3 lg:space-x-8">
+                                <div class="flex space-x-6 sm:flex-col sm:space-x-0 sm:space-y-6 lg:space-y-8">
+                                    <div class="flex-shrink-0">
+                                        <img class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
+                                            src="https://images.pexels.com/photos/8249435/pexels-photo-8249435.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                                            alt="">
+                                    </div>
+
+                                    <div class="mt-6 flex-shrink-0 sm:mt-0">
+                                        <img class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
+                                            src="https://images.pexels.com/photos/2506776/pexels-photo-2506776.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                                            alt="">
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex space-x-6 sm:-mt-20 sm:flex-col sm:space-x-0 sm:space-y-6 lg:space-y-8">
+                                    <div class="flex-shrink-0">
+                                        <img class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
+                                            src="https://images.pexels.com/photos/2506776/pexels-photo-2506776.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                                            alt="">
+                                    </div>
+
+                                    <div class="mt-6 flex-shrink-0 sm:mt-0">
+                                        <img class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
+                                            src="https://tailwindui.com/img/ecommerce-images/home-page-03-favorite-02.jpg"
+                                            alt="">
+                                    </div>
+                                </div>
+                                <div class="flex space-x-6 sm:flex-col sm:space-x-0 sm:space-y-6 lg:space-y-8">
+                                    <div class="flex-shrink-0">
+                                        <img class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
+                                            src="https://tailwindui.com/img/ecommerce-images/home-page-03-category-01.jpg"
+                                            alt="">
+                                    </div>
+
+                                    <div class="mt-6 flex-shrink-0 sm:mt-0">
+                                        <img class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
+                                            src="https://images.unsplash.com/photo-1570299437488-d430e1e677c7?q=80&w=3125&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                            alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -73,72 +154,6 @@
     </div>
 
 
-    <div class="bg-gradient-to-bl from-red-600 to-red-900">
-        <div class="overflow-hidden pt-32 sm:pt-14">
-            <div class="bg-gray-800">
-                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div class="relative pb-16 pt-48 sm:pb-24">
-                        <div>
-                            <h2 id="sale-heading" class="text-4xl font-bold tracking-tight text-white md:text-5xl">
-                                Erlebe Kuba Hautnah
-                            </h2>
-                            <div class="mt-6 text-xl">
-                                <a href="#" class="font-semibold text-white">
-                                    Tanzreisen
-                                    <span aria-hidden="true"> &rarr;</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="absolute -top-32 left-1/2 -translate-x-1/2 transform sm:top-6 sm:translate-x-0">
-                            <div class="ml-24 flex min-w-max space-x-6 sm:ml-3 lg:space-x-8">
-                                <div class="flex space-x-6 sm:flex-col sm:space-x-0 sm:space-y-6 lg:space-y-8">
-                                    <div class="flex-shrink-0">
-                                        <img class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
-                                            src="https://images.pexels.com/photos/8249435/pexels-photo-8249435.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                                            alt="">
-                                    </div>
-
-                                    <div class="mt-6 flex-shrink-0 sm:mt-0">
-                                        <img class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
-                                            src="https://images.pexels.com/photos/2506776/pexels-photo-2506776.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                                            alt="">
-                                    </div>
-                                </div>
-                                <div
-                                    class="flex space-x-6 sm:-mt-20 sm:flex-col sm:space-x-0 sm:space-y-6 lg:space-y-8">
-                                    <div class="flex-shrink-0">
-                                        <img class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
-                                            src="https://images.pexels.com/photos/2506776/pexels-photo-2506776.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                                            alt="">
-                                    </div>
-
-                                    <div class="mt-6 flex-shrink-0 sm:mt-0">
-                                        <img class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
-                                            src="https://tailwindui.com/img/ecommerce-images/home-page-03-favorite-02.jpg"
-                                            alt="">
-                                    </div>
-                                </div>
-                                <div class="flex space-x-6 sm:flex-col sm:space-x-0 sm:space-y-6 lg:space-y-8">
-                                    <div class="flex-shrink-0">
-                                        <img class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
-                                            src="https://tailwindui.com/img/ecommerce-images/home-page-03-category-01.jpg"
-                                            alt="">
-                                    </div>
-
-                                    <div class="mt-6 flex-shrink-0 sm:mt-0">
-                                        <img class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
-                                            src="https://images.unsplash.com/photo-1570299437488-d430e1e677c7?q=80&w=3125&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                            alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
     {{-- <livewire:home.article-section /> --}}
