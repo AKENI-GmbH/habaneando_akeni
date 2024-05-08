@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CouponController;
 use App\Livewire\DefaultPage;
 use App\Livewire\Frontend\Auth\CustomerDashboard;
 use App\Livewire\Frontend\Auth\CustomerLogin;
@@ -18,6 +19,7 @@ use App\Livewire\Frontend\Page\PricePage;
 use App\Livewire\Frontend\Page\PrivateLessonPage;
 use App\Livewire\Frontend\Page\TeamPage;
 use App\Livewire\Frontend\Workshop\WorkshopList;
+use App\Livewire\Page\CouponSingle;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -36,8 +38,13 @@ Route::get('/', HomeFrontPage::class)->name('frontend.home');
 Route::get('/team', TeamPage::class)->name('frontend.team');
 Route::get('/preise', PricePage::class)->name('frontend.preise');
 Route::get('/gutsheine', CouponPage::class)->name('frontend.coupon');
+Route::get('/gutsheine/{slug}', CouponSingle::class)->name('frontend.coupon.show');
 Route::get('/privatunterricht', PrivateLessonPage::class)->name('frontend.private.lessons');
 Route::get('salsa-tanzschule/{slug}', DefaultPage::class)->name('frontend.page');
+
+
+Route::get('/coupon/preview', [CouponController::class, 'preview'])->name('coupon.preview');
+
 
 Route::get('/kurse/{course}', CoursesShow::class)->name('frontend.course.show');
 Route::get('/tanzen/{courseCategory}', CategoryShow::class)->name('frontend.course.category');
@@ -55,7 +62,6 @@ Route::group(['prefix' => '/checkout'], function () {
     Route::get('/kurse', CourseCheckout::class)->name('frontend.course.checkout');
     Route::get('/cancel', CheckoutCancel::class)->name('frontend.checkout.cancel');
     Route::get('/success', CheckoutSuccess::class)->name('frontend.checkout.success');
-
 });
 
 

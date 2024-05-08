@@ -1,5 +1,5 @@
 <section>
-  
+
     <div class="relative h-screen">
         <img src="{{ asset('images/header.jpeg') }}" alt=""
             class="absolute inset-0 -z-10 h-full w-full object-cover">
@@ -14,19 +14,23 @@
         </div>
     </div>
 
-    <div class="flex items-center gap-x-6 bg-neutral-900 px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
+    {{-- <div class="flex items-center gap-x-6 bg-neutral-900 px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
         <p class="text-sm leading-6 text-white">
-          <a href="#">
-            <strong class="font-semibold">Mallorca Tanzreisen 2024</strong><svg viewBox="0 0 2 2" class="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true"><circle cx="1" cy="1" r="1" /></svg>Join us in Denver from June 7 – 9 to see what’s coming next&nbsp;<span aria-hidden="true">&rarr;</span>
-          </a>
+            <a href="#">
+                <strong class="font-semibold">Mallorca Tanzreisen 2024</strong><svg viewBox="0 0 2 2"
+                    class="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true">
+                    <circle cx="1" cy="1" r="1" />
+                </svg>Join us in Denver from June 7 – 9 to see what’s coming next&nbsp;<span
+                    aria-hidden="true">&rarr;</span>
+            </a>
         </p>
         <div class="flex flex-1 justify-end">
-         
+
         </div>
-      </div>
+    </div> --}}
 
 
-    <div class="bg-gradient-to-bl bg-white mt-20">
+    {{-- <div class="bg-gradient-to-bl bg-white mt-20">
         <div class="overflow-hidden pt-62 sm:pt-14">
             <div class="bg-gray-800">
                 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -35,7 +39,7 @@
                             <h2 id="sale-heading" class="text-4xl font-bold tracking-tight text-black md:text-5xl">
                                 Erlebe Kuba Hautnah
                             </h2>
-                        
+
                             <div class="mt-6 text-xl">
                                 <a href="#" class="font-semibold text-white">
                                     Tanzreisen
@@ -92,7 +96,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="bg-zinc-100 px-6 py-24 sm:py-32 lg:px-8">
         <div class="mx-auto max-w-2xl text-center">

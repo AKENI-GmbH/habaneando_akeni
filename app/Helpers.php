@@ -2,7 +2,11 @@
 
 function formatPriceGerman($price)
 {
-    return number_format($price, 2, ',', '.') . '€';
+    if ($price == intval($price)) {
+        return number_format($price, 0, ',', '.');
+    } else {
+        return number_format($price, 2, ',', '.');
+    }
 }
 
 function darkenColor($color, $percent)

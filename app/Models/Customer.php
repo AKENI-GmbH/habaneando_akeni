@@ -66,7 +66,7 @@ class Customer extends Authenticatable
     protected static function boot()
     {
         parent::boot();
-    
+
         static::creating(function ($customer) {
             if (!$customer->password) {
                 $customer->password = Hash::make(Str::random(30));
