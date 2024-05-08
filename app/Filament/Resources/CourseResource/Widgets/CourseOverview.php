@@ -10,10 +10,18 @@ class CourseOverview extends BaseWidget
 {
     protected function getStats(): array
     {
-        $course = Course::class;
+        $activeCourses = Course::where('start_date', '>=', now())->get();
+
+        $activeCoursesCount = $activeCourses->count();
+        $currentSubscriptions = 0;
+
+        foreach ($activeCourses as $course) {
+            $currentSubscriptions += $course->subscriptions()->count();
+        }
 
         return [
-            Stat::make(__('Active Courses'), $course::count()),
+            Stat::make(__('Active Courses'), $activeCoursesCount),
+            Stat::make(__('Current Subscriptions'), $currentSubscriptions),
         ];
     }
 }

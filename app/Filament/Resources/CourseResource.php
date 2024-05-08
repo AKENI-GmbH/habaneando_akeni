@@ -32,7 +32,7 @@ class CourseResource extends Resource
 {
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->where('start_date', '>', now());
+        return parent::getEloquentQuery()->where('start_date', '>=', now());
     }
 
     public static function form(Form $form): Form
