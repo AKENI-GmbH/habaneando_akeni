@@ -29,12 +29,23 @@ class CourseSubscriptionsRelationManager extends RelationManager
 
                 Select::make('course_id')
                     ->label('Course')
-                    ->options(Course::where('start_date', '>', now())->get()->mapWithKeys(function ($course) {
-                        $date = Date::parse($course->start_date)->format('l');
-                        return [$course->id => "{$course->name}, {$date},  {$course->primaryTeacher->first_name} {$course->primaryTeacher->last_name}"];
-                    }))
-                    ->getOptionLabelFromRecordUsing(fn ($course) => "{$course->name} ({Date::parse($course->start_date)->format('l, j F Y')})")
-                    ->searchable()->columnSpan(2),
+                    ->options(function () {
+
+                        return Course::whereHas('subcategory', function ($query) {
+                            $query->where('is_club', true);
+                        })
+                            ->where('start_date', '>', now())
+                            ->get()
+                            ->mapWithKeys(function ($course) {
+                                $date = Date::parse($course->start_date)->format('l');
+                                return [$course->id => "{$course->name}, {$date}, {$course->primaryTeacher->first_name} {$course->primaryTeacher->last_name}"];
+                            });
+                    })
+                    ->getOptionLabelFromRecordUsing(function ($course) {
+                        return "{$course->name} (" . Date::parse($course->start_date)->format('l, j F Y') . ")";
+                    })
+                    ->searchable()
+                    ->columnSpan(2),
 
                 Select::make('subscriptionType')
                     ->required()

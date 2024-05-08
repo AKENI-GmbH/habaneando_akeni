@@ -3,9 +3,7 @@
 namespace App\Filament\Resources;
 
 
-use App\Filament\Resources\CustomerResource\RelationManagers\CourseSubscriptionsRelationManager;
-use App\Filament\Resources\CustomerResource\RelationManagers\EventSubscriptionsRelationManager;
-use App\Filament\Resources\CustomerResource\RelationManagers\ClubMemberRelationManager;
+use App\Filament\Resources\CustomerResource\RelationManagers;
 use Filament\Resources\RelationManagers\RelationGroup;
 use App\Filament\Resources\CustomerResource\Pages;
 use Illuminate\Database\Eloquent\Collection;
@@ -14,8 +12,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Actions\ActionGroup;
-use Filament\Tables\Actions\BulkAction;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
 use Filament\Tables\Filters\Filter;
@@ -24,14 +20,15 @@ use Filament\Actions\Action;
 use Filament\Tables\Table;
 use Filament\Forms\Form;
 use App\Models\Customer;
-use App\Services\MailjetEmailService;
+use Filament\Tables\Columns;
 use Filament\Tables;
+use App\Services;
 
 class CustomerResource extends Resource
 {
     protected $mailjetEmailService;
 
-    public function __construct(MailjetEmailService $mailjetEmailService)
+    public function __construct(Services\MailjetEmailService $mailjetEmailService)
     {
         $this->mailjetEmailService = $mailjetEmailService;
     }
@@ -92,38 +89,38 @@ class CustomerResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('first_name')
+                Columns\TextColumn::make('first_name')
                     ->label(__('First name'))
                     ->sortable()
                     ->searchable(),
 
-                TextColumn::make('last_name')
+                Columns\TextColumn::make('last_name')
                     ->label(__('Last name'))
                     ->sortable()
                     ->searchable(),
 
-                TextColumn::make('email')
+                Columns\TextColumn::make('email')
                     ->label(__('Email address'))
                     ->sortable()
                     ->searchable(),
 
-                TextColumn::make('profession')
+                Columns\TextColumn::make('profession')
                     ->label(__('Profession'))
                     ->sortable()
                     ->searchable(),
 
-                TextColumn::make('birthday')
+                Columns\TextColumn::make('birthday')
                     ->label(__('Birthday'))
                     ->sortable()
                     ->searchable(),
 
-                TextColumn::make('clubMember.valid_date_until')
+                Columns\TextColumn::make('clubMember.valid_date_until')
                     ->label(__('Membership'))
                     ->dateTime('d.m.Y')
                     ->placeholder(__('No Membership'))
                     ->sortable()->searchable(),
 
-                TextColumn::make('clubMember.amount')
+                Columns\TextColumn::make('clubMember.amount')
 
             ])
             ->filters([
@@ -142,7 +139,7 @@ class CustomerResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    BulkAction::make(__('Send notification'))
+                    Tables\Actions\BulkAction::make(__('Send notification'))
                         ->icon('heroicon-s-envelope')
                         ->form(function () {
                             return [
@@ -154,25 +151,24 @@ class CustomerResource extends Resource
                         })
                         ->action(
                             function (Collection $records, array $data) {
-                                // foreach ($records as $customer) {
-                                // Load the email template
-                                $template = 'mail.default-template';
+                                foreach ($records as $customer) {
+                                    // Load the email template
+                                    $template = 'mail.default-template';
 
-                                // Data to pass to the template
-                                $emailData = [
-                                    'name' => 'Randy Durán',
-                                    'content' => $data['body']
-                                ];
+                                    // Data to pass to the template
+                                    $emailData = [
+                                        'name' => $customer->first_name . ' ' . $customer->last_name,
+                                        'content' => $data['body']
+                                    ];
 
 
-                                // Send email using MailjetEmailService
-                                app(MailjetEmailService::class)->sendEmail(
-                                    'randy.duran@insimia.com',
-                                    $data['subject'],
-                                    $template,
-                                    $emailData
-                                );
-                                // }
+                                    app(Services\MailjetEmailService::class)->sendEmail(
+                                        $customer->email,
+                                        $data['subject'],
+                                        $template,
+                                        $emailData
+                                    );
+                                }
                             }
                         )
                         ->slideOver(),
@@ -189,13 +185,13 @@ class CustomerResource extends Resource
     {
         return [
             RelationGroup::make(__('Courses'), [
-                CourseSubscriptionsRelationManager::class,
+                RelationManagers\CourseSubscriptionsRelationManager::class,
             ]),
             RelationGroup::make(__('Events'), [
-                EventSubscriptionsRelationManager::class,
+                RelationManagers\EventSubscriptionsRelationManager::class,
             ]),
             RelationGroup::make(__('Membership'), [
-                ClubMemberRelationManager::class,
+                RelationManagers\ClubMemberRelationManager::class,
             ]),
         ];
     }
