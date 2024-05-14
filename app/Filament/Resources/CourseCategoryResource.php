@@ -52,7 +52,7 @@ class CourseCategoryResource extends Resource
                                                 'video' => 'Video',
                                             ])->inline()->required(),
                                         TextInput::make('videoId'),
-                                        ColorPicker::make('overlayColor')->required(),
+                                        ColorPicker::make('overlayColor')->default('#ccc')->required(),
                                         ColorPicker::make('textColor')->required(),
                                         TextInput::make('overlayOpacity')->numeric()->required(),
                                         Toggle::make('overlay'),

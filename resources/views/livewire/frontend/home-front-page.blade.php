@@ -19,18 +19,20 @@
     <div class="bg-zinc-100 px-6 py-24 sm:py-32 lg:px-8">
         <div class="mx-auto max-w-2xl text-center">
             <p class="text-2xl font-regular leading-7 uppercase">Erlebe Kuba Hautnah</p>
-            <h2 class="mt-4 text-3xl font-normal uppercase tracking-tight sm:text-4xl sm:leading-tight">
-                Salsa und Bachata Kurse in
-                Speyer, Heidelberg und Landau</h2>
-            <p class="mt-4 text-xl leading-8 text-neutral-600">Tanzen ist das perfekte Gegengewicht zum Alltag. Diese
+            <h2 class="mt-4 text-3xl font-normal uppercase tracking-tight sm:text-4xl sm:leading-tight">Salsa und
+                Bachata Kurse in Speyer</h2>
+            <p class="mt-4 text-lg leading-8 text-neutral-600">Tanzen ist das perfekte Gegengewicht zum Alltag. Diese
                 karibischen Rhythmen stehen für Lebensfreude, Gemeinschaft, Sinnlichkeit.</p>
 
             <div class="mt-10 flex items-center justify-center gap-x-6">
                 <a href="#"
-                    class="rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">Kursinformationen
+                    class="rounded-md bg-red-600 px-3.5 py-2.5 text-base font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">Kursübersicht
                 </a>
+                {{-- <a href="#"
+                    class="rounded-md bg-red-600 px-3.5 py-2.5 text-base font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">Kursinfo
+                </a> --}}
                 <a href="{{ route('frontend.memebrship.create') }}"
-                    class="text-sm font-semibold leading-6 text-neutral-900">Zur Mitgliedschaftsinfo <span
+                    class="text-base font-semibold leading-6 text-neutral-900">Zur Mitgliedschaftsinfo <span
                         aria-hidden="true">→</span></a>
             </div>
         </div>
@@ -78,8 +80,8 @@
         </div>
     </div>
 
-    <livewire:frontend.contact-form/>
-   
+    <livewire:frontend.contact-form />
+
 
 
 
