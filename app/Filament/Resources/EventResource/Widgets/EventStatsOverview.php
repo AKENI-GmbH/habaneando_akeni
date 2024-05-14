@@ -5,17 +5,22 @@ namespace App\Filament\Resources\EventResource\Widgets;
 use App\Models\Event;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use Jenssegers\Date\Date;
 
 class EventStatsOverview extends BaseWidget
 {
     protected function getStats(): array
     {
         $event = Event::class;
-        $inactive = __('Inactive');
+        $activeEventsCount = $event::where('status', true)
+            ->where('date_to', '>', Date::now())
+            ->count();
+
+        $inactiveEventsCount = $event::where('status', false)->count();
 
         return [
-            Stat::make(__('Active events'), $event::where('status', true)->count())
-            ->description("{$event::where('status', false)->count()} {$inactive}"),
+            Stat::make(__('Active events'), $activeEventsCount)
+                ->description("{$inactiveEventsCount} " . __('Inactive')),
         ];
     }
 }

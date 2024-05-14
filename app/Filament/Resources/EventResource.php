@@ -3,8 +3,9 @@
 namespace App\Filament\Resources;
 
 use App\Enum\EventTypeEnum;
-use App\Filament\Resources\EventResource\Pages;
 use App\Filament\Resources\EventResource\RelationManagers\TeachersRelationManager;
+use App\Filament\Resources\EventResource\Pages;
+use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
@@ -111,6 +112,12 @@ class EventResource extends Resource
 
             ])->columns(1);
     }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('date_to', '>=', now());
+    }
+
 
     public static function table(Table $table): Table
     {
