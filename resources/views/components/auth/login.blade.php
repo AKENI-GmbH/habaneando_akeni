@@ -1,6 +1,6 @@
 @props(['title'])
 <form wire:submit.prevent="customerLogin" class="my-4 space-y-4">
-    <p class="text-gray-600 mt-0 pt-0">{{ $title }}</p>
+    <p class="text-neutral-600 mt-0 pt-0">{{ $title }}</p>
 
     @if (session()->has('error'))
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
@@ -28,7 +28,7 @@
 
     <button class="bg-red-500 w-full text-white py-2 px-4 rounded hover:bg-red-600" type="submit">Login</button>
 
-    <p class="mt-10 text-center text-sm text-gray-500">
+    <p class="mt-10 text-center text-sm text-neutral-500">
         Noch kein Konto?
         <a href="{{ route('frontend.register') }}" class="font-semibold leading-6 text-red-600 hover:text-red-500">Konto
             erstellen</a>

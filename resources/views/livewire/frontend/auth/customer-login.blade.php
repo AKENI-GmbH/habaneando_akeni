@@ -31,7 +31,7 @@
     @endif
 
     <div>
-        <h2 class="mt-4 text-3xl font-bold leading-9 tracking-tight text-gray-900">Mein Konto</h2>
+        <h2 class="mt-4 text-3xl font-bold leading-9 tracking-tight text-neutral-900">Mein Konto</h2>
 
         <form wire:submit.prevent="login" class="space-y-6">
             <x-input.group for="email" label="E-Mail-Adresse">
@@ -47,7 +47,7 @@
                 <div class="flex items-center">
                     <input id="remember-me" name="remember-me" type="checkbox"
                         class="h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-600">
-                    <label for="remember-me" class="ml-3 block text-sm leading-6 text-gray-700">Remember
+                    <label for="remember-me" class="ml-3 block text-sm leading-6 text-neutral-700">Remember
                         me</label>
                 </div>
 
@@ -63,7 +63,7 @@
             </div>
         </form>
 
-        <p class="mt-10 text-center text-sm text-gray-500">
+        <p class="mt-10 text-center text-sm text-neutral-500">
             Noch kein Konto?
             <a href="{{ route('frontend.register') }}"
                 class="font-semibold leading-6 text-red-600 hover:text-red-500">Konto erstellen</a>

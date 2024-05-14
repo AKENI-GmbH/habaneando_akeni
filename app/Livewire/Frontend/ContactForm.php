@@ -8,10 +8,12 @@ use Livewire\Component;
 
 class ContactForm extends Component
 {
+    public bool $sent = false;
+
     #[Validate('required')]
     public $name = '';
 
-    #[Validate('required')]
+    #[Validate('required|email')]
     public $email = '';
 
     #[Validate('required')]
@@ -22,7 +24,9 @@ class ContactForm extends Component
 
     public function save()
     {
-        $this->validate();
+        $data = $this->validate();
+
+        $this->sent = true;
 
         ContactMessage::create(
             $this->only(['name', 'email', 'subject', 'message'])

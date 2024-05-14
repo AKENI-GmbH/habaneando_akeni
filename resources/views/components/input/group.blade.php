@@ -11,7 +11,7 @@
 
 @if ($inline)
     <div>
-        <label for="{{ $for }}" class="block text-sm font-medium leading-5 text-gray-700">{{ $label }}
+        <label for="{{ $for }}" class="block text-sm font-medium leading-5 text-neutral-700">{{ $label }}
             @if ($required)
                 <span class="text-red-700 font-bold text-base">*</span>
             @endif
@@ -25,14 +25,14 @@
             @endif
 
             @if ($helpText)
-                <p class="mt-2 text-sm text-gray-500">{{ $helpText }}</p>
+                <p class="mt-2 text-sm text-neutral-500">{{ $helpText }}</p>
             @endif
         </div>
     </div>
 @else
     <div
         class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start {{ $borderless ? '' : ' sm:border-t ' }} sm:border-gray-200 {{ $paddingless ? '' : ' sm:py-5 ' }}">
-        <label for="{{ $for }}" class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2">
+        <label for="{{ $for }}" class="block text-sm font-medium leading-5 text-neutral-700 sm:mt-px sm:pt-2">
             {{ $label }}
         </label>
 
@@ -44,7 +44,7 @@
             @endif
 
             @if ($helpText)
-                <p class="mt-2 text-sm text-gray-500">{{ $helpText }}</p>
+                <p class="mt-2 text-sm text-neutral-500">{{ $helpText }}</p>
             @endif
         </div>
     </div>

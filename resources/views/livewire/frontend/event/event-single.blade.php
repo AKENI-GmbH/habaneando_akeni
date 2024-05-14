@@ -5,11 +5,11 @@
         <x-grid cols="3">
             <x-grid.column class="col-span-2">
 
-                <h1 class="mt-0 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{{ $event->name }}
+                <h1 class="mt-0 text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl">{{ $event->name }}
                 </h1>
                 <p class="mt-2 text-base mb-5">
                     <time datetime="{{ $event->date_from }}"
-                        class="text-gray-500">{{ Carbon\Carbon::parse($event->date_from)->format('D, d.M ') }}
+                        class="text-neutral-500">{{ Carbon\Carbon::parse($event->date_from)->format('D, d.M ') }}
                         -{{ Carbon\Carbon::parse($event->time_from)->format('H:i') }}-{{ Carbon\Carbon::parse($event->time_to)->format('H:i') }}
                         Uhr</time>
                 </p>
@@ -33,7 +33,7 @@
 
                         @if ($event->conditions)
                             <x-tabs.panel identifier="tab-agb">
-                                <h1 class="text-2xl mb-3 font-bold tracking-tight text-gray-900 sm:text-3xl">AGB der
+                                <h1 class="text-2xl mb-3 font-bold tracking-tight text-neutral-900 sm:text-3xl">AGB der
                                     Veranstaltung</h1>
 
                                 <div>

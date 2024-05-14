@@ -7,9 +7,9 @@
                 <div class="my-10 border-b-1 border-b-gray-300 pb-10">
                     <div class="sm:flex sm:items-center">
                         <div class="sm:flex-auto">
-                            <h1 class="text-xl font-semibold text-gray-600">{{ $subcategory->level }}</h1>
+                            <h1 class="text-xl font-semibold text-neutral-600">{{ $subcategory->level }}</h1>
                             @if ($subcategory->description)
-                                <p class="mt-2 text-base text-gray-700">{!! $subcategory->description !!}</p>
+                                <p class="mt-2 text-base text-neutral-700">{!! $subcategory->description !!}</p>
                             @endif
                         </div>
                     </div>
@@ -42,14 +42,14 @@
                                         @foreach ($subcategory->courses->where('start_date', '>', now())->sortBy('start_date') as $course)
                                             <tr>
                                                 <td
-                                                    class="whitespace-nowrap py-4 pl-4 pr-3 text-base font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                                                    class="whitespace-nowrap py-4 pl-4 pr-3 text-base font-medium text-neutral-900 sm:pl-6 lg:pl-8">
                                                     <a class="text-black hover:text-red-600 hover:decoration-transparent"
                                                         href="{{ route('frontend.course.show', $course) }}">{{ $course->name }}</a>
                                                 </td>
-                                                <td class="whitespace-nowrap px-3 py-4 text-base text-gray-500">
+                                                <td class="whitespace-nowrap px-3 py-4 text-base text-neutral-500">
                                                     {{ $course->location->city }}
                                                 </td>
-                                                <td class="whitespace-nowrap px-3 py-4 text-base text-gray-500">
+                                                <td class="whitespace-nowrap px-3 py-4 text-base text-neutral-500">
                                                     {{ $course->dayAbbreviation }}
                                                     @if ($course->endless)
                                                         Fortlaufender
@@ -57,7 +57,7 @@
                                                         {{ Date::parse($course->start_date)->format('j. M Y') }}
                                                     @endif
                                                 </td>
-                                                <td class="whitespace-nowrap px-3 py-4 text-base text-gray-500">
+                                                <td class="whitespace-nowrap px-3 py-4 text-base text-neutral-500">
                                                     {{ $course->schedule_time_from }} bis
                                                     {{ $course->schedule_time_to }} Uhr</td>
                                                 <td

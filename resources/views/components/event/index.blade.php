@@ -8,25 +8,25 @@
     </div>
     <div class="relative w-full">
         <img src="{{ $event->thumbnail }}" alt=""
-            class="aspect-[16/9] w-full  bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
+            class="aspect-[16/9] w-full  bg-neutral-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
         <div class="absolute inset-0  ring-1 ring-inset ring-gray-900/10"></div>
     </div>
     <div class="w-full">
         <div class="mt-2 flex items-center gap-x-4 text-sm">
             <x-icons.calendar class="text-red-700 h-4 w-4 -mr-2" />
             <time datetime="{{ $event->date_from }}"
-                class="text-gray-500">{{ Carbon\Carbon::parse($event->date_from)->format('D, d.M ') }}
+                class="text-neutral-500">{{ Carbon\Carbon::parse($event->date_from)->format('D, d.M ') }}
                 -
                 {{ Carbon\Carbon::parse($event->time_from)->format('H:i') }}-{{ Carbon\Carbon::parse($event->time_to)->format('H:i') }}Uhr</time>
 
             <x-icons.pin class="text-red-700 h-4 w-4 -mr-5" />
-            <span class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 text-gray-600">
+            <span class="relative z-10 rounded-full bg-neutral-50 px-3 py-1.5 text-neutral-600">
                 {{ $event->location->city }}, {{ $event->location->address }},
                 {{ $event->location->zip }}
             </span>
         </div>
         <div class="group relative">
-            <h3 class="mt-3 text-xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+            <h3 class="mt-3 text-xl font-semibold leading-6 text-neutral-900 group-hover:text-neutral-600">
                 <a href="{{ route('frontend.event.single', $event) }}">
                     <span class="absolute inset-0"></span>
                     {{ $event->name }}
@@ -34,7 +34,7 @@
             </h3>
             @if ($event->short_text)
                 <p
-                    class="{{ $event->short_text ? 'mt-5' : 'mt-0' }} w-full line-clamp-3 text-sm leading-6 text-gray-600">
+                    class="{{ $event->short_text ? 'mt-5' : 'mt-0' }} w-full line-clamp-3 text-sm leading-6 text-neutral-600">
                     {{ $event->short_text }}</p>
             @endif
         </div>
