@@ -192,10 +192,6 @@ class CourseResource extends Resource
                         }
                     })->toggle(),
 
-                Filter::make('Display Hidden')
-                    ->query(fn (Builder $query): Builder => $query->where('start_date', '<', now()))
-                    ->toggle()
-
 
             ])->hiddenFilterIndicators()
             ->actions([
