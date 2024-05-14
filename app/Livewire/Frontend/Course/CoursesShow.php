@@ -8,6 +8,10 @@ use App\Models\ClubRate;
 use App\Traits\HasLogin;
 use Livewire\Component;
 use App\Models\Course;
+use App\Models\CourseSubscription;
+use App\Enum\SubscriptionTypeEnum;
+use App\Enum\PaymentStatusEnum;
+use App\Enum\PaymentMethodEnum;
 use Stripe\Stripe;
 
 class CoursesShow extends Component
@@ -96,6 +100,7 @@ class CoursesShow extends Component
     private function createCheckoutSession()
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));
+
         $appUrl = env('APP_URL');
 
         $checkout_session = StripeCheckoutSession::create([
@@ -118,6 +123,27 @@ class CoursesShow extends Component
             'cancel_url' => $appUrl . '/checkout/cancel',
         ]);
 
+
+        $amount = ($this->quantityMen + $this->quantityWomen) * ($this->course->subcategory->amount);
+
+        $this->createSubscription($this->customer, $this->quantityMen, $this->quantityWomen, $amount);
+
         return $checkout_session->url;
+    }
+
+    private function createSubscription($customer, $numberOfMen, $numberOfWomen, $amount)
+    {
+        CourseSubscription::create([
+            'customer_id' => $customer->id,
+            'course_id' => $this->course->id,
+            'student' => false,
+            'numberOfMen' => $numberOfMen,
+            'numberOfWomen' => $numberOfWomen,
+            'clubMember' => false,
+            'subscriptionType' => SubscriptionTypeEnum::SINGLE_PAYMENT,
+            'amount' => $amount,
+            'method' => PaymentMethodEnum::TRANSFER,
+            'payment_status' => PaymentStatusEnum::PENDING
+        ]);
     }
 }
