@@ -27,8 +27,8 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 bg-white">
-                                    @foreach ($subcategory->courses->sortBy('start_date') as $course)
-                                        @if ($course->is_club || $course->start_date > now())
+                                    @foreach ($subcategory->courses as $course)
+                                        @if ($course->subcategory->is_club || $course->start_date > now())
                                             <tr>
                                                 <td
                                                     class="whitespace-nowrap py-4 pl-4 pr-3 text-base font-medium text-neutral-900">
