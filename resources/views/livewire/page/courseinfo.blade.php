@@ -1,3 +1,3 @@
 <div>
-    {{-- Success is as dangerous as failure. --}}
+    <x-hero :title="$page->name" :header="$page->header" />
 </div>
