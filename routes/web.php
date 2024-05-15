@@ -20,6 +20,7 @@ use App\Livewire\Frontend\Page\PrivateLessonPage;
 use App\Livewire\Frontend\Page\TeamPage;
 use App\Livewire\Frontend\Workshop\WorkshopList;
 use App\Livewire\Page\CouponSingle;
+use App\Livewire\Page\Courseinfo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -45,7 +46,7 @@ Route::get('salsa-tanzschule/{slug}', DefaultPage::class)->name('frontend.page')
 
 Route::get('/coupon/preview', [CouponController::class, 'preview'])->name('coupon.preview');
 
-
+Route::get('/kurse/kursuebersicht', Courseinfo::class)->name('frontend.course.info');
 Route::get('/kurse/{course}', CoursesShow::class)->name('frontend.course.show');
 Route::get('/tanzen/{courseCategory}', CategoryShow::class)->name('frontend.course.category');
 Route::get('/mitgliedschaft', MembershipCreate::class)->name('frontend.memebrship.create');

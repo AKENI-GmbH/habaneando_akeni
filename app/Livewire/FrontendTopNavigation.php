@@ -11,13 +11,11 @@ class FrontendTopNavigation extends Component
 {
     public $navigation;
 
-
     #[On('loggedIn')]
     public function refresh()
     {
         $this->navigation = $this->buildNavidation();
     }
-
 
     public function mount()
     {
@@ -26,6 +24,25 @@ class FrontendTopNavigation extends Component
 
     private function buildNavidation()
     {
+        $categories = CourseCategory::where('status', true)
+            ->get()
+            ->map(function ($category) {
+                return [
+                    "label" => $category->name,
+                    "link" => route('frontend.course.category', $category->slug),
+                    'position' => $category->id,
+                ];
+            })->sortBy('position')
+            ->values()
+            ->toArray();
+
+
+        $categories[] = [
+            "label" => "Kursübersicht",
+            "link" => route('frontend.course.info'),
+            'position' => count($categories) + 1,
+        ];
+
         return collect([
             [
                 "label" => 'Home',
@@ -34,15 +51,7 @@ class FrontendTopNavigation extends Component
             ],
             [
                 "label" => 'Kurse',
-                "submenu" => CourseCategory::where('status', true)
-                    ->get()
-                    ->map(function ($category) {
-                        return [
-                            "label" => $category->name,
-                            "link" => route('frontend.course.category', $category->slug),
-                            'position' => $category->id,
-                        ];
-                    })->sortBy('position'),
+                "submenu" => collect($categories),
                 'position' => 2,
             ],
             [
@@ -98,7 +107,6 @@ class FrontendTopNavigation extends Component
             ],
         ])->sortBy('position');
     }
-
 
     private function getAuthenticatedUserMenu()
     {
