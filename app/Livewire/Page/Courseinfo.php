@@ -2,12 +2,12 @@
 
 namespace App\Livewire\Page;
 
+use App\Traits\HasPage;
 use Livewire\Component;
 
 class Courseinfo extends Component
 {
-    public function render()
-    {
-        return view('livewire.page.courseinfo');
-    }
+    use HasPage;
+
+    protected $identifier = 'courseinfo';
 }
