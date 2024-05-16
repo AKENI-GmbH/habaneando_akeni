@@ -49,8 +49,8 @@ class EventResource extends Resource
                     ])->columns(2),
 
                     Section::make([
-                        DatePicker::make('date_from')->native(false),
-                        DatePicker::make('date_to')->native(false),
+                        DatePicker::make('date_from')->required()->native(false),
+                        DatePicker::make('date_to')->required()->native(false),
                         TimePicker::make('time_from')->seconds(false),
                         TimePicker::make('time_to')->seconds(false),
                     ])->columns(4),
