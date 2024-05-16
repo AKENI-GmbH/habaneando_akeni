@@ -92,7 +92,8 @@ class EventResource extends Resource
                         ->image()
                         ->disk('spaces')
                         ->directory('form-attachments')
-                        ->visibility('public'),
+                        ->visibility('public')
+                        ->rules(['required', 'image', 'max:10240']),
 
                     Section::make([
                         Toggle::make('status'),
