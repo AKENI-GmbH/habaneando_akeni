@@ -57,6 +57,15 @@ class Event extends Model
     {
         parent::boot();
 
+
+        static::creating(function ($event) {
+            self::setCdnThumbnail($event);
+        });
+
+        static::updating(function ($event) {
+            self::setCdnThumbnail($event);
+        });
+
         static::created(function ($event) {
             event(new \App\Events\EventCreated($event));
         });
@@ -118,5 +127,11 @@ class Event extends Model
     public function teachers()
     {
         return $this->belongsToMany(Teacher::class, 'event_teacher');
+    }
+
+    protected static function setCdnThumbnail($event)
+    {
+        $cdn = env("DO_CDN");
+        $event->thumbnail = $cdn . '/' . $event->thumbnail;
     }
 }
