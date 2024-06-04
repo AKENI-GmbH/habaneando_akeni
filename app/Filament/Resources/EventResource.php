@@ -35,15 +35,18 @@ class EventResource extends Resource
             ->schema([
 
                 Section::make([
-                    TextInput::make('name')->label(__('Event name')),
+                    TextInput::make('name')
+                    ->required()
+                    ->label(__('Event name')),
 
                     Select::make('event_type')
+                        ->required()
                         ->options(EventTypeEnum::toSelectArray())
                         ->helperText(__('This option affects where on your page this event will be visible.')),
 
                     Section::make([
-                        Select::make('location_id')->relationship('location', 'name'),
-                        Select::make('ticket_type_id')->label(__('Ticket Group'))->relationship('ticketType', 'name')
+                        Select::make('location_id')->relationship('location', 'name')->required(),
+                        Select::make('ticket_type_id')->label(__('Ticket Group'))->relationship('ticketType', 'name')->required()
                             ->helperText(__('This option affects where on your page this event will be visible.')),
 
                     ])->columns(2),
