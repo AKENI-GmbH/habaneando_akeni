@@ -41,7 +41,7 @@
                                                     @if ($course->endless)
                                                         Fortlaufender
                                                     @else
-                                                        {{ Date::parse($course->start_date)->format('j. M Y') }}
+                                                        {{ \Carbon\Carbon::parse($course->start_date)->isoFormat('dd D. MMM YYYY') }}
                                                     @endif
                                                 </td>
                                                 <td class="whitespace-nowrap px-3 py-4 text-base text-neutral-500">

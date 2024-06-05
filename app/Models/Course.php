@@ -186,11 +186,11 @@ class Course extends Model
 
     public function getScheduleTimeFromAttribute($value)
     {
-        return Carbon::parse($value)->format('H:i');
+        return Carbon::parse($value)->format('H');
     }
 
     public function getScheduleTimeToAttribute($value)
     {
-        return Carbon::parse($value)->format('H:i');
+        return Carbon::parse($value)->format('H');
     }
 }
