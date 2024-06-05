@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html class="h-full bg-white" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -7,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
 
+
     @vite('resources/css/app.css')
     @livewireStyles
 </head>
@@ -15,7 +17,6 @@
     <div class="flex min-h-full">
         <div class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
             <div class="">
-
                 <div>
                     <a href="{{ route('frontend.home') }}">
                         <img src="{{ asset('images/logo.png') }}" alt=""
@@ -24,8 +25,6 @@
                             class="hidden w-auto h-20 md:block lg:hidden" />
                     </a>
                 </div>
-
-
                 {{ $slot }}
             </div>
         </div>
