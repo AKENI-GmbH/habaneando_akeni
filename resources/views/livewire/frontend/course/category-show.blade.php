@@ -20,9 +20,9 @@
                                     <tr class="bg-red-600 text-white">
                                         <th scope="col" class="py-3.5 pl-4 pr-3 text-left font-bold">Kursbezeichnung
                                         </th>
-                                        <th scope="col" class="px-3 py-3.5 text-left font-bold">Ort</th>
+                                        <th scope="col" class="hidden sm:table-cell px-3 py-3.5 text-left font-bold">Ort</th>
                                         <th scope="col" class="px-3 py-3.5 text-left font-bold">Kursbeginn</th>
-                                        <th scope="col" class="px-3 py-3.5 text-left font-bold">Uhrzeit</th>
+                                        <th scope="col" class="hidden sm:table-cell px-3 py-3.5 text-left font-bold">Uhrzeit</th>
                                         <th scope="col" class="py-3.5 pl-3 pr-4"> </th>
                                     </tr>
                                 </thead>
@@ -35,7 +35,7 @@
                                                     <a href="{{ route('frontend.course.show', $course) }}"
                                                         class="text-black hover:text-red-600 hover:decoration-transparent">{{ $course->name }}</a>
                                                 </td>
-                                                <td class="whitespace-nowrap px-3 py-4 text-base text-neutral-500">
+                                                <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-base text-neutral-500">
                                                     {{ $course->location->city }}</td>
                                                 <td class="whitespace-nowrap px-3 py-4 text-base text-neutral-500">
                                                     @if ($course->endless)
@@ -44,7 +44,7 @@
                                                         {{ \Carbon\Carbon::parse($course->start_date)->isoFormat('dd D. MMM YYYY') }}
                                                     @endif
                                                 </td>
-                                                <td class="whitespace-nowrap px-3 py-4 text-base text-neutral-500">
+                                                <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-base text-neutral-500">
                                                     {{ $course->schedule_time_from }} bis
                                                     {{ $course->schedule_time_to }} Uhr</td>
                                                 <td
