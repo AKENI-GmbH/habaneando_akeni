@@ -36,8 +36,8 @@ class EventResource extends Resource
 
                 Section::make([
                     TextInput::make('name')
-                    ->required()
-                    ->label(__('Event name')),
+                        ->required()
+                        ->label(__('Event name')),
 
                     Select::make('event_type')
                         ->required()
@@ -46,7 +46,9 @@ class EventResource extends Resource
 
                     Section::make([
                         Select::make('location_id')->relationship('location', 'name')->required(),
-                        Select::make('ticket_type_id')->label(__('Ticket Group'))->relationship('ticketType', 'name')->required()
+                        Select::make('ticket_type_id')
+                            ->nullable()
+                            ->label(__('Ticket Group'))->relationship('ticketType', 'name')->required()
                             ->helperText(__('This option affects where on your page this event will be visible.')),
 
                     ])->columns(2),
