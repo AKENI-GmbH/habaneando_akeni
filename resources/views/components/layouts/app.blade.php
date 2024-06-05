@@ -22,21 +22,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/js/splide.min.js"></script>
 
 
-    <style>
-        @media screen and (orientation:portrait) {
-            html {
-                display: none;
-                background: black
-                /* Hide the entire HTML content in portrait mode */
-            }
-        }
-
-        @media screen and (orientation:landscape) {
-            /* Add your landscape-specific styles here if needed */
-        }
-    </style>
-
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
     @yield('css')
