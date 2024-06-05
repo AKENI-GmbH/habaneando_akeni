@@ -4,7 +4,7 @@
     $darkenedColor = darkenColor($header->overlayColor, 50);
 @endphp
 
-<div class="relative overflow-hidden px-6 h-130 lg:px-8">
+<div class="relative overflow-hidden px-6 h-40 sm:h-130 lg:px-8">
     @if ($header->mediaType == 'image')
         <img src="{{ asset($header->cover) }}" alt="" class="absolute inset-0 -z-10 h-full w-full object-cover">
     @else
