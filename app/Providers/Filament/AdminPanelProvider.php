@@ -13,6 +13,8 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Session\Middleware\StartSession;
 use Akaunting\Language\Middleware\SetLocale;
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
+use App\Filament\Widgets\DashboardOverview;
+use App\Filament\Widgets\DashboardTable;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Support\Colors\Color;
 use Filament\Navigation\MenuItem;
@@ -23,6 +25,7 @@ use Filament\Widgets;
 use Filament\Panel;
 
 use Filament\Tables\Columns\Column;
+
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -59,11 +62,12 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+                // Pages\Dashboard::class,
+                \App\Filament\Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
+                DashboardOverview::class,
             ])
             ->plugin(FilamentSpatieRolesPermissionsPlugin::make())
             ->middleware([

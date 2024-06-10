@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources;
 
-use App\Enum\EventTypeEnum;
 use App\Filament\Resources\EventResource\RelationManagers\TeachersRelationManager;
 use App\Filament\Resources\EventResource\Pages;
 use Illuminate\Database\Eloquent\Builder;
@@ -19,6 +18,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Tabs;
 use Filament\Resources\Resource;
+use App\Enum\EventTypeEnum;
 use Filament\Tables\Table;
 use Filament\Forms\Form;
 use App\Models\Event;
