@@ -26,18 +26,21 @@
 
                     <!-- Radio Button Group -->
                     <div class="-space-y-px rounded-md bg-white mt-2">
-                        @foreach ($category->rates->where('status', true)->sortBy('limit') as $rate)
-                            <label
-                                class="relative flex items-center cursor-pointer border-none p-4 focus:outline-none {{ $selectedRate == $rate->id ? 'bg-red-100' : '' }}">
-                                <input wire:model="selectedRate" type="radio" value="{{ $rate->id }}"
-                                    class="h-4 w-4 cursor-pointer text-red-600 border-neutral-300 focus:ring-red-600">
-                                <span class="ml-3 flex flex-col">
-                                    <span id="rate-{{ $loop->index }}-label"
-                                        class="block text-base font-regular text-neutral-900">{{ $rate->name }}, <span
-                                            class="font-bold">{{ formatPriceGerman($rate->amount) }},€</span></span>
-                                    {{-- <span class="block text-sm text-neutral-500">{{ $rate->description }}</span> --}}
-                                </span>
-                            </label>
+                        @foreach ($category->rates->sortBy('limit') as $rate)
+                            @if ($rate->status)
+                                <label
+                                    class="relative flex items-center cursor-pointer border-none p-4 focus:outline-none {{ $selectedRate == $rate->id ? 'bg-red-100' : '' }}">
+                                    <input wire:model="selectedRate" type="radio" value="{{ $rate->id }}"
+                                        class="h-4 w-4 cursor-pointer text-red-600 border-neutral-300 focus:ring-red-600">
+                                    <span class="ml-3 flex flex-col">
+                                        <span id="rate-{{ $loop->index }}-label"
+                                            class="block text-base font-regular text-neutral-900">{{ $rate->name }},
+                                            <span
+                                                class="font-bold">{{ formatPriceGerman($rate->amount) }},€</span></span>
+                                        {{-- <span class="block text-sm text-neutral-500">{{ $rate->description }}</span> --}}
+                                    </span>
+                                </label>
+                            @endif
                         @endforeach
                     </div>
 
