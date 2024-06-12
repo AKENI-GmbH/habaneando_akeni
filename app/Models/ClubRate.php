@@ -15,11 +15,12 @@ class ClubRate extends Model
     'amount',
     'limit',
     'description',
+    'status'
   ];
 
 
   protected $casts = [
-    //
+    'status' => 'bool'
   ];
 
 

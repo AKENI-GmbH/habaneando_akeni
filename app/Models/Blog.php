@@ -62,5 +62,19 @@ class Blog extends Model
                 $blog->user_id = Auth::id();
             }
         });
+
+        static::creating(function ($item) {
+            self::setCdnThumbnail($item);
+        });
+
+        static::updating(function ($item) {
+            self::setCdnThumbnail($item);
+        });
+    }
+
+    protected static function setCdnThumbnail($event)
+    {
+        $cdn = env("DO_CDN");
+        $event->thumbnail = $cdn . '/' . $event->thumbnail;
     }
 }

@@ -23,6 +23,20 @@ class Posts extends Model
         'status',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+
+        static::creating(function ($item) {
+            self::setCdnThumbnail($item);
+        });
+
+        static::updating(function ($item) {
+            self::setCdnThumbnail($item);
+        });
+    }
+
 
     /**
      * The attributes that should be formatted as dates.
@@ -33,4 +47,9 @@ class Posts extends Model
         'visible_from',
     ];
 
+    protected static function setCdnThumbnail($event)
+    {
+        $cdn = env("DO_CDN");
+        $event->thumbnail = $cdn . '/' . $event->thumbnail;
+    }
 }
