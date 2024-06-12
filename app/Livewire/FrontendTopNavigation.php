@@ -66,7 +66,7 @@ class FrontendTopNavigation extends Component
             ],
             [
                 "label" => 'Tanzreisen',
-                "link" => route('frontend.home'),
+                "link" => url('https://salsatanzreise.de'),
                 'position' => 5,
             ],
             [
