@@ -1,7 +1,7 @@
 @props(['title', 'header', 'description' => null])
 
 @php
-    $darkenedColor = darkenColor($header->overlayColor, 50);
+    $darkenedColor = darkenColor($header->overlayColor ?? "#b51a00", 50);
 @endphp
 
 <div class="relative overflow-hidden px-6 h-40 sm:h-130 lg:px-8">
@@ -22,7 +22,7 @@
             $opacity = $header->overlayOpacity / 100;
         @endphp
         <div class="absolute inset-0"
-            style="background: radial-gradient(circle, {{ $header->overlayColor }}, {{ $darkenedColor }}); opacity: {{ $opacity }};">
+            style="background: radial-gradient(circle, {{ $header->overlayColor ?? '#b51a00' }}, {{ $darkenedColor }}); opacity: {{ $opacity }};">
         </div>
     @else
         <div class="absolute inset-0 bg-transparent"></div>
