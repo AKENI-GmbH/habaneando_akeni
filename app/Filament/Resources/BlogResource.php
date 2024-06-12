@@ -36,15 +36,6 @@ class BlogResource extends Resource
                     ]),
                     Section::make([
                         Toggle::make('status'),
-                        Placeholder::make('author')
-                            ->content(fn (Blog $record) => $record->author->name)
-                            ->visibleOn('edit'),
-                        Placeholder::make('created_at')
-                            ->content(fn (Blog $record) => $record->created_at->toFormattedDateString())
-                            ->visibleOn('edit'),
-                        Placeholder::make('updated_at')
-                            ->content(fn (Blog $record) => $record->updated_at->toFormattedDateString())
-                            ->visibleOn('edit'),
                     ])->grow(false),
                 ])
             ])->columns(1);
