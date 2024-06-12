@@ -3,18 +3,15 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\RateCategoryResource\Pages;
-use App\Filament\Resources\RateCategoryResource\RelationManagers;
 use App\Filament\Resources\RateCategoryResource\RelationManagers\RatesRelationManager;
 use App\Models\RateCategory;
-use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class RateCategoryResource extends Resource
 {
@@ -41,13 +38,16 @@ class RateCategoryResource extends Resource
         return $form
             ->schema([
                 TextInput::make('position')
-                ->numeric()
-                ->required(),
+                    ->numeric()
+                    ->required(),
                 TextInput::make('duration')
-                ->numeric()
-                ->required(),
+                    ->numeric()
+                    ->required(),
                 TextInput::make('name')
-                ->required(),
+                    ->required(),
+                IconColumn::make('status')
+                    ->label(__(__('Status')))
+                    ->boolean(),
             ])->columns(3);
     }
 
@@ -57,7 +57,7 @@ class RateCategoryResource extends Resource
             ->columns([
                 TextColumn::make('name'),
                 TextColumn::make('duration')
-                ->tooltip(__('Months')),
+                    ->tooltip(__('Months')),
             ])
             ->filters([
                 //
