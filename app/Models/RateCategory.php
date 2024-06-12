@@ -19,4 +19,9 @@ class RateCategory extends Model
     {
         return $this->hasMany(ClubRate::class, 'rate_category_id');
     }
+
+    public function activeRates()
+    {
+        return $this->hasMany(ClubRate::class, 'rate_category_id')->where('status', true);
+    }
 }
