@@ -2,9 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BlogResource\RelationManagers;
 use App\Filament\Resources\BlogResource\Pages;
-use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\RichEditor;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Forms\Components\TextInput;

@@ -8,9 +8,9 @@
             <p class="mt-2 text-4xl font-bold tracking-tight text-neutral-900 sm:text-5xl">Sei Teil von Habaneando
                 Tanzschule</p>
         </div>
-        <p class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-neutral-600">Lorem ipsum dolor sit amet,
+        {{-- <p class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-neutral-600">Lorem ipsum dolor sit amet,
             consectetur adipisicing elit. Dicta, corporis reiciendis laudantium magnam tenetur iure natus eius minus?
-            Nemo similique, odio reprehenderit vitae maiores facilis. Iure aut perferendis odit voluptatum.</p>
+            Nemo similique, odio reprehenderit vitae maiores facilis. Iure aut perferendis odit voluptatum.</p> --}}
 
         <!-- Rate Categories -->
         <div
