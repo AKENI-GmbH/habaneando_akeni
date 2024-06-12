@@ -18,12 +18,7 @@
             @foreach ($rateCategory as $category)
                 <div class="rounded-xl border border-neutral-200 p-4">
                     <h2 class="text-lg font-semibold leading-6 text-neutral-900">{{ $category->name }}</h2>
-                    <p class="mt-2 text-sm text-neutral-600 font-semibold">Ab
-                        <span
-                            class="text-lg font-bold text-neutral-900">{{ formatPriceGerman($category->rates->min('amount')) }}€</span>
-                        / Monat
-                    </p>
-
+                    
                     <!-- Radio Button Group -->
                     <div class="-space-y-px rounded-md bg-white mt-2">
                         @foreach ($category->activeRates->sortBy('limit') as $rate)
