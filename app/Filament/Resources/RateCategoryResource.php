@@ -6,10 +6,10 @@ use App\Filament\Resources\RateCategoryResource\Pages;
 use App\Filament\Resources\RateCategoryResource\RelationManagers\RatesRelationManager;
 use App\Models\RateCategory;
 use Filament\Forms\Components\TextInput;
+
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -43,12 +43,7 @@ class RateCategoryResource extends Resource
                 TextInput::make('duration')
                     ->numeric()
                     ->required(),
-                TextInput::make('name')
-                    ->required(),
-                IconColumn::make('status')
-                    ->label(__(__('Status')))
-                    ->boolean(),
-            ])->columns(3);
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table

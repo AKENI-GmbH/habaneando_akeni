@@ -9,6 +9,7 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Support\RawJs;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\Toggle;
 use Filament\Tables\Table;
 
 class RatesRelationManager extends RelationManager
@@ -33,6 +34,7 @@ class RatesRelationManager extends RelationManager
                     ->numeric(),
                 Textarea::make('description')
                     ->columnSpan((3)),
+                Toggle::make('status')->label(__('Mostrar en la página principal')),
             ]);
     }
 
