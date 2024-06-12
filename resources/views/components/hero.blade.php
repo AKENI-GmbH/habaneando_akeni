@@ -4,7 +4,7 @@
     $header = $header ?? (object)[];
     $darkenedColor = darkenColor($header->overlayColor ?? "#b51a00", 50);
     $mediaType = $header->mediaType ?? 'image';
-    $cover = $header->cover ?? 'default-cover.jpg';  // Provide a default cover image path
+    $cover = $header->cover ?? $event->thumbnail;  
     $videoId = $header->videoId ?? '';
     $overlay = $header->overlay ?? false;
     $overlayColor = $header->overlayColor ?? '#b51a00';
