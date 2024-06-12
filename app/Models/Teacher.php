@@ -30,11 +30,31 @@ class Teacher extends Model
         return $this->first_name . ' ' . $this->last_name;
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+
+        static::creating(function ($teacher) {
+            self::setCdnThumbnail($teacher);
+        });
+
+        static::updating(function ($teacher) {
+            self::setCdnThumbnail($teacher);
+        });
+    }
+
     /**
      * The users that belong to the role.
      */
     public function events(): BelongsToMany
     {
         return $this->belongsToMany(Event::class);
+    }
+
+    protected static function setCdnThumbnail($event)
+    {
+        $cdn = env("DO_CDN");
+        $event->thumbnail = $cdn . '/' . $event->thumbnail;
     }
 }
