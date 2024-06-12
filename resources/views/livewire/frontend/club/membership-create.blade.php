@@ -26,7 +26,7 @@
 
                     <!-- Radio Button Group -->
                     <div class="-space-y-px rounded-md bg-white mt-2">
-                        @foreach ($category->rates->where('status', true)sortBy('limit') as $rate)
+                        @foreach ($category->rates->where('status', true)->sortBy('limit') as $rate)
                             <label
                                 class="relative flex items-center cursor-pointer border-none p-4 focus:outline-none {{ $selectedRate == $rate->id ? 'bg-red-100' : '' }}">
                                 <input wire:model="selectedRate" type="radio" value="{{ $rate->id }}"
