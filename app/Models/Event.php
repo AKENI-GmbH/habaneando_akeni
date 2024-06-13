@@ -37,8 +37,6 @@ class Event extends Model
         'ticket_type_id',
     ];
 
-
-
     /**
      * The attributes that should be formatted as dates.
      *
@@ -57,13 +55,12 @@ class Event extends Model
     {
         parent::boot();
 
-
         static::creating(function ($event) {
             self::setCdnThumbnail($event);
         });
 
         static::updating(function ($event) {
-            self::setCdnThumbnail($event);
+            self::setCdnThumbnail($event, true);
         });
 
         static::created(function ($event) {
@@ -78,7 +75,6 @@ class Event extends Model
             event(new \App\Events\EventDeleted($event));
         });
     }
-
 
     /**
      * Get the options for generating the slug.
@@ -119,6 +115,7 @@ class Event extends Model
     {
         return $this->morphOne(Header::class, 'conditionable');
     }
+
     public function ticketType()
     {
         return $this->belongsTo(TicketType::class, 'ticket_type_id');
@@ -129,9 +126,18 @@ class Event extends Model
         return $this->belongsToMany(Teacher::class, 'event_teacher');
     }
 
-    protected static function setCdnThumbnail($event)
+    protected static function setCdnThumbnail($event, $isUpdating = false)
     {
         $cdn = env("DO_CDN");
-        $event->thumbnail = $cdn . '/' . $event->thumbnail;
+
+        if ($isUpdating) {
+            if (!empty($event->thumbnail)) {
+                $event->thumbnail = $cdn . '/' . $event->thumbnail;
+            } else {
+                $event->thumbnail = $event->getOriginal('thumbnail');
+            }
+        } else {
+            $event->thumbnail = $cdn . '/' . $event->thumbnail;
+        }
     }
 }

@@ -94,10 +94,8 @@ class EventResource extends Resource
                 Section::make([
                     FileUpload::make('thumbnail')
                         ->image()
-                        ->disk('spaces')
-                        ->directory('form-attachments')
-                        ->visibility('public')
-                        ->rules(['required', 'image', 'max:10240']),
+                        ->previewable(true)
+                        ->directory('form-attachments'),
 
                     Section::make([
                         Toggle::make('status'),
