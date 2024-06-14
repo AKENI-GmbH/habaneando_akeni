@@ -29,16 +29,16 @@ return new class extends Migration
             $table->boolean('soldOut')->nullable();
             $table->boolean('ladiesOnly')->nullable();
             $table->boolean('status')->default(0);
-            $table->string('event_type')->default(EventTypeEnum::EVENT);
+            $table->string('event_type')->default(EventTypeEnum::PARTY);
 
             $table->string('thumbnail')->nullable();
-            
-            $table->string('cover')->nullable();
-            $table->string('videoId')->nullable();
-            $table->boolean('headerType')->default(false);
-            $table->string('overlayColor')->default("#b51a00");
-            $table->boolean('overlay')->default(true);
-            $table->string('overlayOpacity')->default('100');
+
+            // $table->string('cover')->nullable();
+            // $table->string('videoId')->nullable();
+            // $table->boolean('headerType')->default(false);
+            // $table->string('overlayColor')->default("#b51a00");
+            // $table->boolean('overlay')->default(true);
+            // $table->string('overlayOpacity')->default('100');
 
             $table->foreignId('location_id')->constrained()->onDelete('cascade');
             $table->timestamps();

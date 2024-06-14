@@ -70,7 +70,6 @@
                     <x-auth.login title="Melden Sie sich an, um diesen Event zu buchen" />
                 @endauth
 
-                <x-team :team="$event->teachers" />
             </x-grid.column>
         </x-grid>
     </x-container>

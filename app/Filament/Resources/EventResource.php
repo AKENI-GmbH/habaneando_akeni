@@ -23,6 +23,7 @@ use Filament\Tables\Table;
 use Filament\Forms\Form;
 use App\Models\Event;
 use Filament\Forms\Components\KeyValue;
+use Filament\Forms\Components;
 use Filament\Tables;
 use Filament\Tables\Actions\BulkAction;
 use Illuminate\Database\Eloquent\Collection;
@@ -34,84 +35,112 @@ class EventResource extends Resource
         return $form
             ->schema([
 
-                Section::make([
-                    TextInput::make('name')
-                        ->required()
-                        ->label(__('Event name')),
+                Tabs::make('Tabs')
+                    ->tabs([
+                        Tabs\Tab::make(__('Event'))
+                            ->schema([
+                                Section::make([
+                                    TextInput::make('name')
+                                        ->required()
+                                        ->label(__('Event name')),
 
-                    Select::make('event_type')
-                        ->required()
-                        ->options(EventTypeEnum::toSelectArray())
-                        ->helperText(__('This option affects where on your page this event will be visible.')),
+                                    Select::make('event_type')
+                                        ->required()
+                                        ->options(EventTypeEnum::toSelectArray())
+                                        ->helperText(__('This option affects where on your page this event will be visible.')),
 
-                    Section::make([
-                        Select::make('location_id')->relationship('location', 'name')->required(),
-                        Select::make('ticket_type_id')
-                            ->label(__('Ticket Group'))->relationship('ticketType', 'name')
-                            ->helperText(__('This option affects where on your page this event will be visible.')),
+                                    Section::make([
+                                        Select::make('location_id')->relationship('location', 'name')->required(),
+                                        Select::make('ticket_type_id')
+                                            ->label(__('Ticket Group'))->relationship('ticketType', 'name')
+                                            ->helperText(__('This option affects where on your page this event will be visible.')),
 
-                    ])->columns(2),
+                                    ])->columns(2),
 
-                    Section::make([
-                        DatePicker::make('date_from')->required()->native(false),
-                        DatePicker::make('date_to')->required()->native(false),
-                        TimePicker::make('time_from')->seconds(false),
-                        TimePicker::make('time_to')->seconds(false),
-                    ])->columns(4),
+                                    Section::make([
+                                        DatePicker::make('date_from')->required()->native(false),
+                                        DatePicker::make('date_to')->required()->native(false),
+                                        TimePicker::make('time_from')->seconds(false),
+                                        TimePicker::make('time_to')->seconds(false),
+                                    ])->columns(4),
 
-                    Tabs::make('Tabs')
-                        ->tabs([
-                            Tabs\Tab::make('Description')
-                                ->schema([
-                                    RichEditor::make('description')->disableToolbarButtons([
-                                        'codeBlock',
-                                        'attachFiles',
-                                    ]),
+                                    Tabs::make('Tabs')
+                                        ->tabs([
+                                            Tabs\Tab::make('Description')
+                                                ->schema([
+                                                    RichEditor::make('description')->disableToolbarButtons([
+                                                        'codeBlock',
+                                                        'attachFiles',
+                                                    ]),
+                                                ]),
+                                            Tabs\Tab::make('AGB')
+                                                ->schema([
+                                                    RichEditor::make('conditions')->disableToolbarButtons([
+                                                        'codeBlock',
+                                                        'attachFiles',
+                                                    ]),
+                                                ]),
+                                            Tabs\Tab::make(__('Programm'))
+                                                ->schema([
+                                                    RichEditor::make('program')->disableToolbarButtons([
+                                                        'codeBlock',
+                                                        'attachFiles',
+                                                    ]),
+                                                ]),
+                                            Tabs\Tab::make(__('Accomodation'))
+                                                ->schema([
+                                                    RichEditor::make('accomodation')->disableToolbarButtons([
+                                                        'codeBlock',
+                                                        'attachFiles',
+                                                    ]),
+                                                ]),
+                                        ]),
                                 ]),
-                            Tabs\Tab::make('AGB')
-                                ->schema([
-                                    RichEditor::make('conditions')->disableToolbarButtons([
-                                        'codeBlock',
-                                        'attachFiles',
-                                    ]),
-                                ]),
-                            Tabs\Tab::make(__('Programm'))
-                                ->schema([
-                                    RichEditor::make('program')->disableToolbarButtons([
-                                        'codeBlock',
-                                        'attachFiles',
-                                    ]),
-                                ]),
-                            Tabs\Tab::make(__('Accomodation'))
-                                ->schema([
-                                    RichEditor::make('accomodation')->disableToolbarButtons([
-                                        'codeBlock',
-                                        'attachFiles',
-                                    ]),
-                                ]),
-                        ]),
-                ]),
-                Section::make([
-                    FileUpload::make('thumbnail')
-                        ->image()
-                        ->previewable(true)
-                        ->directory('form-attachments'),
+                                Section::make([
+                                    FileUpload::make('thumbnail')
+                                        ->image()
+                                        ->previewable(true)
+                                        ->directory('form-attachments'),
 
-                    Section::make([
-                        Toggle::make('status'),
-                        Toggle::make('bookable')
-                            ->label(__('Bookable')),
-                        Toggle::make('onlyDoor')
-                            ->label(__('Pay at door')),
-                        Toggle::make('event.soldOut')
-                            ->label(__('Sold Out')),
-                        Toggle::make('ladiesOnly')
-                            ->label(__('Ladies Only')),
+                                    Section::make([
+                                        Toggle::make('status'),
+                                        Toggle::make('bookable')
+                                            ->label(__('Bookable')),
+                                        Toggle::make('onlyDoor')
+                                            ->label(__('Pay at door')),
+                                        Toggle::make('event.soldOut')
+                                            ->label(__('Sold Out')),
+                                        Toggle::make('ladiesOnly')
+                                            ->label(__('Ladies Only')),
 
-                    ])->columns(5),
+                                    ])->columns(5),
 
-                    KeyValue::make('extras'),
-                ])->grow(false),
+                                    KeyValue::make('extras'),
+                                ])->grow(false),
+                            ]),
+                        Tabs\Tab::make(__('Event Header'))
+                            ->schema([
+                                Components\Fieldset::make('')
+                                    ->relationship('header')
+                                    ->schema([
+                                        Components\FileUpload::make('cover')->columnSpan(2),
+                                        Components\Radio::make('mediaType')
+                                            ->options([
+                                                'image' => 'Image',
+                                                'video' => 'Video',
+                                            ])->inline()->default('image'),
+                                        Components\TextInput::make('videoId'),
+                                        Components\ColorPicker::make('overlayColor')->required()->default('#b51a00'),
+                                        Components\ColorPicker::make('textColor')->required()->default('#fff'),
+                                        TextInput::make('overlayOpacity')->numeric()->default(50),
+                                        Components\Toggle::make('overlay'),
+                                        Components\Toggle::make('caption'),
+                                    ])->columns(2)
+                            ]),
+                    ])
+
+
+
 
             ])->columns(1);
     }

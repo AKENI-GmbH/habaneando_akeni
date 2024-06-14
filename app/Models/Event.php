@@ -106,11 +106,6 @@ class Event extends Model
         return $this->belongsTo(Location::class, 'location_id');
     }
 
-    public function header()
-    {
-        return $this->morphOne(Header::class, 'headerable');
-    }
-
     public function condition()
     {
         return $this->morphOne(Header::class, 'conditionable');
@@ -124,6 +119,11 @@ class Event extends Model
     public function teachers()
     {
         return $this->belongsToMany(Teacher::class, 'event_teacher');
+    }
+
+    public function header()
+    {
+        return $this->morphOne(Header::class, 'headerable');
     }
 
     protected static function setCdnThumbnail($event, $isUpdating = false)
