@@ -3,16 +3,11 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\BlogResource\Pages;
-use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components;
 use Filament\Tables\Actions\ActionGroup;
-use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\Split;
 use Illuminate\Support\Collection;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
@@ -26,16 +21,42 @@ class BlogResource extends Resource
     {
         return $form
             ->schema([
-                Split::make([
-                    Section::make([
-                        TextInput::make('name'),
-                        RichEditor::make('body'),
-                        Textarea::make('short_text'),
+                Components\Tabs::make('tabs')
+                    ->tabs([
+                        Components\Tabs\tab::make(__('Blog'))
+                            ->schema([
+                                Components\Split::make([
+                                    Components\Section::make([
+                                        Components\TextInput::make('name'),
+                                        Components\RichEditor::make('body'),
+                                        Components\Textarea::make('short_text'),
+                                    ]),
+                                    Components\Section::make([
+                                        Components\Toggle::make('status'),
+                                    ])->grow(false),
+                                ])
+                            ]),
+
+                        Components\Tabs\Tab::make(__('Header'))
+                            ->schema([
+                                Components\Fieldset::make('')
+                                    ->relationship('header')
+                                    ->schema([
+                                        Components\FileUpload::make('cover')->columnSpan(2),
+                                        Components\Radio::make('mediaType')
+                                            ->options([
+                                                'image' => 'Image',
+                                                'video' => 'Video',
+                                            ])->inline()->default('image'),
+                                        Components\TextInput::make('videoId'),
+                                        Components\ColorPicker::make('overlayColor')->required()->default('#b51a00'),
+                                        Components\ColorPicker::make('textColor')->required()->default('#fff'),
+                                        Components\TextInput::make('overlayOpacity')->numeric()->default(50),
+                                        Components\Toggle::make('overlay'),
+                                        Components\Toggle::make('caption'),
+                                    ])->columns(2)
+                            ]),
                     ]),
-                    Section::make([
-                        Toggle::make('status'),
-                    ])->grow(false),
-                ])
             ])->columns(1);
     }
 

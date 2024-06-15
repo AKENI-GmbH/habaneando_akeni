@@ -1,11 +1,11 @@
 <div>
-    {{-- <x-hero :title="$event->name" :header="$event->header" /> --}}
-
+    <x-hero :title="$event->name" :header="$event->header" />
+{{-- 
     <div class="relative overflow-hidden px-6 h-40 sm:h-130 lg:px-8">
         <img src="{{ asset($event->thumbnail) }}" alt="" class="absolute inset-0 -z-10 h-full w-full object-cover">
         <div class="absolute inset-0 bg-transparent"></div>
     </div>
-
+ --}}
 
 
     <x-container>

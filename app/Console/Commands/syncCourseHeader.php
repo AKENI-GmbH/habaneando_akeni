@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Course;
+use App\Models\Event;
 use Illuminate\Console\Command;
 
 class syncCourseHeader extends Command
@@ -26,10 +26,10 @@ class syncCourseHeader extends Command
      */
     public function handle()
     {
-        $coruses = Course::all();
-        foreach ($coruses as $course) {
-            if (!$course->header()->exists()) {
-                $header = $course->header()->create();
+        $events = Event::all();
+        foreach ($events as $event) {
+            if (!$event->header()->exists()) {
+                $header = $event->header()->create();
 
                 if ($header->exists()) {
                     $this->info('Created');
