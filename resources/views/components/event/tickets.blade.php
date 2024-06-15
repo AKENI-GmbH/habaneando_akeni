@@ -1,7 +1,4 @@
 @props(['event'])
-
-
-
 <div>
     @if ($event->ticketType)
     <x-input.group for="ticket" label="Tickets">
