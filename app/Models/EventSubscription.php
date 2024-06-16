@@ -29,7 +29,6 @@ class EventSubscription extends Model
 
         static::creating(function ($subscription) {
             $subscription->tickets = $subscription->numberOfMen + $subscription->numberOfWomen;
-            $subscription->amount =  $subscription->ticket->amount * ($subscription->numberOfMen + $subscription->numberOfWomen);
             $subscription->status = true;
         });
     }

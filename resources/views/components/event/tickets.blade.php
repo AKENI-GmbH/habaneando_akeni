@@ -1,10 +1,10 @@
 @props(['event'])
 <div>
     @if ($event->ticketType)
-    <x-input.group for="ticket" label="Tickets">
+    <x-input.group for="ticket" label="">
      <x-input.select wire:model="ticket">
          @foreach ($event->ticketType->tickets as $ticket)
-             <option value="{{ $ticket->id }}">{{ $ticket->name }}</option>
+             <option value="{{ $ticket->id }}">{{ $ticket->name }} {{ formatPriceGerman($ticket->amount) }}€</option>
          @endforeach
      </x-input.select>
  </x-input.group>

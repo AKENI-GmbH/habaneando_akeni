@@ -2,9 +2,16 @@
 
 namespace App\Livewire\Frontend\Event;
 
-use App\Models\Event;
+use App\Enum\PaymentMethodEnum;
+use App\Enum\PaymentStatusEnum;
+use App\Enum\SubscriptionTypeEnum;
+use Stripe\Checkout\Session as StripeCheckoutSession;
 use App\Traits\HasLogin;
 use Livewire\Component;
+use App\Models\Event;
+use App\Models\EventSubscription;
+use App\Models\Ticket;
+use Stripe\Stripe;
 
 class EventSingle extends Component
 {
@@ -18,10 +25,97 @@ class EventSingle extends Component
 
     public $routePath;
 
+    public $ticket;
+    public $quantity = 1;
+
 
     public function mount(Event $event)
     {
         $this->event = $event;
         $this->routePath = route('frontend.event.single', $event);
+
+
+        if (auth()->guard('customer')->check()) {
+            $this->customer = auth()->guard('customer')->user();
+        }
+
+    }
+
+
+    public function createSession()
+    {
+
+        $this->validateInput();
+
+
+        $checkoutUrl = $this->createCheckoutSession();
+        return redirect()->away($checkoutUrl);
+    }
+
+    private function createCheckoutSession()
+    {
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        $appUrl = env('APP_URL');
+        $ticket = Ticket::find($this->ticket);
+
+
+        $checkout_session = StripeCheckoutSession::create([
+            'payment_method_types' => ['card', 'sepa_debit'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'eur',
+                    'product_data' => [
+                        'name' => $this->event->name,
+                    ],
+                    'unit_amount' => $ticket->amount * 100,
+                ],
+                'quantity' => $this->quantity,
+            ]],
+            'billing_address_collection' => 'required',
+            'customer_email' => $this->customer->email,
+            'mode' => 'payment',
+            'locale' => 'de',
+            'success_url' => $appUrl . '/checkout/success',
+            'cancel_url' => $appUrl . '/checkout/cancel',
+        ]);
+
+
+        $amount = $this->quantity * $ticket->amount;
+
+        $this->createSubscription($this->customer, $amount);
+
+        return $checkout_session->url;
+    }
+
+    private function validateInput()
+    {
+        $rules = [
+            'quantity' => 'required|integer|min:0',
+            'ticket' => 'required',
+        ];
+
+        $messages = [
+            'quantity' => 'Bitte geben Sie die Menge an.',
+            'ticket' => 'Bitte wählen Sie ein Ticket aus',
+        ];
+
+        $this->validate($rules, $messages);
+    }
+
+    private function createSubscription($customer, $amount)
+    {
+        EventSubscription::create([
+            'ticket_id' => $this->ticket,
+            'customer_id' => $customer->id,
+            'event_id' => $this->event->id,
+            'numberOfMen' => $this->quantity,
+            'numberOfWomen' => 0,
+            'clubMember' => false,
+            'subscriptionType' => SubscriptionTypeEnum::SINGLE_PAYMENT,
+            'amount' => $amount,
+            'method' => PaymentMethodEnum::TRANSFER,
+            'payment_status' => PaymentStatusEnum::PENDING
+        ]);
     }
 }

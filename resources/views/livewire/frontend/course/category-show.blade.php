@@ -4,7 +4,7 @@
     <x-container>
         @foreach ($category->subcategories as $subcategory)
             @if ($subcategory->courses->isNotEmpty())
-                <div class="my-10 border-b-1 border-b-gray-300 pb-10">
+                <div class="my-10 border-b-1 border-b-neutral-300 pb-10">
                     <div class="sm:flex sm:items-center">
                         <div class="sm:flex-auto">
                             <h1 class="text-xl font-semibold text-neutral-600">{{ $subcategory->level }}</h1>
@@ -15,7 +15,7 @@
                     </div>
                     <div class="mt-4 flow-root">
                         <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-300 table-alternate">
+                            <table class="min-w-full divide-y divide-neutral-300 table-alternate">
                                 <thead>
                                     <tr class="bg-red-600 text-white">
                                         <th scope="col" class="py-3.5 pl-4 pr-3 text-left font-bold">Kursbezeichnung
@@ -26,7 +26,7 @@
                                         <th scope="col" class="py-3.5 pl-3 pr-4"> </th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-200 bg-white">
+                                <tbody class="divide-y divide-neutral-200 bg-white">
                                     @foreach ($subcategory->courses as $course)
                                         @if ($course->subcategory->is_club || $course->start_date > now())
                                             <tr>
