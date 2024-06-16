@@ -1,4 +1,4 @@
-<div>   
+<div>
     <div class="relative overflow-hidden px-6 h-40 sm:h-120 lg:px-8 bg-red-700">
 
         <div class="absolute inset-0 flex items-center justify-center z-30">
@@ -6,7 +6,7 @@
                 <h2 class="text-4xl font-medium tracking-tight sm:text-6xl text-white">
                     Vielen Dank</h2>
             </div>
-        </div>  
+        </div>
 
     </div>
 
