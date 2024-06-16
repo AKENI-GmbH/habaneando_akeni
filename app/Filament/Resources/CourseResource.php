@@ -5,18 +5,11 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CourseResource\Pages;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\TimePicker;
+use Filament\Forms\Components;
 use Filament\Tables\Filters\SelectFilter;
-use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\BulkAction;
-use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Toggle;
+use Filament\Tables\Columns;;
 use Filament\Tables\Filters\Filter;
 use App\Models\CourseSubcategory;
 use Filament\Resources\Resource;
@@ -48,13 +41,13 @@ class CourseResource extends Resource
 
         return $form
             ->schema([
-                Section::make(__('Course details'))
+                Components\Section::make(__('Course details'))
                     ->schema([
-                        TextInput::make('name')
+                        Components\TextInput::make('name')
                             ->required()
                             ->columnSpan(4),
 
-                        Select::make('teacher1_id')
+                        Components\Select::make('teacher1_id')
                             ->options(Teacher::all()->mapWithKeys(function ($teacher) {
                                 return [$teacher->id => $teacher->full_name];
                             }))
@@ -62,20 +55,20 @@ class CourseResource extends Resource
                             ->label(__('Instructor'))
                             ->columnSpan(2),
 
-                        Select::make('teacher2_id')
+                        Components\Select::make('teacher2_id')
                             ->options(Teacher::all()->mapWithKeys(function ($teacher) {
                                 return [$teacher->id => $teacher->full_name];
                             }))
                             ->label(__('Instructor'))
                             ->columnSpan(2),
 
-                        Select::make('location_id')
+                        Components\Select::make('location_id')
                             ->required()
                             ->label(__('Location'))
                             ->options(Location::query()->pluck('name', 'id')->all())
                             ->columnSpan(2),
 
-                        Select::make('subcategory_id')
+                        Components\Select::make('subcategory_id')
                             ->required()
                             ->options(CourseSubcategory::all()->mapWithKeys(function ($subcategory) {
                                 return [$subcategory->id => $subcategory->level];
@@ -86,39 +79,39 @@ class CourseResource extends Resource
                     ])->columns(4),
 
 
-                Section::make(__('Date details'))
+                Components\Section::make(__('Date details'))
                     ->schema([
-                        Select::make('schedule_day')->options(array_combine($days, $days))
+                        Components\Select::make('schedule_day')->options(array_combine($days, $days))
                             ->required()
                             ->label(__('Day of the Week'))
                             ->columnSpan(4),
 
-                        DatePicker::make('start_date')
+                        Components\DatePicker::make('start_date')
                             ->required()
                             ->label(__('Start Date'))
                             ->native(false)
                             ->columnSpan(1),
 
-                        DatePicker::make('end_date')
+                        Components\DatePicker::make('end_date')
                             ->label(__('End Date'))
                             ->native(false)
                             ->columnSpan(1),
 
-                        TimePicker::make('schedule_time_from')
+                        Components\TimePicker::make('schedule_time_from')
                             ->required()
                             ->label(__('Start Time'))
                             ->columnSpan(1),
 
-                        TimePicker::make('schedule_time_to')
+                        Components\TimePicker::make('schedule_time_to')
                             ->required()
                             ->label(__('End Time'))
                             ->columnSpan(1),
                     ])->columns(4),
 
 
-                Section::make(__('Content'))
+                Components\Section::make(__('Content'))
                     ->schema([
-                        RichEditor::make('description')
+                        Components\RichEditor::make('description')
                             ->label(false)
                             ->disableToolbarButtons([
                                 'codeBlock',
@@ -127,17 +120,17 @@ class CourseResource extends Resource
                             ])
                     ]),
 
-                Section::make(__('Settings'))
+                Components\Section::make(__('Settings'))
                     ->schema([
-                        Toggle::make('status')
+                        Components\Toggle::make('status')
                             ->label(__('Status')),
-                        Toggle::make('endless')
+                        Components\Toggle::make('endless')
                             ->label(__('Endless')),
-                        Toggle::make('bookable')
+                        Components\Toggle::make('bookable')
                             ->label(__('Bookable')),
-                        Toggle::make('allowsinglePayment')
+                        Components\Toggle::make('allowsinglePayment')
                             ->label(__('Single Payment')),
-                        Toggle::make('soldout')
+                        Components\Toggle::make('soldout')
                             ->label(__('Soldout')),
                     ])->columns(5),
             ])->columns();
@@ -147,32 +140,32 @@ class CourseResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('course_id')
+                Columns\TextColumn::make('course_id')
                     ->url(fn (Course $record): string => route('filament.admin.resources.courses.show', ['record' => $record])),
-                TextColumn::make('name')
+                Columns\TextColumn::make('name')
                     ->url(fn (Course $record): string => route('filament.admin.resources.courses.show', ['record' => $record])),
-                TextColumn::make('subcategory.level')
+                Columns\TextColumn::make('subcategory.level')
                     ->searchable(false)
                     ->label('Level'),
-                IconColumn::make('subcategory.is_club')
+                Columns\IconColumn::make('subcategory.is_club')
                     ->label(__('Club'))
                     ->boolean(),
-                TextColumn::make('subcategory.price')
+                Columns\TextColumn::make('subcategory.price')
                     ->label(__('Price'))
                     ->placeholder(__('Club'))
                     ->sortable(false)
                     ->searchable(false),
-                TextColumn::make('start_date')
+                Columns\TextColumn::make('start_date')
                     ->date('d-m-Y')
                     ->placeholder(__('Empty'))
 
                     ->label(__('Starts at')),
-                TextColumn::make('end_date')
+                Columns\TextColumn::make('end_date')
                     ->date('d-m-Y')
                     ->placeholder(__('Empty'))
 
                     ->label(__('Ends at')),
-                IconColumn::make('status')->label(__('Status'))->boolean(),
+                Columns\IconColumn::make('status')->label(__('Status'))->boolean(),
             ])->defaultSort('start_date', 'asc')
             ->filters([
                 SelectFilter::make('category_id')

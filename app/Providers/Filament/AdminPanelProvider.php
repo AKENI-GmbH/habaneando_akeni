@@ -14,7 +14,10 @@ use Illuminate\Session\Middleware\StartSession;
 use Akaunting\Language\Middleware\SetLocale;
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
 use App\Filament\Widgets\DashboardOverview;
-use App\Filament\Widgets\DashboardTable;
+use App\Filament\Widgets\HomeCourseSubscriptions;
+use App\Filament\Widgets\HomeEventsSubscriptions;
+use App\Filament\Widgets\HomeNewCustomers;
+use App\Filament\Widgets\HomeNewMembers;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Support\Colors\Color;
 use Filament\Navigation\MenuItem;
@@ -68,6 +71,10 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 DashboardOverview::class,
+                HomeNewCustomers::class,
+                HomeNewMembers::class,
+                HomeCourseSubscriptions::class,
+                HomeEventsSubscriptions::class,
             ])
             ->plugin(FilamentSpatieRolesPermissionsPlugin::make())
             ->middleware([
