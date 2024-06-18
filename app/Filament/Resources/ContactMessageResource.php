@@ -4,12 +4,11 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ContactMessageResource\Pages;
 use App\Models\ContactMessage;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\TextArea;
+use Filament\Forms\Components;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns;
 use Filament\Tables\Table;
 
 
@@ -33,10 +32,10 @@ class ContactMessageResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')->readonly(),
-                TextInput::make('email')->readonly(),
-                TextInput::make('subject')->readonly(),
-                TextArea::make('message')->readonly(),
+                Components\TextInput::make('name')->readonly(),
+                Components\TextInput::make('email')->readonly(),
+                Components\TextInput::make('subject')->readonly(),
+                Components\TextInput::make('message')->readonly(),
             ])->columns(1);
     }
 
@@ -44,8 +43,8 @@ class ContactMessageResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('email')
+                Columns\TextColumn::make('name'),
+                Columns\TextColumn::make('email')
             ])
             ->filters([
                 //
