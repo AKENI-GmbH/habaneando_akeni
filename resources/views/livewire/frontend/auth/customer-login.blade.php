@@ -1,6 +1,6 @@
 @section('title', 'Mein Konto')
 
-<div class="mx-auto w-full max-w-sm lg:w-96 mt-5">
+<div class="mx-auto w-full max-w-96 lg:w-136 mt-5">>
     @if (session()->has('error'))
         <div class="rounded-md bg-red-50 p-4">
             <div class="flex">

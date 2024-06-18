@@ -10,24 +10,24 @@
 ])
 
 @if ($inline)
-    <div {{ $attributes->merge(['class' => '']) }} />
-    <label for="{{ $for }}" class="block text-sm font-medium leading-5 text-neutral-700">{{ $label }}
-        @if ($required)
-            <span class="text-red-700 font-bold text-base">*</span>
-        @endif
-    </label>
+    <div {{ $attributes->merge(['class' => '']) }}>
+        <label for="{{ $for }}" class="block text-sm font-medium leading-5 text-neutral-700">{{ $label }}
+            @if ($required)
+                <span class="text-red-700 font-bold text-base">*</span>
+            @endif
+        </label>
 
-    <div class="mt-1 relative rounded-md shadow-sm">
-        {{ $slot }}
+        <div class="mt-1 relative rounded-md shadow-sm">
+            {{ $slot }}
 
-        @if ($error)
-            <div class="mt-1 text-red-500 text-sm">{{ $error }}</div>
-        @endif
+            @if ($error)
+                <div class="mt-1 text-red-500 text-sm">{{ $error }}</div>
+            @endif
 
-        @if ($helpText)
-            <p class="mt-2 text-sm text-neutral-500">{{ $helpText }}</p>
-        @endif
-    </div>
+            @if ($helpText)
+                <p class="mt-2 text-sm text-neutral-500">{{ $helpText }}</p>
+            @endif
+        </div>
     </div>
 @else
     <div
