@@ -37,11 +37,20 @@ class FrontendTopNavigation extends Component
             ->toArray();
 
 
+        $categories[] =  [
+            "label" => 'Privatunterricht',
+            "link" => route('frontend.private.lessons'),
+            'position' => 4,
+        ];
+
         $categories[] = [
             "label" => "Kursübersicht",
             "link" => route('frontend.course.info'),
             'position' => count($categories) + 1,
         ];
+
+
+
 
         return collect([
             [
@@ -55,27 +64,44 @@ class FrontendTopNavigation extends Component
                 'position' => 2,
             ],
             [
-                "label" => 'Party',
-                "link" => route('frontend.event.list'),
-                'position' => 3,
-            ],
-            [
-                "label" => 'Workshops',
-                "link" => route('frontend.workshops.list'),
+                "label" => 'Mitgliedschaft',
+                "link" => route('frontend.memebrship.create'),
                 'position' => 4,
             ],
             [
-                "label" => 'Tanzreisen',
-                "link" => url('https://salsatanzreise.de'),
-                'position' => 5,
+                "label" => 'Events',
+                "submenu" => [
+                    [
+                        "label" => 'Party',
+                        "link" => route('frontend.event.list'),
+                        'position' => 3,
+                    ],
+                    [
+                        "label" => 'Workshops',
+                        "link" => route('frontend.workshops.list'),
+                        'position' => 4,
+                    ],
+                    // [
+                    //     "label" => 'Club events',
+                    //     "link" => route('frontend.workshops.list'),
+                    //     'position' => 4,
+                    // ],
+                    // [
+                    //     "label" => 'Kalendar',
+                    //     "link" => route('frontend.workshops.list'),
+                    //     'position' => 4,
+                    // ],
+                ],
+                'position' => 3,
             ],
+
             [
                 "label" => 'Team',
                 "link" => route('frontend.team'),
                 'position' => 6,
             ],
             [
-                "label" => 'Preise',
+                "label" => 'Services',
                 "submenu" => [
                     [
                         "label" => 'Preise',
@@ -83,21 +109,16 @@ class FrontendTopNavigation extends Component
                         'position' => 1,
                     ],
                     [
-                        "label" => 'Mitgliedschaft',
-                        "link" => route('frontend.memebrship.create'),
-                        'position' => 3,
-                    ],
-                    [
                         "label" => 'Gutscheine',
                         "link" => route('frontend.coupon', 'gutsheine'),
                         'position' => 3,
                     ],
-                    [
-                        "label" => 'Privatunterricht',
-                        "link" => route('frontend.private.lessons'),
-                        'position' => 4,
-                    ],
                 ],
+                'position' => 7,
+            ],
+            [
+                "label" => 'Tanzreisen',
+                "link" => url('https://salsatanzreise.de'),
                 'position' => 7,
             ],
             [

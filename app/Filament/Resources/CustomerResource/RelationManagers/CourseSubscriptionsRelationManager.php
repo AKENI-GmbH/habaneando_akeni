@@ -34,7 +34,6 @@ class CourseSubscriptionsRelationManager extends RelationManager
                         return Course::whereHas('subcategory', function ($query) {
                             $query->where('is_club', true);
                         })
-                            ->where('start_date', '>=', now())
                             ->get()
                             ->mapWithKeys(function ($course) {
                                 $date = Date::parse($course->start_date)->format('l');

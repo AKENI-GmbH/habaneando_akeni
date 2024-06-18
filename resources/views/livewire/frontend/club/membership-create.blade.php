@@ -18,7 +18,7 @@
             @foreach ($rateCategory as $category)
                 <div class="rounded-xl border border-neutral-200 p-4">
                     <h2 class="text-lg font-semibold leading-6 text-neutral-900">{{ $category->name }}</h2>
-                    
+
                     <!-- Radio Button Group -->
                     <div class="-space-y-px rounded-md bg-white mt-2">
                         @foreach ($category->activeRates->sortBy('limit') as $rate)
@@ -28,7 +28,7 @@
                                     class="h-4 w-4 cursor-pointer text-red-600 border-neutral-300 focus:ring-red-600">
                                 <span class="ml-3 flex flex-col">
                                     <span id="rate-{{ $loop->index }}-label"
-                                        class="block text-base font-regular text-neutral-900">{{ $rate->name }}, <span
+                                        class="block text-base font-regular text-neutral-900">{{ $rate->name }} pro Woche, <span
                                             class="font-bold">{{ formatPriceGerman($rate->amount) }},€</span></span>
                                     {{-- <span class="block text-sm text-neutral-500">{{ $rate->description }}</span> --}}
                                 </span>
@@ -36,12 +36,10 @@
                         @endforeach
                     </div>
 
-
-
                     <!-- Buy Plan Button -->
                     <a href="#" wire:click.prevent="purchasePlan({{ $selectedRate }})"
                         class="block mt-4 rounded-md py-2 px-3 text-sm font-semibold leading-6 text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring focus:ring-red-500 focus:ring-opacity-50">
-                        Plan kaufen
+                        Anmelden
                     </a>
                 </div>
             @endforeach
