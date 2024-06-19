@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Filament\Forms\Form;
 use App\Models\Blog;
+use Filament\Forms\Components\Tabs;
 use Filament\Tables;
 
 class BlogResource extends Resource
@@ -23,7 +24,7 @@ class BlogResource extends Resource
             ->schema([
                 Components\Tabs::make('tabs')
                     ->tabs([
-                        Components\Tabs\tab::make(__('Blog'))
+                        Tabs\tab::make(__('Blog'))
                             ->schema([
                                 Components\Split::make([
                                     Components\Section::make([
