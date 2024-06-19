@@ -123,7 +123,6 @@ class CoursesShow extends Component
             'cancel_url' => $appUrl . '/checkout/cancel',
         ]);
 
-
         $amount = ($this->quantityMen + $this->quantityWomen) * ($this->course->subcategory->amount);
 
         $this->createSubscription($this->customer, $this->quantityMen, $this->quantityWomen, $amount);
