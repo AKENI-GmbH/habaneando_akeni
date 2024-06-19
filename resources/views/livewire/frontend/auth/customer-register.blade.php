@@ -1,13 +1,20 @@
 @section('title', 'Konto erstellen')
 
 @php
-$label = "Mit der Anmeldung akzeptiere ich die <a href='" . route('frontend.page', 'agb') . "' class='text-red-600 hover:text-red-800'>Allgemeinen Geschäftsbedingungen (AGBs)</a> und die <a href='" . route('frontend.page', 'datenschutz') . "' class='text-red-600 hover:text-red-800'>Datenschutzbestimmungen</a>.";
+    $label =
+        "Mit der Anmeldung akzeptiere ich die <a href='" .
+        route('frontend.page', 'agb') .
+        "' class='text-red-600 hover:text-red-800'>Allgemeinen Geschäftsbedingungen (AGBs)</a> und die <a href='" .
+        route('frontend.page', 'datenschutz') .
+        "' class='text-red-600 hover:text-red-800'>Datenschutzbestimmungen</a>.";
 @endphp
+
+
 
 
 <div class="mx-auto w-full max-w-96 lg:w-136 mt-5">
     <div>
-        <h2 class="mt-4 text-3xl font-bold leading-9 tracking-tight text-gray-900">Konto erstellen</h2>
+        <h2 class="mt-4 text-3xl font-bold leading-9 tracking-tight text-neutral-900">Konto erstellen</h2>
         <p class="text-sm mt-4 ">Alle mit einem <span class="text-red-600 font-bold text-base">*</span> markierten Felder
             sind Pflichtfelder</p>
         <form wire:submit.prevent="register" class="space-y-6 mt-5">
@@ -89,20 +96,20 @@ $label = "Mit der Anmeldung akzeptiere ich die <a href='" . route('frontend.page
                 </div>
             </x-grid>
 
-           
+
             <x-input.checkbox wire:model="user.termsAccepted" :error="$errors->first('user.termsAccepted')" :label="$label" />
 
 
 
 
-                <button type="submit"
-                    class="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
-                    Konto erstellen
-                </button>
+            <button type="submit"
+                class="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
+                Konto erstellen
+            </button>
 
         </form>
 
-        <p class="mt-10 text-center text-sm text-gray-500">
+        <p class="mt-10 text-center text-sm text-neutral-500">
             Bereits registriert?
             <a href="{{ route('frontend.login') }}" class="font-semibold leading-6 text-red-600 hover:text-red-500">Zum
                 Login</a>

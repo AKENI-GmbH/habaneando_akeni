@@ -11,9 +11,9 @@
                     <li>
                         <img class="aspect-[3/2] w-full rounded-2xl object-cover" src="{{ $member->thumbnail }}"
                             alt="">
-                        <h3 class="mt-6 text-base font-semibold leading-7 tracking-tight text-gray-900">
+                        <h3 class="mt-6 text-base font-semibold leading-7 tracking-tight text-neutral-900">
                             {{ $member->full_name }}</h3>
-                        <p class="text-sm leading-6 text-gray-600">{{ $member->styles }}</p>
+                        <p class="text-sm leading-6 text-neutral-600">{{ $member->styles }}</p>
                         <ul role="list" class="mt-6 flex justify-center gap-x-6">
                             @if (isset($member->instagram))
                                 <li>

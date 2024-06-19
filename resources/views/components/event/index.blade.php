@@ -9,7 +9,7 @@
     <div class="relative w-full">
         <img src="{{ $event->thumbnail }}" alt=""
             class="aspect-[16/9] w-full  bg-neutral-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
-        <div class="absolute inset-0  ring-1 ring-inset ring-gray-900/10"></div>
+        <div class="absolute inset-0  ring-1 ring-inset ring-neutral-900/10"></div>
     </div>
     <div class="w-full">
         <div class="mt-2 flex items-center gap-x-4 text-sm">

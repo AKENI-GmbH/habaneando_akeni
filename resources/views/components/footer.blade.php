@@ -66,7 +66,7 @@
                 @endforeach
             </div>
         </div>
-        <div class="mt-16 border-t border-gray-900/10 pt-8 sm:mt-20 lg:mt-24">
+        <div class="mt-16 border-t border-neutral-900/10 pt-8 sm:mt-20 lg:mt-24">
             <p class="text-xs leading-5 text-neutral-500">&copy; 2020 Your Company, Inc. All rights reserved.</p>
         </div>
     </div>

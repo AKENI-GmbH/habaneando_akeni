@@ -1,6 +1,6 @@
 @section('title', 'Mein Konto')
 
-<div class="mx-auto w-full max-w-96 lg:w-136 mt-5">>
+<div class="min-h-screen flex items-center justify-center mx-auto w-full max-w-96 lg:w-136">
     @if (session()->has('error'))
         <div class="rounded-md bg-red-50 p-4">
             <div class="flex">
@@ -31,7 +31,7 @@
     @endif
 
     <div>
-        <h2 class="mt-4 text-3xl font-bold leading-9 tracking-tight text-neutral-900">Mein Konto</h2>
+        <h2 class="text-3xl font-bold leading-9 tracking-tight text-neutral-900">Mein Konto</h2>
 
         <form wire:submit.prevent="login" class="space-y-6">
             <x-input.group for="email" label="E-Mail-Adresse">

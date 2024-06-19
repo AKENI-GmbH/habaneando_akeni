@@ -4,6 +4,7 @@ namespace App\Livewire\Frontend\Auth;
 
 use App\Models\Customer;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
 class CustomerRegister extends Component

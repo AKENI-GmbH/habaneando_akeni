@@ -15,7 +15,7 @@
 
 <body>
     <div class="flex min-h-full">
-        <div class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+        <div class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-32">
             <div class="">
                 <div>
                     <a href="{{ route('frontend.home') }}">

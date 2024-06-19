@@ -3,7 +3,7 @@
 <div>
     <h2 class="text-xl font-semibold">Tanzlehrer</h2>
 
-    <ul role="list" class="divide-y divide-gray-100">
+    <ul role="list" class="divide-y divide-neutral-100">
         @foreach ($team as $member)
             <li class="flex justify-between gap-x-6 py-5">
                 <div class="flex min-w-0 gap-x-4">

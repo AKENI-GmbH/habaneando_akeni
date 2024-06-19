@@ -13,7 +13,7 @@
     <div class="mx-auto max-w-md sm:max-w-3xl">
         <div class="py-14">
             <div class="text-center">
-                <h2 class="mt-2 text-base font-semibold leading-6 text-gray-900">Vielen Dank für Ihre Bestellung! Wir
+                <h2 class="mt-2 text-base font-semibold leading-6 text-neutral-900">Vielen Dank für Ihre Bestellung! Wir
                     wünschen Ihnen viel Freude damit.</h2>
             </div>
 
