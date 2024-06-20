@@ -4,11 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Sluggable\HasSlug;
-
 use App\Traits\HasHeader;
-use Illuminate\Support\Facades\Auth;
 
 class Blog extends Model
 {
@@ -72,18 +71,18 @@ class Blog extends Model
         });
     }
 
-    protected static function setCdnThumbnail($blog, $isUpdating = false)
+    protected static function setCdnThumbnail($event, $isUpdating = false)
     {
         $cdn = env("DO_CDN");
 
         if ($isUpdating) {
-            if (!empty($blog->thumbnail)) {
-                $blog->thumbnail = $cdn . '/' . $blog->thumbnail;
+            if (!empty($event->thumbnail)) {
+                $event->thumbnail = $cdn . '/' . $event->thumbnail;
             } else {
-                $blog->thumbnail = $blog->getOriginal('thumbnail');
+                $event->thumbnail = $event->getOriginal('thumbnail');
             }
         } else {
-            $blog->thumbnail = $cdn . '/' . $blog->thumbnail;
+            $event->thumbnail = $cdn . '/' . $event->thumbnail;
         }
     }
 }
