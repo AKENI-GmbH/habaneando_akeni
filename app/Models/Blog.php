@@ -75,6 +75,7 @@ class Blog extends Model
     {
         $cdn = env("DO_CDN");
 
+
         if ($isUpdating) {
             if (!empty($event->thumbnail)) {
                 $event->thumbnail = $cdn . '/' . $event->thumbnail;
