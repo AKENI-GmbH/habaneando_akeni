@@ -78,12 +78,12 @@ class Blog extends Model
 
         if ($isUpdating) {
             if (!empty($blog->thumbnail)) {
-                $blog->thumbnail = $blog->thumbnail;
+                $blog->thumbnail = $cdn . '/' . $blog->thumbnail;
             } else {
                 $blog->thumbnail = $blog->getOriginal('thumbnail');
             }
         } else {
-            $blog->thumbnail = $blog->thumbnail;
+            $blog->thumbnail = $cdn . '/' . $blog->thumbnail;
         }
     }
 }
