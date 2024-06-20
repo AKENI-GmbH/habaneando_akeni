@@ -63,13 +63,13 @@ class Blog extends Model
             }
         });
 
-        static::creating(function ($item) {
-            self::setCdnThumbnail($item);
-        });
+        // static::creating(function ($item) {
+        //     self::setCdnThumbnail($item);
+        // });
 
-        static::updating(function ($item) {
-            self::setCdnThumbnail($item);
-        });
+        // static::updating(function ($item) {
+        //     self::setCdnThumbnail($item);
+        // });
     }
 
     protected static function setCdnThumbnail($blog, $isUpdating = false)
