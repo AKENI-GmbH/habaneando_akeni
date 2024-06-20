@@ -134,7 +134,7 @@ class Event extends Model
             if (!empty($event->thumbnail)) {
                 $event->thumbnail = $cdn . '/' . $event->thumbnail;
             } else {
-                $event->thumbnail = $event->getOriginal('thumbnail');
+                $event->thumbnail = $event->thumbnail;
             }
         } else {
             $event->thumbnail = $cdn . '/' . $event->thumbnail;
