@@ -32,7 +32,7 @@ class BlogResource extends Resource
                                 Components\Split::make([
                                     Components\Section::make([
                                         FileUpload::make('thumbnail')
-                                            ->image()
+                                            // ->image()
                                             ->previewable(false)
                                             ->directory('blog'),
                                         Components\TextInput::make('name'),
