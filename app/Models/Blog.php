@@ -63,13 +63,13 @@ class Blog extends Model
             }
         });
 
-        // static::creating(function ($item) {
-        //     self::setCdnThumbnail($item);
-        // });
+        static::creating(function ($item) {
+            self::setCdnThumbnail($item);
+        });
 
-        // static::updating(function ($item) {
-        //     self::setCdnThumbnail($item);
-        // });
+        static::updating(function ($item) {
+            self::setCdnThumbnail($item);
+        });
     }
 
     protected static function setCdnThumbnail($blog, $isUpdating = false)
@@ -78,12 +78,12 @@ class Blog extends Model
 
         if ($isUpdating) {
             if (!empty($blog->thumbnail)) {
-                $blog->thumbnail = $cdn . '/' . $blog->thumbnail;
+                $blog->thumbnail = $blog->thumbnail;
             } else {
                 $blog->thumbnail = $blog->getOriginal('thumbnail');
             }
         } else {
-            $blog->thumbnail = $cdn . '/' . $blog->thumbnail;
+            $blog->thumbnail = $blog->thumbnail;
         }
     }
 }
