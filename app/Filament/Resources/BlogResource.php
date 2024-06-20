@@ -14,7 +14,9 @@ use Filament\Tables\Table;
 use Filament\Forms\Form;
 use App\Models\Blog;
 use Filament\Forms\Components;
+use Filament\Forms\Components\FileUpload;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 
 class BlogResource extends Resource
 {
@@ -23,13 +25,16 @@ class BlogResource extends Resource
         return $form
             ->schema([
 
-
                 Tabs::make('Tabs')
                     ->tabs([
                         Tabs\Tab::make(__('Event'))
                             ->schema([
                                 Components\Split::make([
                                     Components\Section::make([
+                                        FileUpload::make('thumbnail')
+                                            ->image()
+                                            ->previewable(true)
+                                            ->directory('blog'),
                                         Components\TextInput::make('name'),
                                         Components\RichEditor::make('body'),
                                         Components\Textarea::make('short_text'),
@@ -66,6 +71,8 @@ class BlogResource extends Resource
     {
         return $table
             ->columns([
+                ImageColumn::make('thumbnail')
+                    ->width(100),
                 TextColumn::make('name'),
                 TextColumn::make('author.name')->searchable(false)->sortable(false),
                 IconColumn::make('status')->boolean(),
