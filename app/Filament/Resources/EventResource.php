@@ -98,7 +98,7 @@ class EventResource extends Resource
                                 ]),
                                 Section::make([
                                     FileUpload::make('thumbnail')
-                                        ->image()
+                                        // ->image()
                                         ->previewable(true)
                                         ->directory('form-attachments'),
 

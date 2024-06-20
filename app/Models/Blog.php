@@ -63,27 +63,27 @@ class Blog extends Model
             }
         });
 
-        // static::creating(function ($item) {
-        //     self::setCdnThumbnail($item);
-        // });
+        static::creating(function ($item) {
+            self::setCdnThumbnail($item);
+        });
 
-        // static::updating(function ($item) {
-        //     self::setCdnThumbnail($item);
-        // });
+        static::updating(function ($item) {
+            self::setCdnThumbnail($item);
+        });
     }
 
-    protected static function setCdnThumbnail($event, $isUpdating = false)
+    protected static function setCdnThumbnail($blog, $isUpdating = false)
     {
         $cdn = env("DO_CDN");
 
         if ($isUpdating) {
-            if (!empty($event->thumbnail)) {
-                $event->thumbnail = $cdn . '/' . $event->thumbnail;
+            if (!empty($blog->thumbnail)) {
+                $blog->thumbnail = $cdn . '/' . $blog->thumbnail;
             } else {
-                $event->thumbnail = $event->getOriginal('thumbnail');
+                $blog->thumbnail = $blog->getOriginal('thumbnail');
             }
         } else {
-            $event->thumbnail = $cdn . '/' . $event->thumbnail;
+            $blog->thumbnail = $cdn . '/' . $blog->thumbnail;
         }
     }
 }
