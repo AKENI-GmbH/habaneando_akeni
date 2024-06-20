@@ -32,8 +32,7 @@ class BlogResource extends Resource
                                 Components\Split::make([
                                     Components\Section::make([
                                         FileUpload::make('thumbnail')
-                                            // ->image()
-                                            ->previewable(false)
+                                            ->previewable(true)
                                             ->directory('blog'),
                                         Components\TextInput::make('name'),
                                         Components\RichEditor::make('body'),
