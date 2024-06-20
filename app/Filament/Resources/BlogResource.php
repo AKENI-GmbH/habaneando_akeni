@@ -3,17 +3,17 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\BlogResource\Pages;
-use Filament\Forms\Components;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\Tabs;
 use Illuminate\Support\Collection;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Filament\Forms\Form;
 use App\Models\Blog;
-use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components;
 use Filament\Tables;
 
 class BlogResource extends Resource
@@ -22,9 +22,11 @@ class BlogResource extends Resource
     {
         return $form
             ->schema([
-                Components\Tabs::make('tabs')
+
+
+                Tabs::make('Tabs')
                     ->tabs([
-                        Tabs\tab::make(__('Blog'))
+                        Tabs\Tab::make(__('Event'))
                             ->schema([
                                 Components\Split::make([
                                     Components\Section::make([
@@ -37,8 +39,7 @@ class BlogResource extends Resource
                                     ])->grow(false),
                                 ])
                             ]),
-
-                        Components\Tabs\Tab::make(__('Header'))
+                        Tabs\Tab::make(__('Event Header'))
                             ->schema([
                                 Components\Fieldset::make('')
                                     ->relationship('header')
@@ -57,7 +58,7 @@ class BlogResource extends Resource
                                         Components\Toggle::make('caption'),
                                     ])->columns(2)
                             ]),
-                    ]),
+                    ])
             ])->columns(1);
     }
 
