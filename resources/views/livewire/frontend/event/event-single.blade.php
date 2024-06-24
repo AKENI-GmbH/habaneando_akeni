@@ -105,7 +105,7 @@
                                         <x-input.group for="ticket" label="Ticket wählen">
                                             <x-input.select wire:model="ticket">
                                                 <option value="">Ticket auswählen</option>
-                                                @foreach ($event->ticketType->tickets->where('valid_date_from' >= Date::now())->where('valid_date_until' <= Date::now()) as $ticket)
+                                                @foreach ($event->ticketType->tickets->where('valid_date_from' <= Date::now())->where('valid_date_until' >= Date::now()) as $ticket)
                                                     <option value="{{ $ticket->id }}">{{ $ticket->name }}
                                                         {{ formatPriceGerman($ticket->amount) }}€</option>
                                                 @endforeach
