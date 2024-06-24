@@ -36,6 +36,7 @@ class BlogResource extends Resource
                                             ->directory('blog'),
                                         Components\TextInput::make('name'),
                                         Components\RichEditor::make('body'),
+                                        Components\TextInput::make('url'),
                                         Components\Textarea::make('short_text'),
                                     ]),
                                     Components\Section::make([

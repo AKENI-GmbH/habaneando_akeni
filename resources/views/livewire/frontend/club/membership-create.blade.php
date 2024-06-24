@@ -21,7 +21,7 @@
                             <!-- Radio Button Group -->
                             <div class="-space-y-px rounded-md bg-white mt-2">
                                 @foreach ($category->activeRates->sortBy('limit') as $rate)
-                                    <label
+                                    <labelj
                                         class="relative flex items-center cursor-pointer border-none p-4 focus:outline-none {{ $selectedRate == $rate->id ? 'bg-red-100' : '' }}">
                                         <input wire:model.lazy="selectedRate" type="radio" value="{{ $rate->id }}"
                                             class="h-4 w-4 cursor-pointer text-red-600 border-neutral-300 focus:ring-red-600">
@@ -31,7 +31,7 @@
                                                 pro Woche, <span
                                                     class="font-bold">{{ formatPriceGerman($rate->amount) }},€</span></span>
                                         </span>
-                                    </label>
+                                    </labelj>
                                 @endforeach
                             </div>
 

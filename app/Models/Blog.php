@@ -20,7 +20,8 @@ class Blog extends Model
         'short_text',
         'thumbnail',
         'user_id',
-        'status'
+        'status',
+        'url'
     ];
 
     /**
