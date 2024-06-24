@@ -71,16 +71,16 @@ class Blog extends Model
         });
     }
 
+   
     protected static function setCdnThumbnail($event, $isUpdating = false)
     {
         $cdn = env("DO_CDN");
-
 
         if ($isUpdating) {
             if (!empty($event->thumbnail)) {
                 $event->thumbnail = $cdn . '/' . $event->thumbnail;
             } else {
-                $event->thumbnail = $event->getOriginal('thumbnail');
+                $event->thumbnail = $event->thumbnail;
             }
         } else {
             $event->thumbnail = $cdn . '/' . $event->thumbnail;
