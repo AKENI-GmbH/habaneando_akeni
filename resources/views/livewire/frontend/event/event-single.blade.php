@@ -108,7 +108,7 @@
 
 
 
-                                                @foreach ($event->ticketType->tickets->where('valid_date_from', '<=', Carbon::now()->toDateString())->Where('valid_date_until', '>=', date("Y-m-d")) as $ticket)
+                                                @foreach ($event->ticketType->tickets->where('valid_date_from', '<=', Carbon\Carbon::now()->toDateString())->Where('valid_date_until', '>=', date("Y-m-d")) as $ticket)
                                                     <option value="{{ $ticket->id }}">{{ $ticket->name }}
                                                         {{ formatPriceGerman($ticket->amount) }}€</option>
                                                 @endforeach
