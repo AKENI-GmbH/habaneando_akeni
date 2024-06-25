@@ -38,7 +38,6 @@ class EventSingle extends Component
         if (auth()->guard('customer')->check()) {
             $this->customer = auth()->guard('customer')->user();
         }
-
     }
 
 

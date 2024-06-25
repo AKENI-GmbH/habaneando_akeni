@@ -105,14 +105,10 @@
                                         <x-input.group for="ticket" label="Ticket wählen">
                                             <x-input.select wire:model="ticket">
                                                 <option value="">Ticket auswählen</option>
-                                                @php
 
-                                                $currentDate = Carbon\Carbon::now();
-                                                $validTickets = $event->ticketType->tickets->filter(function ($ticket) use ($currentDate) {
-                                                    return $ticket->valid_date_from <= $currentDate && $ticket->valid_date_until >= $currentDate;
-                                                });
-                                            @endphp
-                                                @foreach ($event->ticketType->tickets->where('valid_date_from' <= Date::now())->where('valid_date_until' >= Date::now()) as $ticket)
+
+
+                                                @foreach ($event->ticketType->tickets->where('valid_date_from', '<=', Carbon::now()->toDateString())->Where('valid_date_until', '>=', date("Y-m-d")) as $ticket)
                                                     <option value="{{ $ticket->id }}">{{ $ticket->name }}
                                                         {{ formatPriceGerman($ticket->amount) }}€</option>
                                                 @endforeach
