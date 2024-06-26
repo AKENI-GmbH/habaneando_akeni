@@ -11,5 +11,5 @@
     @endif
 
     <textarea rows="5"
-        {{ $attributes->merge(['class' => 'block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-neutral-300 placeholder:text-neutral-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6' . ($leadingAddOn ? ' rounded-none rounded-r-md' : '')]) }} />
+        {{ $attributes->merge(['class' => 'block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-neutral-300 placeholder:text-neutral-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6' . ($leadingAddOn ? ' rounded-none rounded-r-md' : '')]) }}></textarea>
 </div>
