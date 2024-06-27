@@ -103,16 +103,12 @@
 
                                     @if ($event->ticketType)
                                         <x-input.group for="ticket" label="Ticket wählen">
-                                            <x-input.select wire:model="ticket">
-                                                <option value="">Ticket auswählen</option>
-
-                                                @foreach($tickets as $ticket)
-                                                    <option value="{{ $ticket->id }}">{{ $ticket->name }}
-                                                        {{ formatPriceGerman($ticket->amount) }}€</option>
+                                            <select wire:model="ticket">
+                                                <option value="">Select a ticket</option>
+                                                @foreach ($tickets as $ticket)
+                                                    <option value="{{ $ticket->id }}">{{ $ticket->name }} - {{ formatPriceGerman($ticket->amount) }}€</option>
                                                 @endforeach
-
-
-                                            </x-input.select>
+                                            </select>
                                         </x-input.group>
                                         <x-input.group for="quantity" label="Menge" class="mt-4">
                                             <x-input.text wire:model.lazy="quantity" min="1" value="1" type="number" />

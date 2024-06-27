@@ -33,12 +33,10 @@ class EventSingle extends Component
             $this->customer = auth()->guard('customer')->user();
         }
 
-        // Fetch only the tickets that are valid for the current date and time
-        $currentDateTime = Carbon::now();
-        $this->tickets = Ticket::where('event_id', $event->id)
-            ->where('valid_date_from', '<=', $currentDateTime)
-            ->where('valid_date_until', '>=', $currentDateTime)
-            ->get();
+        $currentDate = Carbon::now()->toDateString();
+        $this->tickets = $event->ticketType->tickets->filter(function($ticket) use ($currentDate) {
+            return $ticket->valid_date_from <= $currentDate && $ticket->valid_date_until >= $currentDate;
+        });
     }
 
     public function createSession()
