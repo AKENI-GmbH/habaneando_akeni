@@ -39,7 +39,7 @@
                                                     {{ $course->location->city }}</td>
                                                 <td class="whitespace-nowrap px-3 py-4 text-base text-neutral-500">
                                                     @if ($course->endless)
-                                                        Fortlaufender
+                                                        Fortlaufender  {{ \Carbon\Carbon::parse($course->start_date)->isoFormat('dd D. MMM YYYY') }}
                                                     @else
                                                         {{ \Carbon\Carbon::parse($course->start_date)->isoFormat('dd D. MMM YYYY') }}
                                                     @endif
