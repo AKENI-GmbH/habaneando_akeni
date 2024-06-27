@@ -18,7 +18,25 @@ class Ticket extends Model
         'valid_date_until',
     ];
 
- 
+
+
+    /**
+     * The attributes that should be formatted as dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'valid_date_from',
+        'valid_date_until',
+    ];
+
+    protected $casts = [
+        'valid_date_from' => 'datetime',
+        'valid_date_until' => 'datetime',
+    ];
+
+
+
     /**
      * The attributes that should be formatted as dates.
      *

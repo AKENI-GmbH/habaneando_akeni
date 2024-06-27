@@ -12,41 +12,38 @@ use App\Models\Event;
 use App\Models\EventSubscription;
 use App\Models\Ticket;
 use Stripe\Stripe;
+use Carbon\Carbon;
 
 class EventSingle extends Component
 {
     use HasLogin;
 
-
-    /**
-     *@var Event
-     */
     public $event;
-
     public $routePath;
-
     public $ticket;
     public $quantity = 1;
-
+    public $tickets = [];
 
     public function mount(Event $event)
     {
         $this->event = $event;
         $this->routePath = route('frontend.event.single', $event);
 
-
         if (auth()->guard('customer')->check()) {
             $this->customer = auth()->guard('customer')->user();
         }
-    }
 
+        // Fetch only the tickets that are valid for the current date and time
+        $currentDateTime = Carbon::now();
+        $this->tickets = Ticket::where('event_id', $event->id)
+            ->where('valid_date_from', '<=', $currentDateTime)
+            ->where('valid_date_until', '>=', $currentDateTime)
+            ->get();
+    }
 
     public function createSession()
     {
-
         $this->validateInput();
-
-
         $checkoutUrl = $this->createCheckoutSession();
         return redirect()->away($checkoutUrl);
     }
@@ -57,7 +54,6 @@ class EventSingle extends Component
 
         $appUrl = env('APP_URL');
         $ticket = Ticket::find($this->ticket);
-
 
         $checkout_session = StripeCheckoutSession::create([
             'payment_method_types' => ['card', 'sepa_debit'],
@@ -79,9 +75,7 @@ class EventSingle extends Component
             'cancel_url' => $appUrl . '/checkout/cancel',
         ]);
 
-
         $amount = $this->quantity * $ticket->amount;
-
         $this->createSubscription($this->customer, $amount);
 
         return $checkout_session->url;
@@ -95,8 +89,8 @@ class EventSingle extends Component
         ];
 
         $messages = [
-            'quantity' => 'Bitte geben Sie die Menge an.',
-            'ticket' => 'Bitte wählen Sie ein Ticket aus',
+            'quantity.required' => 'Bitte geben Sie die Menge an.',
+            'ticket.required' => 'Bitte wählen Sie ein Ticket aus',
         ];
 
         $this->validate($rules, $messages);
@@ -115,6 +109,14 @@ class EventSingle extends Component
             'amount' => $amount,
             'method' => PaymentMethodEnum::TRANSFER,
             'payment_status' => PaymentStatusEnum::PENDING
+        ]);
+    }
+
+    public function render()
+    {
+        return view('livewire.frontend.event.event-single', [
+            'event' => $this->event,
+            'tickets' => $this->tickets,
         ]);
     }
 }

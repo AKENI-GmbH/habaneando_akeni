@@ -106,12 +106,12 @@
                                             <x-input.select wire:model="ticket">
                                                 <option value="">Ticket auswählen</option>
 
-
-
-                                                @foreach ($event->ticketType->tickets->where('valid_date_from', '<=', Carbon\Carbon::now()->toDateString())->Where('valid_date_until', '>=', date("Y-m-d")) as $ticket)
+                                                @foreach($tickets as $ticket)
                                                     <option value="{{ $ticket->id }}">{{ $ticket->name }}
                                                         {{ formatPriceGerman($ticket->amount) }}€</option>
                                                 @endforeach
+
+
                                             </x-input.select>
                                         </x-input.group>
                                         <x-input.group for="quantity" label="Menge" class="mt-4">
