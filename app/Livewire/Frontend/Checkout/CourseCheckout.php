@@ -8,7 +8,6 @@ class CourseCheckout extends Component
 {
     public function mount($course)
     {
-        dd($course);
     }
 
     public function render()

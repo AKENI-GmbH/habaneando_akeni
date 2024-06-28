@@ -20,7 +20,6 @@ class StructuredCategory extends Model
     
             foreach ($category->subcategories as $subcategory) {
                 $subcatArray = $this->formatSubcategory($subcategory, $category->id);
-                dd($subcatArray); // Check the formatted subcategory array
     
                 $this->rows[] = $subcatArray;
             }
