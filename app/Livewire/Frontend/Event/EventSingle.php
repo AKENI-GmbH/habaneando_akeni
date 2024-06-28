@@ -33,6 +33,10 @@ class EventSingle extends Component
             $this->customer = auth()->guard('customer')->user();
         }
 
+        if (!$this->event->ticketType) {
+            return;
+        }
+
         $currentDate = Carbon::now()->format('Y-m-d');
 
         $this->tickets = $this->event->ticketType->tickets->filter(function ($ticket) use ($currentDate) {
