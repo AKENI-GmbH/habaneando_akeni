@@ -33,23 +33,12 @@ class EventSingle extends Component
             $this->customer = auth()->guard('customer')->user();
         }
 
-        $currentDate = Carbon::now()->toDateString();
+        $currentDate = Carbon::now()->format('Y-m-d');
 
-        // Debug individual ticket dates
-        foreach ($this->event->ticketType->tickets as $ticket) {
-            dump([
-                'ticket_name' => $ticket->name,
-                'valid_date_from' => $ticket->valid_date_from,
-                'valid_date_until' => $ticket->valid_date_until,
-                'current_date' => $currentDate,
-                'from_comparison' => Carbon::parse($ticket->valid_date_from)->lte($currentDate),
-                'until_comparison' => Carbon::parse($ticket->valid_date_until)->gte($currentDate),
-            ]);
-        }
-
-        // Filter tickets based on the current date
         $this->tickets = $this->event->ticketType->tickets->filter(function($ticket) use ($currentDate) {
-            return Carbon::parse($ticket->valid_date_from)->lte($currentDate) && Carbon::parse($ticket->valid_date_until)->gte($currentDate);
+            $validDateFrom = Carbon::parse($ticket->valid_date_from)->format('Y-m-d');
+            $validDateUntil = Carbon::parse($ticket->valid_date_until)->format('Y-m-d');
+            return $validDateFrom <= $currentDate && $validDateUntil >= $currentDate;
         });
 
         dump($this->tickets); // Debug filtered tickets
