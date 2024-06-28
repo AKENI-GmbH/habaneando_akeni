@@ -126,18 +126,21 @@ class Event extends Model
         return $this->morphOne(Header::class, 'headerable');
     }
 
-    protected static function setCdnThumbnail($event, $isUpdating = false)
+     
+    protected static function setCdnThumbnail($item, $isUpdating = false)
     {
         $cdn = env("DO_CDN");
 
         if ($isUpdating) {
-            if (!empty($event->thumbnail)) {
-                $event->thumbnail = $cdn . '/' . $event->thumbnail;
+            if (!empty($item->thumbnail)) {
+                $item->thumbnail = $cdn . '/' . $item->thumbnail;
             } else {
-                $event->thumbnail = $event->thumbnail;
+                $item->thumbnail = $item->getOriginal('thumbnail');
             }
         } else {
-            $event->thumbnail = $cdn . '/' . $event->thumbnail;
+            if (!empty($item->thumbnail)) {
+                $item->thumbnail = $cdn . '/' . $item->thumbnail;
+            }
         }
     }
 }
