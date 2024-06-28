@@ -34,9 +34,13 @@ class EventSingle extends Component
         }
 
         $currentDate = Carbon::now()->toDateString();
+
         $this->tickets = $event->ticketType->tickets->filter(function($ticket) use ($currentDate) {
             return $ticket->valid_date_from <= $currentDate && $ticket->valid_date_until >= $currentDate;
         });
+
+        dump($this->tickets);
+        dd($event->ticketType->tickets);
     }
 
     public function createSession()
