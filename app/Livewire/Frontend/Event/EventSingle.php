@@ -26,7 +26,7 @@ class EventSingle extends Component
 
     public function mount(Event $event)
     {
-        $this->event = $event;
+        $this->event = $event->load('ticketType.tickets');
         $this->routePath = route('frontend.event.single', $event);
 
         if (auth()->guard('customer')->check()) {
@@ -35,12 +35,25 @@ class EventSingle extends Component
 
         $currentDate = Carbon::now()->toDateString();
 
-        $this->tickets = $event->ticketType->tickets->filter(function($ticket) use ($currentDate) {
-            return $ticket->valid_date_from <= $currentDate && $ticket->valid_date_until >= $currentDate;
+        // Debug individual ticket dates
+        foreach ($this->event->ticketType->tickets as $ticket) {
+            dump([
+                'ticket_name' => $ticket->name,
+                'valid_date_from' => $ticket->valid_date_from,
+                'valid_date_until' => $ticket->valid_date_until,
+                'current_date' => $currentDate,
+                'from_comparison' => Carbon::parse($ticket->valid_date_from)->lte($currentDate),
+                'until_comparison' => Carbon::parse($ticket->valid_date_until)->gte($currentDate),
+            ]);
+        }
+
+        // Filter tickets based on the current date
+        $this->tickets = $this->event->ticketType->tickets->filter(function($ticket) use ($currentDate) {
+            return Carbon::parse($ticket->valid_date_from)->lte($currentDate) && Carbon::parse($ticket->valid_date_until)->gte($currentDate);
         });
 
-        dump($this->tickets);
-        dd($event->ticketType->tickets);
+        dump($this->tickets); // Debug filtered tickets
+        dd($this->event->ticketType->tickets); // Debug all tickets
     }
 
     public function createSession()
