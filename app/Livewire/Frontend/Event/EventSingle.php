@@ -41,8 +41,6 @@ class EventSingle extends Component
             return $validDateFrom <= $currentDate && $validDateUntil >= $currentDate;
         });
 
-        dump($this->tickets); // Debug filtered tickets
-        dd($this->event->ticketType->tickets); // Debug all tickets
     }
 
     public function createSession()
