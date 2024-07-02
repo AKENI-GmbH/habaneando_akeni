@@ -43,8 +43,7 @@ class HomeEventsSubscriptions extends BaseWidget
         $startOfMonth = Carbon::now()->startOfMonth();
         $endOfMonth = Carbon::now()->endOfMonth();
 
-        return EventSubscription::query()
-            ->whereBetween('created_at', [$startOfMonth, $endOfMonth]);
+        return EventSubscription::query()->orderBy('created_at', 'desc')->take(20);
     }
 }
 
