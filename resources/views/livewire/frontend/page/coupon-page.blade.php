@@ -3,7 +3,9 @@
 
     <x-container>
 
-        <div
+        {!! $page->body !!}
+
+        {{-- <div
             class="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
 
             @forelse ($coupons as $coupon)
@@ -32,6 +34,6 @@
                 </article>
             @empty
             @endforelse
-        </div>
+        </div> --}}
     </x-container>
 </div>

@@ -16,6 +16,6 @@ class CouponPage extends Component
 
     public function mount()
     {
-        $this->coupons = Coupon::where('active', true)->get();
+        // $this->coupons = Coupon::where('active', true)->get();
     }
 }
