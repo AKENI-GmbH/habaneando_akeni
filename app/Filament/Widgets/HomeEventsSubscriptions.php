@@ -21,8 +21,8 @@ class HomeEventsSubscriptions extends BaseWidget
             ->query($this->getQuery())
             ->columns([
                 TextColumn::make('event.name')
-                    ->label('Course'),
-                    // ->url(fn (EventSubscription $record) => route('filament.admin.resources.events.edit', $record->course_id)),
+                    ->label('Event')
+                    ->url(fn (Eventsubscription $record) => route('filament.admin.resources.events.show', $record->event_id)),
                 TextColumn::make('customer.first_name')
                     ->label('Name')
                     ->url(fn (EventSubscription $record) => route('filament.admin.resources.customers.edit', $record->customer_id)),
@@ -46,4 +46,3 @@ class HomeEventsSubscriptions extends BaseWidget
         return EventSubscription::query()->orderBy('created_at', 'desc')->take(20);
     }
 }
-

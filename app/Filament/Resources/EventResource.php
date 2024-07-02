@@ -199,6 +199,7 @@ class EventResource extends Resource
             'index' => Pages\ListEvents::route('/'),
             'create' => Pages\CreateEvent::route('/create'),
             'edit' => Pages\EditEvent::route('/{record}/edit'),
+            'show' => Pages\ShowEvent::route('/{record}/show'),
         ];
     }
 
