@@ -7,19 +7,17 @@
             class="block text-lg font-medium uppercase">{{ Carbon\Carbon::parse($event->date_from)->format('M') }}</span>
     </div>
     <div class="relative w-full">
-        <a href="{{ route('frontend.event.single', $event) }}">
-            <img src="{{ $event->thumbnail }}" alt=""
-                class="aspect-[16/9] w-full bg-neutral-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
-            <div class="absolute inset-0 ring-1 ring-inset ring-neutral-900/10"></div>
-        </a>
+        <img src="{{ $event->thumbnail }}" alt=""
+            class="aspect-[16/9] w-full  bg-neutral-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
+        <div class="absolute inset-0  ring-1 ring-inset ring-neutral-900/10"></div>
     </div>
     <div class="w-full">
         <div class="mt-2 flex items-center gap-x-4 text-sm">
             <x-icons.calendar class="text-red-700 h-4 w-4 -mr-2" />
-            <time datetime="{{ $event->date_from }}" class="text-neutral-500">
-                {{ Carbon\Carbon::parse($event->date_from)->format('D, d.M ') }} -
-                {{ Carbon\Carbon::parse($event->time_from)->format('H:i') }}-{{ Carbon\Carbon::parse($event->time_to)->format('H:i') }}Uhr
-            </time>
+            <time datetime="{{ $event->date_from }}"
+                class="text-neutral-500">{{ Carbon\Carbon::parse($event->date_from)->format('D, d.M ') }}
+                -
+                {{ Carbon\Carbon::parse($event->time_from)->format('H:i') }}-{{ Carbon\Carbon::parse($event->time_to)->format('H:i') }}Uhr</time>
 
             <x-icons.pin class="text-red-700 h-4 w-4 -mr-5" />
             <span class="relative z-10 rounded-full bg-neutral-50 px-3 py-1.5 text-neutral-600">
@@ -37,15 +35,13 @@
             @if ($event->short_text)
                 <p
                     class="{{ $event->short_text ? 'mt-5' : 'mt-0' }} w-full line-clamp-3 text-sm leading-6 text-neutral-600">
-                    {{ $event->short_text }}
-                </p>
+                    {{ $event->short_text }}</p>
             @endif
         </div>
         <div class="relative mt-8 flex items-center gap-x-4">
             <a href="{{ route('frontend.event.single', $event) }}"
-                class="ml-auto right-0 w-50 bg-red-500 text-white px-4 py-2 underline:none">
-                Mehr Info
-            </a>
+                class="ml-auto right-0 w-50 bg-red-500 text-white px-4 py-2 underline:none">Mehr
+                Info</a>
         </div>
     </div>
 </article>
