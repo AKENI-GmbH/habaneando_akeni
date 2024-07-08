@@ -17,6 +17,7 @@ use Jenssegers\Date\Date;
 use Filament\Tables;
 use App\Models;
 use App\Enum;
+use App\Filament\Resources\CourseResource\Widgets\CourseSubscriptionCount;
 use App\Mail\CustomerNotification;
 
 class ShowCourse extends Page implements Tables\Contracts\HasTable
@@ -80,6 +81,13 @@ class ShowCourse extends Page implements Tables\Contracts\HasTable
         ];
     }
 
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            CourseSubscriptionCount::class,
+        ];
+    }
+
     public function getTitle(): string | Htmlable
     {
         return $this->record->name;
@@ -95,7 +103,7 @@ class ShowCourse extends Page implements Tables\Contracts\HasTable
     {
         return $table->columns([
             Tables\Columns\TextColumn::make('customer.first_name')->label(__('First name'))
-            ->url(fn (CourseSubscription $record): string => route('filament.admin.resources.customers.edit', ['record' => $record->customer->id])),
+                ->url(fn (CourseSubscription $record): string => route('filament.admin.resources.customers.edit', ['record' => $record->customer->id])),
             Tables\Columns\TextColumn::make('customer.last_name')->label(__('Last name'))
                 ->url(fn (CourseSubscription $record): string => route('filament.admin.resources.customers.edit', ['record' => $record->customer->id])),
             Tables\Columns\TextColumn::make('created_at')->date('d-m-Y'),
