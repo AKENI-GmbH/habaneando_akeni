@@ -6,6 +6,7 @@ use Filament\Tables\Concerns\InteractsWithTable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Support\Htmlable;
 use App\Filament\Resources\EventResource;
+use App\Mail\CustomerNotification;
 use Illuminate\Support\Facades\Mail;
 use Filament\Resources\Pages\Page;
 use App\Models\EventSubscription;
@@ -26,8 +27,6 @@ class ShowEvent extends Page implements Tables\Contracts\HasTable
 
     protected static string $resource = EventResource::class;
 
-    protected static string $view = 'filament.resources.event-resource.pages.show-event';
-
 
     protected function getHeaderActions(): array
     {
@@ -42,20 +41,6 @@ class ShowEvent extends Page implements Tables\Contracts\HasTable
                         ->searchable()
                         ->required()
                         ->columnSpan(3),
-
-                    // Components\Select::make('subscriptionType')
-                    //     ->required()
-                    //     ->options(Enum\SubscriptionTypeEnum::toSelectArray()),
-
-                    // Components\Select::make('method')
-                    //     ->label(__('Payment method'))
-                    //     ->required()
-                    //     ->options(Enum\PaymentMethodEnum::toSelectArray()),
-
-                    // Components\Select::make('payment_status')
-                    //     ->label(__('Payment status'))
-                    //     ->required()
-                    //     ->options(Enum\PaymentStatusEnum::toSelectArray()),
 
                     Components\TextInput::make('amount')
                         ->mask(RawJs::make('$money($input)'))
@@ -74,7 +59,7 @@ class ShowEvent extends Page implements Tables\Contracts\HasTable
                 ->action(function (array $data): void {
                     $subscription = new EventSubscription();
                     $subscription->fill($data);
-                    $subscription->course()->associate($this->record);
+                    $subscription->event()->associate($this->record);
                     $subscription->save();
                 }),
             Action::make('edit')
@@ -115,7 +100,7 @@ class ShowEvent extends Page implements Tables\Contracts\HasTable
                     Tables\Actions\DeleteAction::make(),
                 ]),
             ])
-            ->query(EventSubscription::query()->where('course_id', $this->record->id))
+            ->query(EventSubscription::query()->where('event_id', $this->record->id))
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\BulkAction::make(__('Send notification'))
@@ -140,4 +125,6 @@ class ShowEvent extends Page implements Tables\Contracts\HasTable
                 ]),
             ]);
     }
+
+    protected static string $view = 'filament.resources.event-resource.pages.show-event';
 }

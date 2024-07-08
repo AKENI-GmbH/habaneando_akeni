@@ -155,7 +155,8 @@ class EventResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
+                TextColumn::make('name')
+                    ->url(fn (Event $record): string => route('filament.admin.resources.events.show', ['record' => $record])),
                 TextColumn::make('date_from')->date('d-m-Y')->sortable(),
                 TextColumn::make('date_to')->date('d-m-Y')->sortable(),
                 IconColumn::make('status')->boolean()
