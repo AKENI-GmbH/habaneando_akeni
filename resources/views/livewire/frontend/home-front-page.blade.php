@@ -41,11 +41,6 @@
 
     <div class="bg-white py-12 sm:py-12">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            {{-- <div class="mx-auto max-w-2xl text-center">
-                <h2 class="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">From the blog</h2>
-                <p class="mt-2 text-lg leading-8 text-neutral-600">Learn how to grow your business with our expert advice.
-                </p>
-            </div> --}}
             <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
 
 
@@ -53,19 +48,13 @@
                     <article class="flex flex-col items-start justify-between">
                         <div class="relative w-full">
                             <a href="{{ $post->url }}">
-
-
                                 <img src="{{ $post->thumbnail }}" alt=""
-                                    class="aspect-[16/9] w-full rounded-2xl bg-neutral-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]" />
-                            </a>
+                                class="aspect-[16/9] w-full rounded-2xl bg-neutral-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
                             <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-neutral-900/10"></div>
+                            </a>
                         </div>
                         <div class="max-w-xl">
-                            {{-- <div class="mt-8 flex items-center gap-x-4 text-xs">
-                            <time datetime="2020-03-16" class="text-neutral-500">Mar 16, 2020</time>
-                            <a href="#"
-                                class="relative z-10 rounded-full bg-neutral-50 px-3 py-1.5 font-medium text-neutral-600 hover:bg-neutral-100">Marketing</a>
-                        </div> --}}
+                    
                             <div class="group relative">
                                 <h3
                                     class="mt-3 text-lg font-semibold leading-6 text-neutral-900 group-hover:text-neutral-600">
