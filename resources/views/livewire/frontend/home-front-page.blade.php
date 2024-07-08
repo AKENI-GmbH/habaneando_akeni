@@ -52,8 +52,12 @@
                 @foreach ($posts as $post)
                     <article class="flex flex-col items-start justify-between">
                         <div class="relative w-full">
-                            <img src="{{ $post->thumbnail }}" alt=""
-                                class="aspect-[16/9] w-full rounded-2xl bg-neutral-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
+                            <a href="{{ $post->url }}">
+
+
+                                <img src="{{ $post->thumbnail }}" alt=""
+                                    class="aspect-[16/9] w-full rounded-2xl bg-neutral-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]" />
+                            </a>
                             <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-neutral-900/10"></div>
                         </div>
                         <div class="max-w-xl">
@@ -81,11 +85,4 @@
     </div>
 
     <livewire:frontend.contact-form />
-
-
-
-
-
-    {{-- <livewire:home.article-section /> --}}
-    {{-- <livewire:home.contact /> --}}
 </section>
