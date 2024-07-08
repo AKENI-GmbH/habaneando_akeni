@@ -22,7 +22,7 @@ class HomeCourseSubscriptions extends BaseWidget
             ->columns([
                 TextColumn::make('course.name')
                     ->label('Course')
-                    ->url(fn (CourseSubscription $record) => route('filament.admin.resources.courses.show', $record->course_id)),
+                    ->url(fn (CourseSubscription $record) => route('filament.admin.resources.courses.show', $record->course->slug)),
                 TextColumn::make('customer.first_name')
                     ->label('Name')
                     ->url(fn (CourseSubscription $record) => route('filament.admin.resources.customers.edit', $record->customer_id)),
