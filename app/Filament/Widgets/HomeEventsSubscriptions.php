@@ -17,12 +17,13 @@ class HomeEventsSubscriptions extends BaseWidget
 
     public function table(Table $table): Table
     {
+
         return $table
             ->query($this->getQuery())
             ->columns([
                 TextColumn::make('event.name')
                     ->label('Event')
-                    ->url(fn (Eventsubscription $record) => route('filament.admin.resources.events.show', $record->event_id)),
+                    ->url(fn (Eventsubscription $record) => route('filament.admin.resources.events.show', $record->event->slug)),
                 TextColumn::make('customer.first_name')
                     ->label('Name')
                     ->url(fn (EventSubscription $record) => route('filament.admin.resources.customers.edit', $record->customer_id)),
