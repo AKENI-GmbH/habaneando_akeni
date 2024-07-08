@@ -88,9 +88,7 @@ class ShowEvent extends Page implements Tables\Contracts\HasTable
             Tables\Columns\TextColumn::make('created_at')->date('d-m-Y'),
             Tables\Columns\TextColumn::make('amount'),
             Tables\Columns\TextColumn::make('method'),
-            Tables\Columns\TextColumn::make('payment_status'),
-            Tables\Columns\IconColumn::make('is_active')
-                ->label(__('Is active'))
+            Tables\Columns\IconColumn::make('status')
                 ->boolean()
                 ->searchable(false),
         ])
