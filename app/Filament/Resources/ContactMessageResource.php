@@ -35,7 +35,9 @@ class ContactMessageResource extends Resource
                 Components\TextInput::make('name')->readonly(),
                 Components\TextInput::make('email')->readonly(),
                 Components\TextInput::make('subject')->readonly(),
-                Components\TextInput::make('message')->readonly(),
+                Components\Textarea::make('message')->readonly()
+                    ->rows(10)
+                    ->cols(20),
             ])->columns(1);
     }
 
