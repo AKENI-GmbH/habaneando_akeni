@@ -30,6 +30,7 @@
 <body>
     <livewire:frontendTopNavigation />
     {{ $slot }}
+    <x-contact />
     <x-footer />
 
     @livewireScripts
