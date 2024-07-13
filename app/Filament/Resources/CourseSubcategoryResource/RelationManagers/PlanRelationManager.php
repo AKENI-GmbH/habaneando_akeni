@@ -7,8 +7,6 @@ use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PlanRelationManager extends RelationManager
 {
@@ -19,6 +17,14 @@ class PlanRelationManager extends RelationManager
         return $form
             ->schema([
                 Forms\Components\TextInput::make('subcategory_id')
+                    ->required()
+                    ->maxLength(255)
+                    ->hidden()
+                    ->default(fn ($livewire) => $livewire->ownerRecord->id),
+                Forms\Components\TextInput::make('position')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('description')
                     ->required()
                     ->maxLength(255),
             ]);
