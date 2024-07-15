@@ -16,6 +16,7 @@ class Page extends Model
         'identifier',
         'name',
         'slug',
+        'image',
         'body',
         'status',
         'canDelete',
