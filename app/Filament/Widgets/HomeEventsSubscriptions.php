@@ -36,7 +36,7 @@ class HomeEventsSubscriptions extends BaseWidget
                     ->label('Fee'),
                 TextColumn::make('valid_to')
                     ->label('Valid To'),
-            ]);
+            ])->defaultSort('created_at', 'desc');
     }
 
     protected function getQuery(): Builder

@@ -14,6 +14,14 @@ class EditContactMessage extends EditRecord
     {
         return [
             Actions\DeleteAction::make(),
+            Actions\Action::make('markAsRead')
+                ->label('Mark as Read')
+                ->color('success')
+                ->action(function () {
+                    $this->record->update(['read' => true]);
+                    $this->notify('success', 'Message marked as read successfully!');
+                    $this->redirect($this->getResource()::getUrl('index'));
+                }),
         ];
     }
 }

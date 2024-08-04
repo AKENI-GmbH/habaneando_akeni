@@ -34,7 +34,7 @@ class HomeCourseSubscriptions extends BaseWidget
                 TextColumn::make('created_at')->date('d-m-y'),
                 TextColumn::make('valid_to')
                     ->label('Valid To'),
-            ]);
+            ])->defaultSort('created_at', 'desc');
     }
 
     protected function getQuery(): Builder

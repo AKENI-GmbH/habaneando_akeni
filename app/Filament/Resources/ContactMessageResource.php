@@ -10,7 +10,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns;
 use Filament\Tables\Table;
-
+use Filament\Tables\Actions\BulkAction;
 
 class ContactMessageResource extends Resource
 {
@@ -21,7 +21,6 @@ class ContactMessageResource extends Resource
     protected static ?string $navigationGroup = 'Habaneando';
 
     protected static ?int $navigationSort = 4;
-
 
     public static function getModelLabel(): string
     {
@@ -45,9 +44,15 @@ class ContactMessageResource extends Resource
     {
         return $table
             ->columns([
+                Columns\IconColumn::make('read')
+                    ->boolean(),
                 Columns\TextColumn::make('name'),
-                Columns\TextColumn::make('email')
+                Columns\TextColumn::make('email'),
+                Columns\TextColumn::make('created_at')
+                    ->date('d-m-Y')
+                    ->sortable()
             ])
+            ->defaultSort('read', 'asc')
             ->filters([
                 //
             ])
@@ -57,6 +62,13 @@ class ContactMessageResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    BulkAction::make('markAsRead')
+                        ->label('Mark as Read')
+                        ->action(function ($records) {
+                            $records->each(function ($record) {
+                                $record->update(['read' => true]);
+                            });
+                        }),
                 ]),
             ]);
     }

@@ -30,7 +30,7 @@ class HomeNewMembers extends BaseWidget
                 TextColumn::make('clubRate.name'),
                 TextColumn::make('clubRate.category.name'),
                 TextColumn::make('clubRate.amount')
-            ]);
+            ])->defaultSort('created_at', 'desc');
     }
 
     protected function getQuery(): Builder
