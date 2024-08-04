@@ -37,6 +37,12 @@ class ContactMessageResource extends Resource
                 Components\Textarea::make('message')->readonly()
                     ->rows(10)
                     ->cols(20),
+                Components\Select::make('read')
+                    ->label('Mark as')
+                    ->options([
+                        1 => 'Read',
+                        0 => 'Unread',
+                    ]),
             ])->columns(1);
     }
 
