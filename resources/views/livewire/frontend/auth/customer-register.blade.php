@@ -59,7 +59,7 @@
                     </x-input.group>
 
                     <x-input.group for="phone" label="Telefonnummer" :error="$errors->first('user.phone')">
-                        <x-input.text wire:model.lazy="user.phone" placeholder="Telefonnummer" />
+                        <x-input.text wire:model.lazy="user.phone" placeholder="Telefonnummer" required />
                     </x-input.group>
 
                 </div>

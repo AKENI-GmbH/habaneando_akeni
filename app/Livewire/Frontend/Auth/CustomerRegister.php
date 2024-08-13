@@ -37,7 +37,7 @@ class CustomerRegister extends Component
             'user.first_name' => 'required|string|max:255',
             'user.last_name' => 'required|string|max:255',
             'user.email' => 'required|email|unique:customers,email',
-            'user.phone' => 'nullable|string',
+            'user.phone' => 'required|string',
             'user.password' => 'required|string|min:6|confirmed',
             'user.password_confirmation' => 'required',
             'user.gender' => 'required|string',

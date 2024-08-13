@@ -3,9 +3,8 @@
 namespace App\Filament\Resources\ContactMessageResource\Pages;
 
 use App\Filament\Resources\ContactMessageResource;
-use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
-use Filament\Notifications\Notification;
+use Filament\Actions;
 
 class EditContactMessage extends EditRecord
 {

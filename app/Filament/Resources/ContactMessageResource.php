@@ -3,14 +3,14 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ContactMessageResource\Pages;
-use App\Models\ContactMessage;
-use Filament\Forms\Components;
-use Filament\Forms\Form;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Forms\Components;
+use App\Models\ContactMessage;
 use Filament\Tables\Columns;
 use Filament\Tables\Table;
-use Filament\Tables\Actions\BulkAction;
+use Filament\Forms\Form;
+use Filament\Tables;
 
 class ContactMessageResource extends Resource
 {
