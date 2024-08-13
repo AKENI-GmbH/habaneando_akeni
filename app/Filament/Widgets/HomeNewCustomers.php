@@ -4,7 +4,6 @@ namespace App\Filament\Widgets;
 
 use App\Models\Customer;
 use Carbon\Carbon;
-use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 use Filament\Tables\Columns\TextColumn;
@@ -27,7 +26,7 @@ class HomeNewCustomers extends BaseWidget
                 TextColumn::make('email'),
                 TextColumn::make('created_at')->date('d-m-Y'),
 
-            ]);
+            ])->defaultSort('created_at', 'desc');
     }
 
     protected function getQuery(): Builder

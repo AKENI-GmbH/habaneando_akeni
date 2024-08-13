@@ -212,7 +212,7 @@ class CourseResource extends Resource
                             $record->save();
                         }
                     })->deselectRecordsAfterCompletion(),
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->selectCurrentPageOnly();
     }
 
