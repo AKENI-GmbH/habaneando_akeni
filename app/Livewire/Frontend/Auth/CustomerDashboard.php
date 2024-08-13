@@ -14,15 +14,19 @@ class CustomerDashboard extends Component
 
    public $customer;
    public $activeTab = 'my-account';
-   public $membership;
+   public $membership = null;
 
    public function setActiveTab($tab)
    {
       $this->activeTab = $tab;
-      $this->membership = $this->customer->clubMember->where('status', ClubMemberStatusEnum::ACTIVE)->first();
+
+      if ($this->customer->clubMember) {
+         $this->membership = $this->customer->clubMember->where('status', ClubMemberStatusEnum::ACTIVE)->first();
+      }
    }
 
-   public function mount() {
+   public function mount()
+   {
       $this->customer = auth()->guard('customer')->user();
    }
    public function render()
