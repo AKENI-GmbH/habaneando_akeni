@@ -11,7 +11,7 @@
 
 @if ($inline)
     <div {{ $attributes->merge(['class' => '']) }}>
-        <label for="{{ $for }}" class="block text-sm font-medium leading-5 text-neutral-700">{{ $label }}
+        <label for="{{ $for }}" class="block text-sm font-medium leading-5 text-neutral-700 mb-2">{{ $label }}
             @if ($required)
                 <span class="text-red-700 font-bold text-base">*</span>
             @endif

@@ -125,7 +125,7 @@ class CustomerResource extends Resource
             ])
             ->filters([
                 Filter::make('clubMember')
-                    ->query(fn (Builder $query): Builder => $query->whereHas('clubMember'))
+                    ->query(fn(Builder $query): Builder => $query->whereHas('clubMember'))
 
             ])
             ->actions([
@@ -152,15 +152,13 @@ class CustomerResource extends Resource
                         ->action(
                             function (Collection $records, array $data) {
                                 foreach ($records as $customer) {
-                                    // Load the email template
+
                                     $template = 'mail.default-template';
 
-                                    // Data to pass to the template
                                     $emailData = [
                                         'name' => $customer->first_name . ' ' . $customer->last_name,
                                         'content' => $data['body']
                                     ];
-
 
                                     app(Services\MailjetEmailService::class)->sendEmail(
                                         $customer->email,

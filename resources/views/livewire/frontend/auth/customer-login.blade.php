@@ -51,9 +51,8 @@
                         me</label>
                 </div>
 
-                <div class="text-sm leading-6">
-                    <a href="#" class="font-medium text-black hover:text-red-500">Passwort
-                        vergessen?</a>
+                <div class="text-sm leading-6 ml-2">
+                    <a href="{{route('password.request')}}" class="font-medium text-black hover:text-red-500">Passwort vergessen?</a>
                 </div>
             </div>
 

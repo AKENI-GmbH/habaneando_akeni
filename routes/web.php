@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CouponController;
+use App\Livewire\Customer\ForgotPassword;
+use App\Livewire\Customer\ResetPassword;
 use App\Livewire\DefaultPage;
 use App\Livewire\Frontend\Auth\CustomerDashboard;
 use App\Livewire\Frontend\Auth\CustomerLogin;
@@ -42,6 +44,9 @@ Route::get('/gutsheine', CouponPage::class)->name('frontend.coupon');
 Route::get('/gutsheine/{slug}', CouponSingle::class)->name('frontend.coupon.show');
 Route::get('/privatunterricht', PrivateLessonPage::class)->name('frontend.private.lessons');
 Route::get('salsa-tanzschule/{slug}', DefaultPage::class)->name('frontend.page');
+
+Route::get('/forgot-password', ForgotPassword::class)->middleware('guest')->name('password.request');
+Route::get('/reset-password/{token}', ResetPassword::class)->middleware('guest')->name('password.reset');
 
 
 Route::get('/coupon/preview', [CouponController::class, 'preview'])->name('coupon.preview');
