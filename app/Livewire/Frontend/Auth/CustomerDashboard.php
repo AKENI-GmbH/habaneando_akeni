@@ -20,8 +20,10 @@ class CustomerDashboard extends Component
    {
       $this->activeTab = $tab;
 
+      
       if ($this->customer->clubMember) {
-         $this->membership = $this->customer->clubMember->where('status', ClubMemberStatusEnum::ACTIVE)->first();
+
+         $this->membership = $this->customer->clubMember;
       }
    }
 
