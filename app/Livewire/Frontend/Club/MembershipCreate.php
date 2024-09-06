@@ -88,7 +88,7 @@ class MembershipCreate extends Component
         $customer = Customer::findOrFail($this->customer->id);
         $customer->update([
             'kontoinhaber' => $this->kontoinhaber,
-            'iban' => $this->iban,
+            'IBAN' => $this->iban,
             'bic' => $this->bic,
         ]);
 
