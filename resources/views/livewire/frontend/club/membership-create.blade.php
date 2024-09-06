@@ -17,18 +17,24 @@
     <x-container>
 
 
-        @auth('customer')
+        {{-- @auth('customer')
             @if ($this->customer->clubMember)
                 <div class="text-center font-bold text-lg sm:text-xl mx-auto max-w-4xl">
                     <h2>Sie sind bereits Mitglied in unserem Tanzclub. Überprüfen Sie Ihr Profil, um Ihre
                         Mitgliedschaftsinformationen zu überprüfen</h2>
                 </div>
-            @else
-                @if ($showForm && !$showSuccess)
+            @else --}}
+                {{-- @if ($showForm && !$showSuccess) --}}
                     <div class="mx-auto max-w-4xl text-center">
-                        <p class="mt-2 text-4xl font-bold tracking-tight text-neutral-900 sm:text-5xl">Sei Teil von
+                        <p class="mt-2 text-4xl font-bold tracking-tight text-neutral-900 sm:text-4xl">Sei Teil von
                             Habaneando
                             Tanzschule</p>
+
+                            <div class="p-4 mb-4 text-lg mt-5 text-yellow-800 rounded-lg bg-yellow-50 border-yellow-100 dark:bg-gray-800 dark:text-yellow-300" role="alert">
+                                Um der Mitgliedschaft beizutreten, ist ein Einstieg ab Mittelstufenniveau oder nach Abschluss der Stufen A1, A2 und A3 möglich.
+                              </div>
+
+
                     </div>
 
                     <!-- Rate Categories -->
@@ -66,7 +72,7 @@
 
 
                     </di>
-                @elseif (!$showForm && $showSuccess)
+                {{-- @elseif (!$showForm && $showSuccess)
                     <div class="bg-white">
                         <div class="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
                             <div class="mx-auto max-w-2xl text-center">
@@ -207,6 +213,6 @@
                     <x-auth.login title="Melden Sie sich an, um diesen Kurs zu buchen" />
                 </div>
             </div>
-        @endauth
+        @endauth --}}
     </x-container>
 </div>
