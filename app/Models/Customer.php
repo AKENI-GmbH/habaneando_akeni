@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\MailjetEmailService;
 use Illuminate\Auth\Passwords\CanResetPassword as CanResetPasswordTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -79,7 +80,7 @@ class Customer extends Authenticatable
     {
         $url = url('/reset-password?token=' . $token . '&email=' . urlencode($this->email));
 
-        app(\App\Services\MailjetEmailService::class)->sendEmail(
+        app(MailjetEmailService::class)->sendEmail(
             $this->email,
             'Password Reset Request',
             'emails.reset-password',
