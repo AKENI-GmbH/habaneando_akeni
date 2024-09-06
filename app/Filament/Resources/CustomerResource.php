@@ -62,6 +62,12 @@ class CustomerResource extends Resource
                                     ]),
                                 TextInput::make('profession')
                                     ->label(__('Profession')),
+
+                                TextInput::make('IBAN')
+                                    ->label(__('IBAN')),
+
+                                TextInput::make('BIC')
+                                    ->label(__('BIC'))
                             ])->columns(2),
                         Tabs\Tab::make(__('Address Details'))
                             ->schema([

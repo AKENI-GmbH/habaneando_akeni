@@ -22,7 +22,6 @@ class CustomerDashboard extends Component
 
       
       if ($this->customer->clubMember) {
-
          $this->membership = $this->customer->clubMember;
       }
    }

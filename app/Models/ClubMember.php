@@ -73,7 +73,6 @@ class ClubMember extends Model
 
     public function getDeadlineAttribute()
     {
-        // dump($this);
         return Carbon::parse($this->valid_date_until)->subMonth(1);
     }
 }
