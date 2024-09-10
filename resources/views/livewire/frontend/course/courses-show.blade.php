@@ -168,7 +168,7 @@
                                     </div>
                                 @else
                                     <div class="flex flex-col justify-between px-3">
-                                        <livewire:BookClubAsMember />
+                                        {{-- <livewire:BookClubAsMember /> --}}
                                     </div>
                                 @endif
                             </div>
