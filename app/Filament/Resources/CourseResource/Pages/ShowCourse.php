@@ -94,7 +94,7 @@ class ShowCourse extends Page implements Tables\Contracts\HasTable
 
     public function getSubheading(): ?string
     {
-        return Date::parse($this->record->start_date)->format('l, j F Y');
+        return Date::parse($this->record->start_date)->format('l, j F Y') . " " . $this->record->schedule_time_from . 'Uhr';
     }
 
 
