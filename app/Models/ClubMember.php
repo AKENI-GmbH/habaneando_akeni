@@ -32,7 +32,7 @@ class ClubMember extends Model
             }
 
             $duration = $clubMember->clubRate->category->duration;
-            $clubMember->valid_date_until = Carbon::parse($clubMember->created_at)->addYear($duration);
+            $clubMember->valid_date_until = Carbon::parse($clubMember->created_at)->addMonth($duration);
         });
 
         static::creating(function ($clubMember) {
