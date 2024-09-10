@@ -37,7 +37,8 @@ class PageResource extends Resource
                         Tabs\Tab::make(__('Page'))
                             ->schema([
                                 Section::make([
-                                    FileUpload::make('image'),
+                                    FileUpload::make('image')
+                                        ->disk('spaces'),
                                     TextInput::make('name'),
                                     RichEditor::make('body')
                                         ->toolbarButtons([
