@@ -28,7 +28,7 @@
                                 </thead>
                                 <tbody class="divide-y divide-neutral-200 bg-white">
                                     @foreach ($subcategory->courses as $course)
-                                        @if ($course->subcategory->is_club || $course->start_date > now())
+                                        @if ($course->subcategory->is_club || $course->start_date > now()->addDay())
                                             <tr>
                                                 <td
                                                     class="whitespace-nowrap py-4 pl-4 pr-3 text-base font-medium text-neutral-900">
