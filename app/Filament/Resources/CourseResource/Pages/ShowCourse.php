@@ -18,6 +18,7 @@ use Filament\Tables;
 use App\Models;
 use App\Enum;
 use App\Mail\CustomerNotification;
+use Filament\Forms\Components\TextInput;
 
 class ShowCourse extends Page implements Tables\Contracts\HasTable
 {
@@ -127,7 +128,7 @@ class ShowCourse extends Page implements Tables\Contracts\HasTable
                         ->icon('heroicon-s-envelope')
                         ->form(function () {
                             return [
-                                Components\TextInput::make('subject')->label(__('Subject')),
+                                TextInput::make('subject')->label(__('Subject')),
                                 Components\TextArea::make('body')->label(__('Body'))
                                     ->rows(10)
                                     ->cols(20),
