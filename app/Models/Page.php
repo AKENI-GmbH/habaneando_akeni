@@ -58,11 +58,11 @@ class Page extends Model
 
         static::creating(function ($page) {
             $page->identifier = $page->slug;
-            self::setCdnImage($page);
+            // self::setCdnImage($page);
         });
 
         static::updating(function ($page) {
-            self::setCdnImage($page);
+            // self::setCdnImage($page);
         });
     }
 
