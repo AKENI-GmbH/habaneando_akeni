@@ -50,21 +50,20 @@ class Page extends Model
         static::creating(function ($page) {
             $page->identifier = $page->slug;
         });
-
-        static::saving(function ($page) {
-            self::setCdnImage($page);
-        });
     }
 
     protected static function setCdnImage($page)
     {
         $cdn = env("DO_CDN");
 
+
         if (!empty($page->image)) {
             $page->image = $cdn . '/' . $page->image;
         } else {
             $page->image = $page->getOriginal('image');
         }
+
+        dd($page);
     }
 
     public function header()
