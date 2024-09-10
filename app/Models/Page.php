@@ -52,7 +52,7 @@ class Page extends Model
         });
 
         static::saving(function ($page) {
-            self::setCdnCover($page);
+            self::setCdnImage($page);
         });
     }
 
