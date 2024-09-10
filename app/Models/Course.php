@@ -9,9 +9,6 @@ use Spatie\Sluggable\SlugOptions;
 use Spatie\Sluggable\HasSlug;
 use Carbon\Carbon;
 
-//TODO: Recordar al cliente de empezar el proximo curso nueva incripcion
-//TODO: Recordatorio evento
-
 class Course extends Model
 {
     use HasFactory, HasSlug, SoftDeletes;

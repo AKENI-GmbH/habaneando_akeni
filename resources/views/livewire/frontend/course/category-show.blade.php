@@ -27,8 +27,9 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-neutral-200 bg-white">
-                                    @foreach ($subcategory->courses as $course)
-                                        @if ($course->subcategory->is_club || $course->start_date >= now())
+                                    @foreach ($subcategory->courses->sortBy('start_date') as $course)
+                                        @if ($course->subcategory->is_club || $course->start_date >= now()->subday(1))
+                                        
                                             <tr>
                                                 <td
                                                     class="whitespace-nowrap py-4 pl-4 pr-3 text-base font-medium text-neutral-900">
@@ -39,7 +40,8 @@
                                                     {{ $course->location->city }}</td> --}}
                                                 <td class="whitespace-nowrap px-3 py-4 text-base text-neutral-500">
                                                     @if ($course->endless)
-                                                    {{ \Carbon\Carbon::parse($course->start_date)->isoFormat('dd') }}. Fortlaufender 
+                                                        {{ \Carbon\Carbon::parse($course->start_date)->isoFormat('dd') }}.
+                                                        Fortlaufender
                                                     @else
                                                         {{ \Carbon\Carbon::parse($course->start_date)->isoFormat('dd D. MMM YYYY') }}
                                                     @endif
