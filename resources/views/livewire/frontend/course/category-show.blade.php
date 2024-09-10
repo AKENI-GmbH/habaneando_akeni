@@ -28,7 +28,7 @@
                                 </thead>
                                 <tbody class="divide-y divide-neutral-200 bg-white">
                                     @foreach ($subcategory->courses->sortBy('start_date') as $course)
-                                        @if ($course->subcategory->is_club || $course->start_date >= now()->subday(1))
+                                        @if ($course->subcategory->is_club || $course->start_date > now()->subday(1))
                                         
                                             <tr>
                                                 <td
