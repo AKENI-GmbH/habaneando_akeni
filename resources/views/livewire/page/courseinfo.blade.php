@@ -5,7 +5,7 @@
             {!! $page->body !!}
         </div>
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            <img src="{{ $page->image }}" alt="program" />
+            <img src="{{ $cdn . $page->image }}" alt="program" />
         </div>
     </x-container>
 </div>

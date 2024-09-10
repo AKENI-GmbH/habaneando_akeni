@@ -7,7 +7,13 @@ use Livewire\Component;
 
 class Courseinfo extends Component
 {
-    use HasPage;
+    use HasPage; 
+
+    public $cdn;
+
+    public function mount() {
+        $this->cdn = env("DO_CDN") . '/';
+    }
 
     protected $identifier = 'courseinfo';
 }

@@ -72,7 +72,7 @@ class Blog extends Model
         });
     }
 
-   
+
     protected static function setCdnThumbnail($item, $isUpdating = false)
     {
         $cdn = env("DO_CDN");

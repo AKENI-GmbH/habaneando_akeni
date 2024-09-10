@@ -42,13 +42,27 @@ class Page extends Model
         return 'slug';
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+      
+    }
     /**
      * Automatically set the identifier field to the generated slug.
      */
     protected static function booted()
     {
+
+        parent::booted();
+
         static::creating(function ($page) {
             $page->identifier = $page->slug;
+            self::setCdnImage($page);
+        });
+
+        static::updating(function ($page) {
+            self::setCdnImage($page);
         });
     }
 
@@ -62,8 +76,6 @@ class Page extends Model
         } else {
             $page->image = $page->getOriginal('image');
         }
-
-        dd($page);
     }
 
     public function header()
