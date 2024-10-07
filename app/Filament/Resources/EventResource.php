@@ -98,9 +98,7 @@ class EventResource extends Resource
                                 ]),
                                 Section::make([
                                     FileUpload::make('thumbnail')
-                                        // ->image()
-                                        ->previewable(true)
-                                        ->directory('form-attachments'),
+                                        ->disk('spaces'),
 
                                     Section::make([
                                         Toggle::make('status'),
@@ -123,7 +121,7 @@ class EventResource extends Resource
                                 Components\Fieldset::make('')
                                     ->relationship('header')
                                     ->schema([
-                                        Components\FileUpload::make('cover')->disk('spaces')->columnSpan(2),
+                                        Components\FileUpload::make('cover')->columnSpan(2),
                                         Components\Radio::make('mediaType')
                                             ->options([
                                                 'image' => 'Image',
@@ -156,7 +154,7 @@ class EventResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->url(fn (Event $record): string => route('filament.admin.resources.events.show', ['record' => $record])),
+                    ->url(fn(Event $record): string => route('filament.admin.resources.events.show', ['record' => $record])),
                 TextColumn::make('date_from')->date('d-m-Y')->sortable(),
                 TextColumn::make('date_to')->date('d-m-Y')->sortable(),
                 IconColumn::make('status')->boolean()
@@ -173,7 +171,7 @@ class EventResource extends Resource
             ->groupedBulkActions([
                 BulkAction::make('delete')
                     ->requiresConfirmation()
-                    ->action(fn (Collection $records) => $records->each->delete())
+                    ->action(fn(Collection $records) => $records->each->delete())
                     ->deselectRecordsAfterCompletion(),
                 BulkAction::make('toggleStatus')
                     ->requiresConfirmation()
