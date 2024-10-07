@@ -62,8 +62,8 @@ class ShowEvent extends Page implements Tables\Contracts\HasTable
                     $subscription->event()->associate($this->record);
                     $subscription->save();
                 }),
-            Action::make('edit')
-                ->url(route('filament.admin.resources.event-subscriptions.edit', $this->record)),
+            // Action::make('edit')
+            //     ->url(route('filament.admin.resources.event-subscriptions.edit', $this->record)),
         ];
     }
 

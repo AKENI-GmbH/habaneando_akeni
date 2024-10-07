@@ -143,4 +143,16 @@ class Event extends Model
             }
         }
     }
+
+
+    protected static function setCdnImage($item)
+    {
+        $cdn = env("DO_CDN");
+
+        if (!empty($item->image)) {
+            $item->image = $cdn . '/' . $item->image;
+        } else {
+            $item->image = $item->getOriginal('image');
+        }
+    }
 }
