@@ -55,14 +55,6 @@ class Event extends Model
     {
         parent::boot();
 
-        static::creating(function ($event) {
-            self::setCdnThumbnail($event);
-        });
-
-        static::updating(function ($event) {
-            self::setCdnThumbnail($event, true);
-        });
-
         static::created(function ($event) {
             event(new \App\Events\EventCreated($event));
         });
@@ -126,22 +118,9 @@ class Event extends Model
         return $this->morphOne(Header::class, 'headerable');
     }
 
-     
-    protected static function setCdnThumbnail($item, $isUpdating = false)
+    public function getThumbnailAttribute($thumbnail)
     {
         $cdn = env("DO_CDN");
-
-
-        if ($isUpdating) {
-            if (!empty($item->thumbnail)) {
-                $item->thumbnail = $cdn . '/' . $item->thumbnail;
-            } else {
-                $item->thumbnail = $item->getOriginal('thumbnail');
-            }
-        } else {
-            if (!empty($item->thumbnail)) {
-                $item->thumbnail = $cdn . '/' . $item->thumbnail;
-            }
-        }
+        return $cdn . '/' . $thumbnail;
     }
 }
