@@ -118,7 +118,7 @@ class Event extends Model
         return $this->morphOne(Header::class, 'headerable');
     }
 
-    public function getThumbnailAttribute($thumbnail)
+    public function getcdnAttribute($thumbnail)
     {
         $cdn = env("DO_CDN");
         return $cdn . '/' . $thumbnail;

@@ -8,7 +8,7 @@
     </div>
     <div class="relative w-full">
         <a href="{{ route('frontend.event.single', $event) }}">
-            <img src="{{ $event->thumbnail }}" alt=""
+            <img src="{{ env('DO_CDN') . '/'. $event->thumbnail }}" alt=""
                 class="aspect-[16/9] w-full bg-neutral-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
             <div class="absolute inset-0 ring-1 ring-inset ring-neutral-900/10"></div>
         </a>
