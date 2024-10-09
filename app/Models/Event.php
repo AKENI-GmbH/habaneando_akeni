@@ -131,6 +131,7 @@ class Event extends Model
     {
         $cdn = env("DO_CDN");
 
+
         if ($isUpdating) {
             if (!empty($item->thumbnail)) {
                 $item->thumbnail = $cdn . '/' . $item->thumbnail;
