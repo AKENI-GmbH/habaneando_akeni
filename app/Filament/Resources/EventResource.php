@@ -68,7 +68,7 @@ class EventResource extends Resource
                                         ->tabs([
                                             Tabs\Tab::make('Description')
                                                 ->schema([
-                                                    RichEditor::make('description')->disableToolbarButtons([
+                                                    RichEditor::make('description')->required()->disableToolbarButtons([
                                                         'codeBlock',
                                                         'attachFiles',
                                                     ]),
