@@ -51,7 +51,7 @@ use Illuminate\Support\Facades\Route;
 
 //     $subscription = EventSubscription::first();
 
-//     Mail::to($customer->email)->send(new EventPurchaseConfirmationEmail( $subscription));
+//     Mail::to('info@habaneando.com')->send(new EventPurchaseConfirmationEmail( $subscription));
 
 //     return 'Kaufbestätigungs-E-Mail erfolgreich gesendet!';
 // });
@@ -62,7 +62,7 @@ use Illuminate\Support\Facades\Route;
 
 //     $subscription = CourseSubscription::first();
 
-//     Mail::to($customer->email)->send(new PurchaseConfirmationEmail( $subscription));
+//     Mail::to('info@habaneando.com')->send(new PurchaseConfirmationEmail( $subscription));
 
 //     return 'Kaufbestätigungs-E-Mail erfolgreich gesendet!';
 // });
@@ -70,20 +70,20 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/send-welcome-email', function () {
 //     $userName = "Max Mustermann";
 
-//     Mail::to('randy.duran@insimia.com')->send(new WelcomeEmail($userName)); // Replace with the actual recipient email address
+//     Mail::to('info@habaneando.com')->send(new WelcomeEmail($userName)); // Replace with the actual recipient email address
 
 //     return 'Willkommens-E-Mail erfolgreich gesendet!';
 // });
 
-Route::get('/send-test-email', function () {
-    $userName = "John Doe"; // Dynamic user name
-    $body = "Thank you for your purchase! We appreciate your business and hope you enjoy your purchase.";
-    $closingMessage = "Best regards,\n\nSalsa Tanzschule Habaneando";
+// Route::get('/send-test-email', function () {
+//     $userName = "John Doe"; // Dynamic user name
+//     $body = "Thank you for your purchase! We appreciate your business and hope you enjoy your purchase.";
+//     $closingMessage = "Best regards,\n\nSalsa Tanzschule Habaneando";
 
-    Mail::to('randy.duran@insimia.com')->send(new TestEmail($userName, $body, $closingMessage));
+//     Mail::to('randy.duran@insimia.com')->send(new TestEmail($userName, $body, $closingMessage));
 
-    return 'Email sent successfully!';
-});
+//     return 'Email sent successfully!';
+// });
 
 
 Route::get('/', HomeFrontPage::class)->name('frontend.home');

@@ -121,7 +121,7 @@ class EventResource extends Resource
                                 Components\Fieldset::make('')
                                     ->relationship('header')
                                     ->schema([
-                                        Components\FileUpload::make('cover')->columnSpan(2),
+                                        Components\FileUpload::make('cover')->disk('spaces')->columnSpan(2),
                                         Components\Radio::make('mediaType')
                                             ->options([
                                                 'image' => 'Image',
