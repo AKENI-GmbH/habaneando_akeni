@@ -20,7 +20,7 @@ class EventList extends Component
     {
         $this->events = Event::where('status', true)
             ->orderBy('date_from')
-            ->where('date_to', '>', Date::now()->addday())
+            ->where('date_to', '>', Date::now()->subday(3))
             ->where('event_type', EventTypeEnum::PARTY)->get();
     }
 }
