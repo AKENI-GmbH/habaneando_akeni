@@ -2,9 +2,11 @@
 
 namespace App\Livewire\Frontend\Auth;
 
+use App\Mail\WelcomeEmail;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class CustomerRegister extends Component
@@ -91,7 +93,18 @@ class CustomerRegister extends Component
 
         Auth::guard('customer')->login($customer);
 
+        Mail::to( $this->user['email'])->send(new WelcomeEmail());
+
+        $this->sendWelcomeEmail($this->user['email']);
+
         return redirect()->intended(route('frontend.konto'));
+    }
+
+    public function sendWelcomeEmail($userEmail)
+    {
+
+        Mail::to($userEmail)->send(new WelcomeEmail());
+        return 'Welcome email sent successfully.';
     }
 
     public function render()

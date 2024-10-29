@@ -1,5 +1,29 @@
-<div>
-    <h1>Reset Password</h1>
+@section('title', 'Mein Konto')
+
+<div class="min-h-screen flex items-center justify-center mx-auto w-full max-w-132 lg:w-132">
+
+    <div>
+        <h2 class="text-3xl font-bold leading-9 tracking-tight text-neutral-900">Reset Password</h2>
+
+     
+        <form wire:submit.prevent="resetPassword" class="space-y-6">
+
+            <x-input.group for="email" label="E-Mail-Adresse">
+                <x-input.text wire:model.lazy="email" required type="email" />
+            </x-input.group>
+
+            <x-input.group for="password" label="New Password">
+                <x-input.text wire:model.lazy="password" required type="password" />
+            </x-input.group>
+
+            <x-input.group for="password_confirmation" label="Confirm Password">
+                <x-input.text wire:model.lazy="password_confirmation" required type="password" />
+            </x-input.group>
+   
+            <button type="submit" class="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">Reset Password</button>
+        </form>
+    </div>
+
 
     @if (session('error'))
         <div class="alert alert-danger">
@@ -7,28 +31,6 @@
         </div>
     @endif
 
-    <form wire:submit.prevent="resetPassword">
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" wire:model="email" id="email" class="form-control">
-            @error('email')
-                <span class="text-danger">{{ $message }}</span>
-            @enderror
-        </div>
-
-        <div class="form-group">
-            <label for="password">New Password</label>
-            <input type="password" wire:model="password" id="password" class="form-control">
-            @error('password')
-                <span class="text-danger">{{ $message }}</span>
-            @enderror
-        </div>
-
-        <div class="form-group">
-            <label for="password_confirmation">Confirm Password</label>
-            <input type="password" wire:model="password_confirmation" id="password_confirmation" class="form-control">
-        </div>
-
-        <button type="submit" class="btn btn-primary">Reset Password</button>
-    </form>
+   
 </div>
+

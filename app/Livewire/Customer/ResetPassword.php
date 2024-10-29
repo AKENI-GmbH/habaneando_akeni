@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Customer;
 
-use App\Models\Customer;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
@@ -26,19 +25,19 @@ class ResetPassword extends Component
 
         $status = Password::reset(
             $this->only('email', 'password', 'password_confirmation', 'token'),
-            function (Customer $user, string $password) {
-                $user->forceFill([
+            function ($customer, string $password) {
+                $customer->forceFill([
                     'password' => Hash::make($password),
                 ])->setRememberToken(Str::random(60));
 
-                $user->save();
+                $customer->save();
 
-                event(new PasswordReset($user));
+                event(new PasswordReset($customer));
             }
         );
 
         if ($status == Password::PASSWORD_RESET) {
-            return redirect()->route('login')->with('status', __($status));
+            return redirect()->intended(route('frontend.login'));
         } else {
             $this->addError('email', __($status));
         }

@@ -5,6 +5,8 @@ namespace App\Livewire\Frontend\Event;
 use App\Enum\PaymentMethodEnum;
 use App\Enum\PaymentStatusEnum;
 use App\Enum\SubscriptionTypeEnum;
+use App\Mail\EventPurchaseConfirmationEmail;
+use Illuminate\Support\Facades\Mail;
 use Stripe\Checkout\Session as StripeCheckoutSession;
 use App\Traits\HasLogin;
 use Livewire\Component;
@@ -21,8 +23,10 @@ class EventSingle extends Component
     public $event;
     public $routePath;
     public $ticket;
-    public $quantity = 1;
+    public $quantity = 0;
     public $tickets = [];
+
+    public $totalAmount = 0;
 
     public function mount(Event $event)
     {
@@ -53,6 +57,9 @@ class EventSingle extends Component
         return redirect()->away($checkoutUrl);
     }
 
+    public function updatedQuantity(){
+        $this->$totalAmount = 
+    }
     private function createCheckoutSession()
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -81,7 +88,10 @@ class EventSingle extends Component
         ]);
 
         $amount = $this->quantity * $ticket->amount;
-        $this->createSubscription($this->customer, $amount);
+        $subscription = $this->createSubscription($this->customer, $amount);
+
+        Mail::to($this->customer->email)->send(new EventPurchaseConfirmationEmail($subscription));
+
 
         return $checkout_session->url;
     }
@@ -103,7 +113,7 @@ class EventSingle extends Component
 
     private function createSubscription($customer, $amount)
     {
-        EventSubscription::create([
+        return EventSubscription::create([
             'ticket_id' => $this->ticket,
             'customer_id' => $customer->id,
             'event_id' => $this->event->id,

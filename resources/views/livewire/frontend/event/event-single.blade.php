@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="w-full lg:max-w-sm lg:flex-auto">
-                    <img src="{{ env('DO_CDN') . '/'. $event->thumbnail }}" alt=""
+                    <img src="{{ env('DO_CDN') . '/' . $event->thumbnail }}" alt=""
                         class="mb-5 aspect-[16/9] w-full  bg-neutral-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
 
                     <x-event.extras :extras="$event->extras" />
@@ -102,6 +102,22 @@
 
 
                                     @if ($event->ticketType)
+                                        <div class="mb-4 leading-6 text-neutral-900">
+                                            <p>Teilnahmegebühr</p>
+
+                                            @if (empty($totalAmount))
+                                                <p class="font-bold"> <small>Ab</small>
+                                                    {{ number_format($event->ticketType->tickets->min('amount'), 2, ',', '.') }}€
+                                                </p>
+                                            @else
+                                                <p class="font-bold"> <small>Ab</small>
+                                                    {{ number_format($totalAmount) }}€
+                                                </p>
+                                            @endif
+
+                                        </div>
+
+
                                         <x-input.group for="ticket" label="Ticket wählen">
                                             <x-input.select wire:model="ticket">
                                                 <option value="">Ticket auswählen</option>
