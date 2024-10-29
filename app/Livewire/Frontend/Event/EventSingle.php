@@ -57,9 +57,6 @@ class EventSingle extends Component
         return redirect()->away($checkoutUrl);
     }
 
-    public function updatedQuantity(){
-        $this->$totalAmount = 
-    }
     private function createCheckoutSession()
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));
