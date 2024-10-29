@@ -6,7 +6,8 @@
 
 <div class="relative overflow-hidden px-6 h-40 sm:h-130 lg:px-8">
     @if ($header->mediaType == 'image')
-        <img src="{{ asset($header->cover) }}" alt="" class="absolute inset-0 -z-10 h-full w-full object-cover">
+        <img src="{{ env('DO_CDN') . '/' . $header->cover }} " alt=""
+            class="absolute inset-0 -z-10 h-full w-full object-cover">
     @else
         <div class="absolute inset-0 -z-10">
             <div class="aspect-w-16 aspect-h-9">
@@ -29,14 +30,14 @@
     @endif
 
     @if ($header->caption)
-    <div class="absolute inset-0 flex items-center justify-center z-30">
-        <div class="text-center max-w-screen-md">
-            <h2 class="text-4xl font-medium tracking-tight sm:text-6xl" style="color: {{ $header->textColor }}">
-                {{ $title }}</h2>
-            @if ($description)
-                <p class="mt-6 text-lg leading-8 text-black bg-white/80 w-fit mx-auto px-5">{{ $description }}</p>
-            @endif
+        <div class="absolute inset-0 flex items-center justify-center z-30">
+            <div class="text-center max-w-screen-md">
+                <h2 class="text-4xl font-medium tracking-tight sm:text-6xl" style="color: {{ $header->textColor }}">
+                    {{ $title }}</h2>
+                @if ($description)
+                    <p class="mt-6 text-lg leading-8 text-black bg-white/80 w-fit mx-auto px-5">{{ $description }}</p>
+                @endif
+            </div>
         </div>
-    </div>    
     @endif
 </div>
