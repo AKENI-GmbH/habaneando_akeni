@@ -128,7 +128,7 @@ class CoursesShow extends Component
 
         $subscription = $this->createSubscription($this->customer, $this->quantityMen, $this->quantityWomen, $amount);
 
-        Mail::to($this->customer->email)->send(new PurchaseConfirmationEmail( $subscription));
+        // Mail::to($this->customer->email)->send(new PurchaseConfirmationEmail( $subscription));
 
         return $checkout_session->url;
     }

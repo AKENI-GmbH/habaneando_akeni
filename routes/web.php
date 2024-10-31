@@ -51,7 +51,7 @@ use Illuminate\Support\Facades\Route;
 
 //     $subscription = EventSubscription::first();
 
-//     Mail::to('info@habaneando.com')->send(new EventPurchaseConfirmationEmail( $subscription));
+//     Mail::to('randy.duran@insimia.com')->send(new EventPurchaseConfirmationEmail( $subscription));
 
 //     return 'Kaufbestätigungs-E-Mail erfolgreich gesendet!';
 // });
@@ -62,7 +62,7 @@ use Illuminate\Support\Facades\Route;
 
 //     $subscription = CourseSubscription::first();
 
-//     Mail::to('info@habaneando.com')->send(new PurchaseConfirmationEmail( $subscription));
+//     Mail::to('randy.duran@insimia.com')->send(new PurchaseConfirmationEmail( $subscription));
 
 //     return 'Kaufbestätigungs-E-Mail erfolgreich gesendet!';
 // });
@@ -70,7 +70,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/send-welcome-email', function () {
 //     $userName = "Max Mustermann";
 
-//     Mail::to('info@habaneando.com')->send(new WelcomeEmail($userName)); // Replace with the actual recipient email address
+//     Mail::to('randy.duran@insimia.com')->send(new WelcomeEmail($userName)); // Replace with the actual recipient email address
 
 //     return 'Willkommens-E-Mail erfolgreich gesendet!';
 // });

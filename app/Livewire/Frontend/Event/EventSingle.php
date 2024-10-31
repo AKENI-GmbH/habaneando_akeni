@@ -87,7 +87,7 @@ class EventSingle extends Component
         $amount = $this->quantity * $ticket->amount;
         $subscription = $this->createSubscription($this->customer, $amount);
 
-        Mail::to($this->customer->email)->send(new EventPurchaseConfirmationEmail($subscription));
+        // Mail::to($this->customer->email)->send(new EventPurchaseConfirmationEmail($subscription));
 
 
         return $checkout_session->url;
