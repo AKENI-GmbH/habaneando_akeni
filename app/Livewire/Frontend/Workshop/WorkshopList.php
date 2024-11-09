@@ -19,8 +19,8 @@ class WorkshopList extends Component
     public function mount()
     {
         $this->events = Event::where('status', true)
-        ->where('date_to', '>', Date::now(3))
         ->orderBy('date_from')
+        ->where('date_to', '>', Date::now(3))
         ->where('event_type', EventTypeEnum::WORKSHOP)->get();
     }
 }
