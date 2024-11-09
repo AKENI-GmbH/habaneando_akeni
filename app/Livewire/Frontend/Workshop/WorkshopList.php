@@ -20,7 +20,7 @@ class WorkshopList extends Component
     {
         $this->events = Event::where('status', true)
         ->orderBy('date_from')
-        ->where('date_to', '>', Date::now(3))
+        ->where('date_to', '>', Date::now()->subday(3))
         ->where('event_type', EventTypeEnum::WORKSHOP)->get();
     }
 }
