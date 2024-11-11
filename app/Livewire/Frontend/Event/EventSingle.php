@@ -76,19 +76,18 @@ class EventSingle extends Component
                 ],
                 'quantity' => $this->quantity,
             ]],
+            'metadata' => [
+                'event_id' => $this->event->id,
+                'ticket_id' => $this->ticket,
+                'quantity' => $this->quantity,
+            ],
             'billing_address_collection' => 'required',
             'customer_email' => $this->customer->email,
             'mode' => 'payment',
             'locale' => 'de',
-            'success_url' => $appUrl . '/checkout/success',
-            'cancel_url' => $appUrl . '/checkout/cancel',
+            'success_url' => $appUrl . '/checkout/event/success/{CHECKOUT_SESSION_ID}',
+            'cancel_url' => $appUrl,
         ]);
-
-        $amount = $this->quantity * $ticket->amount;
-        $subscription = $this->createSubscription($this->customer, $amount);
-
-        // Mail::to($this->customer->email)->send(new EventPurchaseConfirmationEmail($subscription));
-
 
         return $checkout_session->url;
     }

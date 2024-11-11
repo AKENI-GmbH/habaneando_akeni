@@ -115,7 +115,7 @@ Route::group(['prefix' => '/checkout'], function () {
     // Route::get('/course/success/{session_id}', CheckoutSuccess::class)->name('frontend.course.checkout');
     Route::get('/course/success/{session_id}', CourseCheckout::class)->name('frontend.checkout.success');
     // Route::get('/success', CheckoutSuccess::class)->name('frontend.checkout.success');
-    // Route::get('/success/{session_id}', CheckoutSuccess::class)->name('frontend.checkout.success');
+    Route::get('/event/success/{session_id}', CheckoutSuccess::class)->name('frontend.checkout.event.success');
 });
 
 

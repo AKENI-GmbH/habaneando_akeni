@@ -3,13 +3,13 @@
 namespace App\Livewire\Frontend\Checkout;
 
 use Stripe\Checkout\Session as StripeCheckoutSession;
-use App\Mail\PurchaseConfirmationEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Models\CourseSubscription;
 use App\Enum\SubscriptionTypeEnum;
 use App\Enum\PaymentMethodEnum;
 use App\Enum\PaymentStatusEnum;
+use App\Mail\EventPurchaseConfirmationEmail;
+use App\Models\EventSubscription;
 use Livewire\Component;
 use Stripe\Stripe;
 
@@ -29,15 +29,19 @@ class CheckoutSuccess extends Component
 
   $checkout_session = StripeCheckoutSession::retrieve($this->session_id);
 
+  // dd($checkout_session);
+  
   if ($checkout_session->payment_status === 'paid') {
 
    $customer = Auth::guard('customer')->user();
 
-   $subscription = CourseSubscription::create([
+   $subscription = EventSubscription::create([
     'customer_id' => $customer->id,
-    'course_id' => $checkout_session->metadata->course_id,
-    'numberOfMen' => $checkout_session->metadata->quantityMen,
-    'numberOfWomen' => $checkout_session->metadata->quantityWomen,
+    'event_id' => $checkout_session->metadata->event_id,
+    'ticket_id' => $checkout_session->metadata->ticket_id,
+    'tickets' => $checkout_session->metadata->quantity,
+    'numberOfMen' => $checkout_session->metadata->quantity,
+    'numberOfWomen' => 0,
     'amount' => $checkout_session->amount_total / 100,
     'subscriptionType' => SubscriptionTypeEnum::SINGLE_PAYMENT,
     'method' => PaymentMethodEnum::STRIPE,
@@ -45,7 +49,7 @@ class CheckoutSuccess extends Component
    ]);
 
 
-   Mail::to($customer->email)->send(new PurchaseConfirmationEmail($subscription));
+   Mail::to($checkout_session->customer_email)->send(new EventPurchaseConfirmationEmail($subscription));
   }
  }
 
