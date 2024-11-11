@@ -115,69 +115,71 @@
                             </dl>
                         </div>
 
-
-                        @auth('customer')
-                            <div class="my-4">
-                                @if (!$course->subcategory->is_club)
-
-                                    @if ($errors->any())
-                                        <div class="p-3">
-                                            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-                                                role="alert">
-                                                <strong class="font-bold">Achtung!</strong>
-                                                <ul>
-                                                    @foreach ($errors->all() as $error)
-                                                        <li>{{ $error }}</li>
-                                                    @endforeach
-                                                </ul>
-                                                <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-                                                    <svg class="fill-current h-6 w-6 text-red-500" role="button"
-                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                                        <title>Schließen</title>
-                                                        <path
-                                                            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
-                                                    </svg>
-                                                </span>
+                        @if ($course->soldout)
+                            <p class="px-10 py-10 font-bold">Dieser Kurs ist ausverkauft</p>
+                        @else
+                            @auth('customer')
+                                <div class="my-4">
+                                    @if (!$course->subcategory->is_club)
+                                        @if ($errors->any())
+                                            <div class="p-3">
+                                                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                                                    role="alert">
+                                                    <strong class="font-bold">Achtung!</strong>
+                                                    <ul>
+                                                        @foreach ($errors->all() as $error)
+                                                            <li>{{ $error }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                                                        <svg class="fill-current h-6 w-6 text-red-500" role="button"
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                            <title>Schließen</title>
+                                                            <path
+                                                                d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                                                        </svg>
+                                                    </span>
+                                                </div>
                                             </div>
+                                        @endif
+
+                                        <div class="flex flex-col justify-between px-3">
+                                            <div class="flex space-x-2 mb-4">
+                                                <div>
+                                                    <label for="quantityMen"
+                                                        class="block text-sm font-medium text-neutral-700">Männer</label>
+                                                    <input wire:model.lazy="quantityMen" type="number" id="quantityMen"
+                                                        min="0"
+                                                        class="mt-1 flex-1 w-full border-neutral-300 rounded-md shadow-sm">
+                                                </div>
+                                                <div>
+                                                    <label for="quantityWomen"
+                                                        class="block text-sm font-medium text-neutral-700">Frauen</label>
+                                                    <input wire:model.lazy="quantityWomen" type="number" id="quantityWomen"
+                                                        min="0"
+                                                        class="mt-1 flex-1 w-full border-neutral-300 rounded-md shadow-sm">
+                                                </div>
+                                            </div>
+
+                                            <form wire:submit.prevent="createSession">
+                                                <button @if (!Auth::guard('customer')->check()) disabled @endif
+                                                    class="disabled:bg-neutral-300 bg-red-500 w-full text-white py-2 px-4 rounded hover:bg-red-600"
+                                                    type="submit" id="checkout-button">Zur Kasse gehen</button>
+                                            </form>
+                                        </div>
+                                    @else
+                                        <div class="flex flex-col justify-between px-3">
+                                            {{-- <livewire:BookClubAsMember /> --}}
                                         </div>
                                     @endif
-
-                                    <div class="flex flex-col justify-between px-3">
-                                        <div class="flex space-x-2 mb-4">
-                                            <div>
-                                                <label for="quantityMen"
-                                                    class="block text-sm font-medium text-neutral-700">Männer</label>
-                                                <input wire:model.lazy="quantityMen" type="number" id="quantityMen"
-                                                    min="0"
-                                                    class="mt-1 flex-1 w-full border-neutral-300 rounded-md shadow-sm">
-                                            </div>
-                                            <div>
-                                                <label for="quantityWomen"
-                                                    class="block text-sm font-medium text-neutral-700">Frauen</label>
-                                                <input wire:model.lazy="quantityWomen" type="number" id="quantityWomen"
-                                                    min="0"
-                                                    class="mt-1 flex-1 w-full border-neutral-300 rounded-md shadow-sm">
-                                            </div>
-                                        </div>
-
-                                        <form wire:submit.prevent="createSession">
-                                            <button @if (!Auth::guard('customer')->check()) disabled @endif
-                                                class="disabled:bg-neutral-300 bg-red-500 w-full text-white py-2 px-4 rounded hover:bg-red-600"
-                                                type="submit" id="checkout-button">Zur Kasse gehen</button>
-                                        </form>
-                                    </div>
-                                @else
-                                    <div class="flex flex-col justify-between px-3">
-                                        {{-- <livewire:BookClubAsMember /> --}}
-                                    </div>
-                                @endif
-                            </div>
-                        @else
-                            <div class="p-5">
-                                <h2 class="text-base mb-0 pb-0">Einloggen</h2>
-                                <x-auth.login title="Melden Sie sich an, um diesen Kurs zu buchen" />
-                            </div>
-                        @endauth
+                                </div>
+                            @else
+                                <div class="p-5">
+                                    <h2 class="text-base mb-0 pb-0">Einloggen</h2>
+                                    <x-auth.login title="Melden Sie sich an, um diesen Kurs zu buchen" />
+                                </div>
+                            @endauth
+                        @endif
                     </div>
 
                     {{-- Teachers --}}

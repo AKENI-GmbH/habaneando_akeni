@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Support\Htmlable;
 use App\Filament\Resources\EventResource;
 use App\Mail\CustomerNotification;
+use App\Mail\NotificationEmail;
 use Illuminate\Support\Facades\Mail;
 use Filament\Resources\Pages\Page;
 use App\Models\EventSubscription;
@@ -113,8 +114,10 @@ class ShowEvent extends Page implements Tables\Contracts\HasTable
                         })
                         ->action(
                             function (Collection $records, array $data) {
+                                dd($records);
                                 foreach ($records as $customer) {
-                                    Mail::to('randy.duran@insimia.com')->send(new CustomerNotification($data['subject'], $data['body']));
+                                    dd($records);
+                                    Mail::to($customer->email)->send(new NotificationEmail($data['subject'], $data['body']));
                                 }
                             }
                         )

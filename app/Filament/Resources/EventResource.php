@@ -123,7 +123,7 @@ class EventResource extends Resource
                                     ->schema([
 
                                         FileUpload::make('cover')
-                                        ->disk('spaces')->columnSpan(2),
+                                            ->disk('spaces')->columnSpan(2),
                                         Components\Radio::make('mediaType')
                                             ->options([
                                                 'image' => 'Image',
@@ -138,10 +138,6 @@ class EventResource extends Resource
                                     ])->columns(2)
                             ]),
                     ])
-
-
-
-
             ])->columns(1);
     }
 
