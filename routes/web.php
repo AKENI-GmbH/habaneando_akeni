@@ -66,13 +66,13 @@ use Illuminate\Support\Facades\Route;
 //     return 'Kaufbestätigungs-E-Mail erfolgreich gesendet!';
 // });
 
-// Route::get('/send-welcome-email', function () {
-//     $userName = "Max Mustermann";
+Route::get('/send-welcome-email', function () {
+    $userName = "Max Mustermann";
 
-//     Mail::to('randy.duran@insimia.com')->send(new WelcomeEmail($userName)); // Replace with the actual recipient email address
+    Mail::to('randy.duran@insimia.com')->send(new WelcomeEmail($userName)); // Replace with the actual recipient email address
 
-//     return 'Willkommens-E-Mail erfolgreich gesendet!';
-// });
+    return 'Willkommens-E-Mail erfolgreich gesendet!';
+});
 
 // Route::get('/send-test-email', function () {
 //     $userName = "John Doe"; // Dynamic user name
