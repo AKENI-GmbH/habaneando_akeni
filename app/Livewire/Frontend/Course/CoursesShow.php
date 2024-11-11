@@ -120,8 +120,9 @@ class CoursesShow extends Component
             'customer_email' => $this->customer->email,
             'mode' => 'payment',
             'locale' => 'de',
-            'success_url' => $appUrl . '/checkout/success?session_id={CHECKOUT_SESSION_ID}',
-            'cancel_url' => $appUrl . '/checkout/cancel',
+            // 'success_url' => $appUrl . '/checkout/course/success?session_id={CHECKOUT_SESSION_ID}',
+            'success_url' => $appUrl . '/checkout/course/success/{CHECKOUT_SESSION_ID}',
+            'cancel_url' => $appUrl,
         ]);
 
         return $checkout_session->url;

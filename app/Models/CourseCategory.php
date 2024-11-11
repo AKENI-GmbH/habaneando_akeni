@@ -86,7 +86,7 @@ class CourseCategory extends Model
             return $cdnUrl;
         }
 
-        return asset('images/header.jpeg');
+        return asset('images/default.jpg');
     }
 
     private function isImageValid($url)
