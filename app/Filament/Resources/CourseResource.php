@@ -9,8 +9,8 @@ use Filament\Forms\Components;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\BulkAction;
-use Filament\Tables\Columns;;
-
+use Filament\Tables\Columns;
+use Jenssegers\Date\Date;
 use Filament\Tables\Filters\Filter;
 use App\Models\CourseSubcategory;
 use Filament\Resources\Resource;
@@ -24,16 +24,16 @@ use Filament\Tables;
 
 class CourseResource extends Resource
 {
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()
-            ->where(function ($query) {
-                $query->where('start_date', '>=', now())
-                    ->orWhereHas('subcategory', function ($query) {
-                        $query->where('is_club', true);
-                    });
-            });
-    }
+    // public static function getEloquentQuery(): Builder
+    // {
+    //     return parent::getEloquentQuery()
+    //         ->where(function ($query) {
+    //             $query->where('start_date', '>=', Date::now()->subday(7))
+    //                 ->orWhereHas('subcategory', function ($query) {
+    //                     $query->where('is_club', true);
+    //                 });
+    //         });
+    // }
 
     public static function form(Form $form): Form
     {;
@@ -142,9 +142,9 @@ class CourseResource extends Resource
         return $table
             ->columns([
                 Columns\TextColumn::make('course_id')
-                    ->url(fn (Course $record): string => route('filament.admin.resources.courses.show', ['record' => $record])),
+                    ->url(fn(Course $record): string => route('filament.admin.resources.courses.show', ['record' => $record])),
                 Columns\TextColumn::make('name')
-                    ->url(fn (Course $record): string => route('filament.admin.resources.courses.show', ['record' => $record])),
+                    ->url(fn(Course $record): string => route('filament.admin.resources.courses.show', ['record' => $record])),
                 Columns\TextColumn::make('subcategory.level')
                     ->searchable(false)
                     ->label('Level'),
@@ -170,7 +170,7 @@ class CourseResource extends Resource
             ])->defaultSort('start_date', 'asc')
             ->filters([
                 SelectFilter::make('category_id')
-                    ->options(fn () => CourseCategory::pluck('name', 'id')->toArray())
+                    ->options(fn() => CourseCategory::pluck('name', 'id')->toArray())
                     ->label(__('Course Categories'))
                     ->query(function (Builder $query, array $state) {
                         if ($state['value']) {
@@ -202,7 +202,7 @@ class CourseResource extends Resource
             ->groupedBulkActions([
                 BulkAction::make('delete')
                     ->requiresConfirmation()
-                    ->action(fn (Collection $records) => $records->each->delete())
+                    ->action(fn(Collection $records) => $records->each->delete())
                     ->deselectRecordsAfterCompletion(),
                 BulkAction::make('toggleStatus')
                     ->requiresConfirmation()
