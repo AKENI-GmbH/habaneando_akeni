@@ -1,16 +1,15 @@
 <?php
 
+use App\Livewire\Frontend\Checkout\CheckoutSuccess;
+use App\Livewire\Frontend\Checkout\CourseCheckout;
+use App\Livewire\Frontend\Checkout\CheckoutCancel;
+use App\Livewire\Frontend\Auth\CustomerDashboard;
+use App\Livewire\Frontend\Auth\CustomerRegister;
+use App\Livewire\Frontend\Auth\CustomerLogin;
 use App\Http\Controllers\CouponController;
 use App\Livewire\Customer\ForgotPassword;
 use App\Livewire\Customer\ResetPassword;
 use App\Livewire\DefaultPage;
-use Illuminate\Support\Facades\Mail;
-use App\Livewire\Frontend\Auth\CustomerDashboard;
-use App\Livewire\Frontend\Auth\CustomerLogin;
-use App\Livewire\Frontend\Auth\CustomerRegister;
-use App\Livewire\Frontend\Checkout\CheckoutCancel;
-use App\Livewire\Frontend\Checkout\CheckoutSuccess;
-use App\Livewire\Frontend\Checkout\CourseCheckout;
 use App\Livewire\Frontend\Club\MembershipCreate;
 use App\Livewire\Frontend\Course\CategoryShow;
 use App\Livewire\Frontend\Course\CoursesShow;
@@ -112,11 +111,11 @@ Route::group(['prefix' => '/events'], function () {
     Route::get('/{event}', EventSingle::class)->name('frontend.event.single');
 });
 
-
 Route::group(['prefix' => '/checkout'], function () {
     Route::get('/kurse', CourseCheckout::class)->name('frontend.course.checkout');
     Route::get('/cancel', CheckoutCancel::class)->name('frontend.checkout.cancel');
-    Route::get('/success', CheckoutSuccess::class)->name('frontend.checkout.success');
+    // Route::get('/success', CheckoutSuccess::class)->name('frontend.checkout.success');
+    Route::get('/success/{session_id}', CheckoutSuccess::class)->name('frontend.checkout.success');
 });
 
 

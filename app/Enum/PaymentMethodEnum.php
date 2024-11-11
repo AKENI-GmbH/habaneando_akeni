@@ -4,6 +4,7 @@ namespace App\Enum;
 
 enum PaymentMethodEnum: string
 {
+    case STRIPE = 'Stripe';
     case SEPA = 'SEPA Mandat';
     case TRANSFER = 'SEPA Überweisung';
     case CREDITCARD = 'Credit Card';

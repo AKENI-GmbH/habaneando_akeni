@@ -6,14 +6,13 @@ use Stripe\Exception\InvalidRequestException;
 use Stripe\Checkout\Session as StripeCheckoutSession;
 use App\Models\ClubRate;
 use App\Traits\HasLogin;
-use Illuminate\Support\Facades\Mail;
+
 use Livewire\Component;
 use App\Models\Course;
 use App\Models\CourseSubscription;
 use App\Enum\SubscriptionTypeEnum;
 use App\Enum\PaymentStatusEnum;
 use App\Enum\PaymentMethodEnum;
-use App\Mail\PurchaseConfirmationEmail;
 use Stripe\Stripe;
 
 class CoursesShow extends Component
@@ -58,10 +57,8 @@ class CoursesShow extends Component
     {
         $this->totalPrice = ($this->quantityMen + $this->quantityWomen) * $this->price;
     }
-
     public function createSession()
     {
-        // Validate input
         $this->validateInput();
 
         if ($this->quantityMen == 0 && $this->quantityWomen == 0) {
@@ -96,8 +93,6 @@ class CoursesShow extends Component
             $this->addError('quantityMen', 'Mindestens ein Teilnehmer ist erforderlich.');
         }
     }
-
-
     private function createCheckoutSession()
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -116,23 +111,21 @@ class CoursesShow extends Component
                 ],
                 'quantity' => $this->quantityMen + $this->quantityWomen,
             ]],
+            'metadata' => [
+                'course_id' => $this->course->id,
+                'quantityMen' => $this->quantityMen,
+                'quantityWomen' => $this->quantityWomen
+            ],
             'billing_address_collection' => 'required',
             'customer_email' => $this->customer->email,
             'mode' => 'payment',
             'locale' => 'de',
-            'success_url' => $appUrl . '/checkout/success',
+            'success_url' => $appUrl . '/checkout/success?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => $appUrl . '/checkout/cancel',
         ]);
 
-        $amount = ($this->quantityMen + $this->quantityWomen) * ($this->course->subcategory->amount);
-
-        $subscription = $this->createSubscription($this->customer, $this->quantityMen, $this->quantityWomen, $amount);
-
-        // Mail::to($this->customer->email)->send(new PurchaseConfirmationEmail( $subscription));
-
         return $checkout_session->url;
     }
-
     private function createSubscription($customer, $numberOfMen, $numberOfWomen, $amount)
     {
         return CourseSubscription::create([
