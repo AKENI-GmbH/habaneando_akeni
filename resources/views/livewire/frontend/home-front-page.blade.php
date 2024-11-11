@@ -44,17 +44,51 @@
             <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
 
 
+                @foreach ($categories->sortBy('id') as $category)
+                    <article class="flex flex-col items-start justify-between">
+                        <div class="relative w-full">
+                            <a href="{{route('frontend.course.category', $category->slug)}}">
+                                <img src="{{ $category->header_image }}" alt=""
+                                    class="aspect-[16/9] w-full rounded-2xl bg-neutral-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
+                                <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-neutral-900/10"></div>
+                            </a>
+                        </div>
+                        <div class="max-w-xl">
+
+                            <div class="group relative">
+                                <h3
+                                    class="mt-3 text-lg font-semibold leading-6 text-neutral-900 group-hover:text-neutral-600">
+                                    <a href="{{route('frontend.course.category', $category->slug)}}">
+                                        <span class="absolute inset-0"></span>
+                                        {{ $category->name }}
+                                    </a>
+                                </h3>
+                                <p class="mt-5 line-clamp-3 text-sm leading-6 text-neutral-600">{{ $category->short_text }}
+                                </p>
+                            </div>
+                        </div> 
+                    </article>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white py-12 sm:py-12">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+
+
                 @foreach ($posts as $post)
                     <article class="flex flex-col items-start justify-between">
                         <div class="relative w-full">
                             <a href="{{ $post->url }}">
                                 <img src="{{ $post->thumbnail }}" alt=""
-                                class="aspect-[16/9] w-full rounded-2xl bg-neutral-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
-                            <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-neutral-900/10"></div>
+                                    class="aspect-[16/9] w-full rounded-2xl bg-neutral-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
+                                <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-neutral-900/10"></div>
                             </a>
                         </div>
                         <div class="max-w-xl">
-                    
+
                             <div class="group relative">
                                 <h3
                                     class="mt-3 text-lg font-semibold leading-6 text-neutral-900 group-hover:text-neutral-600">

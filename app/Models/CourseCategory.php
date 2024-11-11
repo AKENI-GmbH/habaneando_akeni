@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\SlugOptions;
@@ -75,5 +76,26 @@ class CourseCategory extends Model
     public function subcategories()
     {
         return $this->hasMany(CourseSubcategory::class, 'category_id');
+    }
+
+    public function getHeaderImageAttribute()
+    {
+        $cdnUrl = env('DO_CDN') . '/' . $this->header->cover;
+
+        if ($this->isImageValid($cdnUrl)) {
+            return $cdnUrl;
+        }
+
+        return asset('images/header.jpeg');
+    }
+
+    private function isImageValid($url)
+    {
+        try {
+            $response = Http::head($url);
+            return $response->successful() && str_contains($response->header('Content-Type'), 'image');
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }

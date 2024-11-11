@@ -37,6 +37,7 @@ class CourseCategoryResource extends Resource
                                     TextInput::make('name')->required(),
                                     TextInput::make('description'),
                                     Toggle::make('status'),
+                                    Toggle::make('featured'),
                                 ]),
 
                             ]),
@@ -73,7 +74,8 @@ class CourseCategoryResource extends Resource
             ->columns([
                 ImageColumn::make('header.cover')->width('100px'),
                 TextColumn::make('name'),
-                IconColumn::make('status')->label(__('Status'))
+                IconColumn::make('status')->label(__('Status')),
+                IconColumn::make('featured')->label(__('Featured')),
             ])
             ->filters([
                 //
