@@ -38,6 +38,11 @@ class FrontendTopNavigation extends Component
 
 
         $categories[] =  [
+            "label" => 'Betribsferien',
+            "link" => route('frontend.vacation'),
+            'position' => 4,
+        ];
+        $categories[] =  [
             "label" => 'Privatunterricht',
             "link" => route('frontend.private.lessons'),
             'position' => 4,
