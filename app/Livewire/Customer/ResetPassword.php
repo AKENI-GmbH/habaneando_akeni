@@ -23,7 +23,7 @@ class ResetPassword extends Component
             'password' => 'required|min:8|confirmed',
         ]);
 
-        $status = Password::reset(
+        $status = Password::broker('customers')->reset(
             $this->only('email', 'password', 'password_confirmation', 'token'),
             function ($customer, string $password) {
                 $customer->forceFill([
@@ -36,8 +36,9 @@ class ResetPassword extends Component
             }
         );
 
-        if ($status == Password::PASSWORD_RESET) {
-            return redirect()->intended(route('frontend.login'));
+        if ($status === Password::PASSWORD_RESET) {
+            session()->flash('success', __('Your password has been reset successfully.'));
+            return redirect()->route('frontend.login');
         } else {
             $this->addError('email', __($status));
         }

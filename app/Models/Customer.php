@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Services\MailjetEmailService;
 use Illuminate\Auth\Passwords\CanResetPassword as CanResetPasswordTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -79,15 +80,20 @@ class Customer extends Authenticatable implements CanResetPassword
 
     public function sendPasswordResetNotification($token)
     {
-        $url = url('/reset-password?token=' . $token . '&email=' . urlencode($this->email));
-
-        app(MailjetEmailService::class)->sendEmail(
-            $this->email,
-            'Password Reset Request',
-            'emails.reset-password',
-            ['url' => $url]
-        );
+        $this->notify(new ResetPassword($token));
     }
+
+    // public function sendPasswordResetNotification($token)
+    // {
+    //     $url = url('/reset-password?token=' . $token . '&email=' . urlencode($this->email));
+
+    //     app(MailjetEmailService::class)->sendEmail(
+    //         $this->email,
+    //         'Password Reset Request',
+    //         'emails.reset-password',
+    //         ['url' => $url]
+    //     );
+    // }
 
     public function clubMember()
     {
