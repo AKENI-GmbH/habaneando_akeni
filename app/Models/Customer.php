@@ -11,8 +11,9 @@ use Illuminate\Support\Facades\Hash;
 use App\Traits\DateFormatting;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Contracts\Auth\CanResetPassword;
 
-class Customer extends Authenticatable
+class Customer extends Authenticatable implements CanResetPassword
 {
 
     use HasFactory, Notifiable, DateFormatting;
@@ -113,7 +114,7 @@ class Customer extends Authenticatable
         $this->attributes['birthday'] = Carbon::parse($birthday)->format('Y-m-d');
     }
 
-    public function getNameAttrinute()
+    public function getNameAttribute()
     {
         return $this->getFullNameAttribute();
     }
