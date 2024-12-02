@@ -24,13 +24,10 @@ use App\Livewire\Frontend\Workshop\WorkshopList;
 use App\Livewire\Page\CouponSingle;
 use App\Livewire\Page\Courseinfo;
 use App\Mail\EventPurchaseConfirmationEmail;
-use App\Mail\PurchaseConfirmationEmail;
-use App\Mail\TestEmail;
-use App\Mail\WelcomeEmail;
-use App\Models\CourseSubscription;
 use App\Models\Customer;
 use App\Models\EventSubscription;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,16 +41,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/send-event-confirmation-email', function () {
+Route::get('/send-event-confirmation-email', function () {
 
-//     $customer = Customer::find(1180);
+    $customer = Customer::find(1180);
 
-//     $subscription = EventSubscription::first();
+    $subscription = EventSubscription::first();
 
-//     Mail::to('randy.duran@insimia.com')->send(new EventPurchaseConfirmationEmail( $subscription));
+    Mail::to(['randy.duran@insimia.com', 'info@habaneando.com'])->send(new EventPurchaseConfirmationEmail($subscription));
 
-//     return 'Kaufbestätigungs-E-Mail erfolgreich gesendet!';
-// });
+    return 'Kaufbestätigungs-E-Mail erfolgreich gesendet!';
+});
 
 // Route::get('/send-purchase-confirmation-email', function () {
 
