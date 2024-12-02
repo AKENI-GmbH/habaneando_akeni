@@ -9,8 +9,8 @@
                 class="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                 @foreach ($members->where('is_staff', true) as $member)
                     <li>
-                        <img class="aspect-[3/2] w-full rounded-2xl object-cover" src="{{ $member->thumbnail }}"
-                            alt="">
+                        <img class="aspect-[3/2] w-full rounded-2xl object-cover" src="{{ env('DO_CDN') . '/' . $member->thumbnail }}"
+                            alt="{{$member->full_name}}">
                         <h3 class="mt-6 text-base font-semibold leading-7 tracking-tight text-neutral-900">
                             {{ $member->full_name }}</h3>
                         <p class="text-sm leading-6 text-neutral-600">{{ $member->styles }}</p>

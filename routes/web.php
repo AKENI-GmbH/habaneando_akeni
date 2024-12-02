@@ -81,7 +81,6 @@ Route::get('/send-event-confirmation-email', function () {
 //     return 'Email sent successfully!';
 // });
 
-
 Route::get('/', HomeFrontPage::class)->name('frontend.home');
 Route::get('/team', TeamPage::class)->name('frontend.team');
 Route::get('/preise', PricePage::class)->name('frontend.preise');
@@ -93,7 +92,6 @@ Route::get('salsa-tanzschule/{slug}', DefaultPage::class)->name('frontend.page')
 
 Route::get('/forgot-password', ForgotPassword::class)->middleware('guest')->name('password.request');
 Route::get('/reset-password/{token}', ResetPassword::class)->middleware('guest')->name('password.reset');
-
 
 Route::get('/coupon/preview', [CouponController::class, 'preview'])->name('coupon.preview');
 

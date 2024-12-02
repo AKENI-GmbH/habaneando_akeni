@@ -68,7 +68,8 @@ class PageResource extends Resource
                                 Fieldset::make(__('Page header'))
                                     ->relationship('header')
                                     ->schema([
-                                        FileUpload::make('cover')->columnSpan(2),
+                                        FileUpload::make('cover')
+                                        ->disk('spaces')->columnSpan(2),
                                         Radio::make('mediaType')
                                             ->options([
                                                 'image' => 'Image',

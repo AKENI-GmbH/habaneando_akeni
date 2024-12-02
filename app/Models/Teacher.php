@@ -35,13 +35,9 @@ class Teacher extends Model
         parent::boot();
 
 
-        static::creating(function ($teacher) {
-            self::setCdnThumbnail($teacher);
-        });
+        static::creating(function ($teacher) {});
 
-        static::updating(function ($teacher) {
-            self::setCdnThumbnail($teacher);
-        });
+        static::updating(function ($teacher) {});
     }
 
     /**

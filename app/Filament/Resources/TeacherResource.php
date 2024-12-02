@@ -39,10 +39,8 @@ class TeacherResource extends Resource
                             ]),
                     ])->columns(2),
                     Section::make([
-
                         FileUpload::make('thumbnail')
-                            ->disk('spaces')
-                            ->avatar(),
+                                            ->disk('spaces'),
                         TextInput::make('show_name')->label(__('Display as')),
                         TextInput::make('origin')->label(__('Origin')),
                         Toggle::make('is_staff'),
