@@ -37,6 +37,7 @@ class TeacherResource extends Resource
                                 'link',
                                 'attachFiles',
                             ]),
+                            TextInput::make('styles')->columnSpan(2),
                     ])->columns(2),
                     Section::make([
                         FileUpload::make('thumbnail')
