@@ -41,16 +41,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/send-event-confirmation-email', function () {
+// Route::get('/send-event-confirmation-email', function () {
 
-    $customer = Customer::find(1180);
+//     $customer = Customer::find(1180);
 
-    $subscription = EventSubscription::first();
+//     $subscription = EventSubscription::first();
 
-    Mail::to(['randy.duran@insimia.com', 'info@habaneando.com'])->send(new EventPurchaseConfirmationEmail($subscription));
+//     Mail::to(['randy.duran@insimia.com', 'info@habaneando.com'])->send(new EventPurchaseConfirmationEmail($subscription));
 
-    return 'Kaufbestätigungs-E-Mail erfolgreich gesendet!';
-});
+//     return 'Kaufbestätigungs-E-Mail erfolgreich gesendet!';
+// });
 
 // Route::get('/send-purchase-confirmation-email', function () {
 
@@ -80,6 +80,7 @@ Route::get('/send-event-confirmation-email', function () {
 
 //     return 'Email sent successfully!';
 // });
+Route::get('/forgot-password', ForgotPassword::class)->middleware('guest')->name('password.request');
 
 Route::get('/', HomeFrontPage::class)->name('frontend.home');
 Route::get('/team', TeamPage::class)->name('frontend.team');
@@ -90,7 +91,6 @@ Route::get('/gutsheine/{slug}', CouponSingle::class)->name('frontend.coupon.show
 Route::get('/privatunterricht', PrivateLessonPage::class)->name('frontend.private.lessons');
 Route::get('salsa-tanzschule/{slug}', DefaultPage::class)->name('frontend.page');
 
-Route::get('/forgot-password', ForgotPassword::class)->middleware('guest')->name('password.request');
 Route::get('/reset-password/{token}', ResetPassword::class)->middleware('guest')->name('password.reset');
 
 Route::get('/coupon/preview', [CouponController::class, 'preview'])->name('coupon.preview');
