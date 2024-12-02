@@ -54,7 +54,8 @@ class TeacherResource extends Resource
         return $table
             ->columns([
                 ImageColumn::make('thumbnail')
-                    ->width(100),
+                    ->width(100)
+                    ->disk('spaces'),
                 TextColumn::make('full_name')->label(__('Name')),
                 IconColumn::make('is_staff')
                     ->label(__('Staff'))
