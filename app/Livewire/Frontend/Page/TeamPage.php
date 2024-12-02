@@ -16,6 +16,6 @@ class TeamPage extends Component
 
     public function mount()
     {
-        $this->members = Teacher::where('is_staff', true)->get();
+        $this->members = Teacher::where('is_staff', true)->orderBy('id')->get();
     }
 }
