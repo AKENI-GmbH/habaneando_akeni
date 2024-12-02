@@ -32,5 +32,9 @@
         Noch kein Konto?
         <a href="{{ route('frontend.register') }}" class="font-semibold leading-6 text-red-600 hover:text-red-500">Konto
             erstellen</a>
+
+                <a href="{{route('password.request')}}" class="font-medium block text-black hover:text-red-500">Passwort vergessen?</a>
     </p>
+
+ 
 </form>
