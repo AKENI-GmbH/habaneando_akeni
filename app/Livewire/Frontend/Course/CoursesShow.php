@@ -35,7 +35,7 @@ class CoursesShow extends Component
         $this->price = $this->course->subcategory->amount;
         $this->calculateTotalPrice();
         $this->routePath = route('frontend.course.show', $course);
-        $this->minClubPrice = ClubRate::min('amount');
+        $this->minClubPrice = ClubRate::where('status', true)->min('amount');
 
         if (auth()->guard('customer')->check()) {
             // Customer is logged in, return the customer
