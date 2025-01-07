@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources\CourseResource\Pages;
 
+use Filament\Pages\Concerns\ExposesTableToWidgets;
 use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Widgets\WidgetConfiguration;
 use Illuminate\Database\Eloquent\Collection;
 use App\Filament\Resources\CourseResource;
 use Illuminate\Contracts\Support\Htmlable;
@@ -81,13 +83,15 @@ class ShowCourse extends Page implements Tables\Contracts\HasTable
         ];
     }
 
-     protected function getHeaderWidgets(): array
+    protected function getHeaderWidgets(): array
     {
+
         return [
-            CourseResource\Widgets\CourseOverview::class,
+            CourseResource\Widgets\CourseOverview::make([
+                'record' => $this->record,
+            ]),
         ];
     }
-
     public function getTitle(): string | Htmlable
     {
         return $this->record->name;
@@ -103,9 +107,9 @@ class ShowCourse extends Page implements Tables\Contracts\HasTable
     {
         return $table->columns([
             Tables\Columns\TextColumn::make('customer.first_name')->label(__('First name'))
-            ->url(fn (CourseSubscription $record): string => route('filament.admin.resources.customers.edit', ['record' => $record->customer->id])),
+                ->url(fn(CourseSubscription $record): string => route('filament.admin.resources.customers.edit', ['record' => $record->customer->id])),
             Tables\Columns\TextColumn::make('customer.last_name')->label(__('Last name'))
-                ->url(fn (CourseSubscription $record): string => route('filament.admin.resources.customers.edit', ['record' => $record->customer->id])),
+                ->url(fn(CourseSubscription $record): string => route('filament.admin.resources.customers.edit', ['record' => $record->customer->id])),
             Tables\Columns\TextColumn::make('created_at')->date('d-m-Y'),
             Tables\Columns\TextColumn::make('amount'),
             Tables\Columns\TextColumn::make('method'),
@@ -146,6 +150,7 @@ class ShowCourse extends Page implements Tables\Contracts\HasTable
                 ]),
             ]);
     }
+
 
     protected static string $view = 'filament.resources.course-resource.pages.show-course';
 }

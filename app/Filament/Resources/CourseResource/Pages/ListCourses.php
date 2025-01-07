@@ -14,9 +14,7 @@ class ListCourses extends ListRecords
 
     protected function getHeaderWidgets(): array
     {
-        return [
-            CourseResource\Widgets\CourseOverview::class,
-        ];
+        return [];
     }
 
     protected function getHeaderActions(): array

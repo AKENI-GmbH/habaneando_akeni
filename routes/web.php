@@ -42,13 +42,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route::get('/send-event-confirmation-email', function () {
-
-//     $customer = Customer::find(1180);
-
 //     $subscription = EventSubscription::first();
-
-//     Mail::to(['randy.duran@insimia.com', 'info@habaneando.com'])->send(new EventPurchaseConfirmationEmail($subscription));
-
+//     Mail::to([''])->send(new EventPurchaseConfirmationEmail($subscription));
 //     return 'Kaufbestätigungs-E-Mail erfolgreich gesendet!';
 // });
 
@@ -58,7 +53,7 @@ use Illuminate\Support\Facades\Route;
 
 //     $subscription = CourseSubscription::first();
 
-//     Mail::to('randy.duran@insimia.com')->send(new PurchaseConfirmationEmail( $subscription));
+//     Mail::to('')->send(new PurchaseConfirmationEmail( $subscription));
 
 //     return 'Kaufbestätigungs-E-Mail erfolgreich gesendet!';
 // });
@@ -66,7 +61,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/send-welcome-email', function () {
 //     $userName = "Max Mustermann";
 
-//     Mail::to('randy.duran@insimia.com')->send(new WelcomeEmail($userName)); // Replace with the actual recipient email address
+//     Mail::to('')->send(new WelcomeEmail($userName)); // Replace with the actual recipient email address
 
 //     return 'Willkommens-E-Mail erfolgreich gesendet!';
 // });
@@ -76,7 +71,7 @@ use Illuminate\Support\Facades\Route;
 //     $body = "Thank you for your purchase! We appreciate your business and hope you enjoy your purchase.";
 //     $closingMessage = "Best regards,\n\nSalsa Tanzschule Habaneando";
 
-//     Mail::to('randy.duran@insimia.com')->send(new TestEmail($userName, $body, $closingMessage));
+//     Mail::to('')->send(new TestEmail($userName, $body, $closingMessage));
 
 //     return 'Email sent successfully!';
 // });
