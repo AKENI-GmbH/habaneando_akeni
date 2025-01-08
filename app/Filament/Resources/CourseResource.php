@@ -5,13 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CourseResource\Pages;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Components;
-use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Actions\ActionGroup;
-use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns;
-use Jenssegers\Date\Date;
-use Filament\Tables\Filters\Filter;
 use App\Models\CourseSubcategory;
 use Filament\Resources\Resource;
 use App\Models\CourseCategory;
@@ -24,31 +18,19 @@ use Filament\Tables;
 
 class CourseResource extends Resource
 {
-    // public static function getEloquentQuery(): Builder
-    // {
-    //     return parent::getEloquentQuery()
-    //         ->where(function ($query) {
-    //             $query->where('start_date', '>=', Date::now()->subday(7))
-    //                 ->orWhereHas('subcategory', function ($query) {
-    //                     $query->where('is_club', true);
-    //                 });
-    //         });
-    // }
-
     public static function form(Form $form): Form
     {;
-
         $days = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
 
         return $form
             ->schema([
-                Components\Section::make(__('Course details'))
+                \Filament\Forms\Components\Section::make(__('Course details'))
                     ->schema([
-                        Components\TextInput::make('name')
+                        \Filament\Forms\Components\TextInput::make('name')
                             ->required()
                             ->columnSpan(4),
 
-                        Components\Select::make('teacher1_id')
+                        \Filament\Forms\Components\Select::make('teacher1_id')
                             ->options(Teacher::all()->mapWithKeys(function ($teacher) {
                                 return [$teacher->id => $teacher->full_name];
                             }))
@@ -56,20 +38,20 @@ class CourseResource extends Resource
                             ->label(__('Instructor'))
                             ->columnSpan(2),
 
-                        Components\Select::make('teacher2_id')
+                        \Filament\Forms\Components\Select::make('teacher2_id')
                             ->options(Teacher::all()->mapWithKeys(function ($teacher) {
                                 return [$teacher->id => $teacher->full_name];
                             }))
                             ->label(__('Instructor'))
                             ->columnSpan(2),
 
-                        Components\Select::make('location_id')
+                        \Filament\Forms\Components\Select::make('location_id')
                             ->required()
                             ->label(__('Location'))
                             ->options(Location::query()->pluck('name', 'id')->all())
                             ->columnSpan(2),
 
-                        Components\Select::make('subcategory_id')
+                        \Filament\Forms\Components\Select::make('subcategory_id')
                             ->required()
                             ->options(CourseSubcategory::all()->mapWithKeys(function ($subcategory) {
                                 return [$subcategory->id => $subcategory->level];
@@ -80,30 +62,30 @@ class CourseResource extends Resource
                     ])->columns(4),
 
 
-                Components\Section::make(__('Date details'))
+                \Filament\Forms\Components\Section::make(__('Date details'))
                     ->schema([
-                        Components\Select::make('schedule_day')->options(array_combine($days, $days))
+                        \Filament\Forms\Components\Select::make('schedule_day')->options(array_combine($days, $days))
                             ->required()
                             ->label(__('Day of the Week'))
                             ->columnSpan(4),
 
-                        Components\DatePicker::make('start_date')
+                        \Filament\Forms\Components\DatePicker::make('start_date')
                             ->required()
                             ->label(__('Start Date'))
                             ->native(false)
                             ->columnSpan(1),
 
-                        Components\DatePicker::make('end_date')
+                        \Filament\Forms\Components\DatePicker::make('end_date')
                             ->label(__('End Date'))
                             ->native(false)
                             ->columnSpan(1),
 
-                        Components\TimePicker::make('schedule_time_from')
+                        \Filament\Forms\Components\TimePicker::make('schedule_time_from')
                             ->required()
                             ->label(__('Start Time'))
                             ->columnSpan(1),
 
-                        Components\TimePicker::make('schedule_time_to')
+                        \Filament\Forms\Components\TimePicker::make('schedule_time_to')
                             ->required()
                             ->label(__('End Time'))
                             ->columnSpan(1),
@@ -121,17 +103,17 @@ class CourseResource extends Resource
                             ])
                     ]),
 
-                Components\Section::make(__('Settings'))
+                \Filament\Forms\Components\Section::make(__('Settings'))
                     ->schema([
-                        Components\Toggle::make('status')
+                        \Filament\Forms\Components\Toggle::make('status')
                             ->label(__('Status')),
-                        Components\Toggle::make('endless')
+                        \Filament\Forms\Components\Toggle::make('endless')
                             ->label(__('Endless')),
-                        Components\Toggle::make('bookable')
+                        \Filament\Forms\Components\Toggle::make('bookable')
                             ->label(__('Bookable')),
-                        Components\Toggle::make('allowsinglePayment')
+                        \Filament\Forms\Components\Toggle::make('allowsinglePayment')
                             ->label(__('Single Payment')),
-                        Components\Toggle::make('soldout')
+                        \Filament\Forms\Components\Toggle::make('soldout')
                             ->label(__('Soldout')),
                     ])->columns(5),
             ])->columns();
@@ -156,20 +138,24 @@ class CourseResource extends Resource
                     ->placeholder(__('Club'))
                     ->sortable(false)
                     ->searchable(false),
+
                 Columns\TextColumn::make('start_date')
-                    ->date('d-m-Y')
+                    ->formatStateUsing(fn($state) => \Carbon\Carbon::parse($state)->format('d.m.Y'))
+                    ->sortable()
                     ->placeholder(__('Empty'))
-
                     ->label(__('Starts at')),
-                Columns\TextColumn::make('end_date')
-                    ->date('d-m-Y')
-                    ->placeholder(__('Empty'))
 
+                Columns\TextColumn::make('end_date')
+                    ->formatStateUsing(fn($state) => \Carbon\Carbon::parse($state)->format('d.m.Y'))
+                    ->sortable()
+                    ->placeholder(__('Empty'))
                     ->label(__('Ends at')),
+
+
                 Columns\IconColumn::make('status')->label(__('Status'))->boolean(),
             ])->defaultSort('start_date', 'asc')
             ->filters([
-                SelectFilter::make('category_id')
+                \Filament\Tables\Filters\SelectFilter::make('category_id')
                     ->options(fn() => CourseCategory::pluck('name', 'id')->toArray())
                     ->label(__('Course Categories'))
                     ->query(function (Builder $query, array $state) {
@@ -181,7 +167,21 @@ class CourseResource extends Resource
                     })->searchable(),
 
 
-                Filter::make('is_club')
+                \Filament\Tables\Filters\Filter::make('start_date')
+                    ->label(__('Start Date'))
+                    ->query(function (Builder $query, array $state) {
+                        if (isset($state['value'])) {
+                            $query->whereDate('start_date', $state['value']);
+                        }
+                    })
+                    ->form([
+                        \Filament\Forms\Components\DatePicker::make('value')
+                            ->label(__('Start Date'))
+                            ->placeholder(__('Select a date')),
+                    ]),
+
+
+                \Filament\Tables\Filters\Filter::make('is_club')
                     ->label(__('Only club'))
 
                     ->query(function (Builder $query, array $state) {
@@ -192,19 +192,18 @@ class CourseResource extends Resource
                         }
                     })->toggle(),
 
-
             ])->hiddenFilterIndicators()
             ->actions([
-                ActionGroup::make([
+                \Filament\Tables\Actions\ActionGroup::make([
                     Tables\Actions\EditAction::make(),
                 ]),
             ])
             ->groupedBulkActions([
-                BulkAction::make('delete')
+                \Filament\Tables\Actions\BulkAction::make('delete')
                     ->requiresConfirmation()
                     ->action(fn(Collection $records) => $records->each->delete())
                     ->deselectRecordsAfterCompletion(),
-                BulkAction::make('toggleStatus')
+                \Filament\Tables\Actions\BulkAction::make('toggleStatus')
                     ->requiresConfirmation()
                     ->action(function (Collection $records) {
                         foreach ($records as $record) {

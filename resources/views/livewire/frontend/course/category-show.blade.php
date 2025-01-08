@@ -23,21 +23,20 @@
                                         {{-- <th scope="col" class="px-3 py-3.5 text-left font-bold">Ort</th> --}}
                                         <th scope="col" class="px-3 py-3.5 text-left font-bold">Kursbeginn</th>
                                         <th scope="col" class="px-3 py-3.5 text-left font-bold">Uhrzeit</th>
+                                        <th scope="col" class="px-3 py-3.5 text-left font-bold">Ort</th>
                                         <th scope="col" class="py-3.5 pl-3 pr-4"> </th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-neutral-200 bg-white">
                                     @foreach ($subcategory->courses->sortBy('start_date') as $course)
                                         @if ($course->subcategory->is_club || $course->start_date > now()->subday(3))
-                                        
                                             <tr>
                                                 <td
                                                     class="whitespace-nowrap py-4 pl-4 pr-3 text-base font-medium text-neutral-900">
                                                     <a href="{{ route('frontend.course.show', $course) }}"
                                                         class="text-black hover:text-red-600 hover:decoration-transparent">{{ $course->name }}</a>
                                                 </td>
-                                                {{-- <td class="whitespace-nowrap px-3 py-4 text-base text-neutral-500">
-                                                    {{ $course->location->city }}</td> --}}
+
                                                 <td class="whitespace-nowrap px-3 py-4 text-base text-neutral-500">
                                                     @if ($course->endless)
                                                         {{ \Carbon\Carbon::parse($course->start_date)->isoFormat('dd') }}.
@@ -49,6 +48,8 @@
                                                 <td class="whitespace-nowrap px-3 py-4 text-base text-neutral-500">
                                                     {{ $course->schedule_time_from }} bis
                                                     {{ $course->schedule_time_to }} Uhr</td>
+                                                <td class="whitespace-nowrap px-3 py-4 text-base text-neutral-500">
+                                                    {{ $course->location->city }}</td>
                                                 <td
                                                     class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-base font-medium">
                                                     <a href="{{ route('frontend.course.show', $course) }}"
