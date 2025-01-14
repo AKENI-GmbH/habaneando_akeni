@@ -72,6 +72,7 @@
                                 freuen
                                 uns auf Ihren Besuch!</p>
                         </div>
+                    @elseif(!$event->ticketType)
                     @else
                         @auth('customer')
                             <div class="lg:col-start-3 bg-zinc-100 py-5 shadow-sm ring-1 ring-neutral-900/5">

@@ -2,16 +2,14 @@
 
 namespace App\Livewire\Frontend\Event;
 
+use Stripe\Checkout\Session as StripeCheckoutSession;
+use App\Enum\SubscriptionTypeEnum;
+use App\Models\EventSubscription;
 use App\Enum\PaymentMethodEnum;
 use App\Enum\PaymentStatusEnum;
-use App\Enum\SubscriptionTypeEnum;
-use App\Mail\EventPurchaseConfirmationEmail;
-use Illuminate\Support\Facades\Mail;
-use Stripe\Checkout\Session as StripeCheckoutSession;
 use App\Traits\HasLogin;
 use Livewire\Component;
 use App\Models\Event;
-use App\Models\EventSubscription;
 use App\Models\Ticket;
 use Stripe\Stripe;
 use Carbon\Carbon;
@@ -32,6 +30,8 @@ class EventSingle extends Component
     {
         $this->event = $event->load('ticketType.tickets');
         $this->routePath = route('frontend.event.single', $event);
+
+        // dd($this->event->ticketType);
 
         if (auth()->guard('customer')->check()) {
             $this->customer = auth()->guard('customer')->user();

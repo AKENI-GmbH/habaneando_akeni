@@ -92,9 +92,9 @@ class CourseResource extends Resource
                     ])->columns(4),
 
 
-                Components\Section::make(__('Content'))
+                \Filament\Forms\Components\Section::make(__('Content'))
                     ->schema([
-                        Components\RichEditor::make('description')
+                        \Filament\Forms\Components\RichEditor::make('description')
                             ->label(false)
                             ->disableToolbarButtons([
                                 'codeBlock',
