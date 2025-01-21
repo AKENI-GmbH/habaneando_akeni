@@ -29,9 +29,8 @@ class CheckoutSuccess extends Component
 
   $checkout_session = StripeCheckoutSession::retrieve($this->session_id);
 
-  // dd($checkout_session);
-  
-  if ($checkout_session->payment_status === 'paid') {
+
+  if ($checkout_session->payment_status === 'paid' || $checkout_session->payment_status === 'pending' || $checkout_session->payment_status === 'complete') {
 
    $customer = Auth::guard('customer')->user();
 
