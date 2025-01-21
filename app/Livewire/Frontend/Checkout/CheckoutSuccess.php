@@ -30,8 +30,6 @@ class CheckoutSuccess extends Component
   $checkout_session = StripeCheckoutSession::retrieve($this->session_id);
 
 
-  if ($checkout_session->payment_status === 'paid' || $checkout_session->payment_status === 'pending' || $checkout_session->payment_status === 'complete') {
-
    $customer = Auth::guard('customer')->user();
 
    $subscription = EventSubscription::create([
@@ -49,7 +47,7 @@ class CheckoutSuccess extends Component
 
 
    Mail::to($checkout_session->customer_email)->send(new EventPurchaseConfirmationEmail($subscription));
-  }
+
  }
 
  public function render()
