@@ -25,6 +25,7 @@ use App\Models\Customer;
 use Filament\Tables\Columns;
 use Filament\Tables;
 use App\Services;
+use Filament\Forms\Components\FileUpload;
 
 class CustomerResource extends Resource
 {
@@ -152,17 +153,23 @@ class CustomerResource extends Resource
                         ->form(function () {
                             return [
                                 TextInput::make('subject')->label(__('Subject')),
-                                Textarea::make('body')->label(__('Body'))
-                                    ->rows(10)
-                                    ->cols(20),
+                                Textarea::make('body')->label(__('Body'))->rows(10)->cols(20),
+                                FileUpload::make('images')
+                                    ->label(__('Images'))
+                                    ->disk('temporary')
+                                    ->multiple()
+                                    ->image()
+                                    ->directory('newsletter-images'),
                             ];
                         })
                         ->action(
                             function (Collection $records, array $data) {
-                                foreach ($records as $customer) {
-                                    Mail::to($customer)->send(new Newslatter($data['subject'], $data['body'], $customer));
-                                }
+                                $images = $data['images'] ?? [];
 
+                                foreach ($records as $customer) {
+                                    Mail::to($customer)->send(new Newslatter($data['subject'], $data['body'], $customer, $images));
+                                }
+                        
                                 \Filament\Notifications\Notification::make()
                                     ->title(__('Emails Sent'))
                                     ->body(__("Successfully sent emails to :count customers.", ['count' => $records->count()]))

@@ -7,23 +7,28 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailable;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Mail\Mailables\Attachment;
 use App\Models\Customer;
 
 class Newslatter extends Mailable
 {
     use Queueable, SerializesModels;
+
     public string $reason;
     public string $content;
     public Customer $customer;
+    public array $images; // Define the images property
 
     /**
      * Create a new message instance.
      */
-    public function __construct(string $reason, string $content, Customer $customer)
+    public function __construct(string $reason, string $content, Customer $customer, array $images = [])
     {
         $this->subject = $reason;
         $this->content = $content;
         $this->customer = $customer;
+        $this->images = $images;
     }
 
     /**
@@ -53,6 +58,10 @@ class Newslatter extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        return array_map(function ($imagePath) {
+            return Attachment::fromStorageDisk('temporary', $imagePath)
+                ->as(basename($imagePath))
+                ->withMime(mime_content_type(Storage::disk('temporary')->path($imagePath)));
+        }, $this->images);
     }
 }
