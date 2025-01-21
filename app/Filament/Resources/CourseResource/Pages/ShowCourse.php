@@ -99,7 +99,7 @@ class ShowCourse extends Page implements Tables\Contracts\HasTable
 
     public function getSubheading(): ?string
     {
-        return Date::parse($this->record->start_date)->format('l, j F Y') . " " . $this->record->schedule_time_from . 'Uhr';
+        return Date::parse($this->record->start_date)->format('l, j F Y') . " " . $this->record->schedule_time_from . 'Uhr' . ' - ' . $this->record->primaryTeacher->full_name;
     }
 
 
@@ -141,7 +141,7 @@ class ShowCourse extends Page implements Tables\Contracts\HasTable
                         ->action(
                             function (Collection $records, array $data) {
                                 foreach ($records as $customer) {
-                                    Mail::to('randy.duran@insimia.com')->send(new CustomerNotification($data['subject'], $data['body']));
+                                    Mail::to($customer)->send(new CustomerNotification($data['subject'], $data['body']));
                                 }
                             }
                         )

@@ -205,7 +205,7 @@
                                     <img class="h-12 w-12 flex-none rounded-full bg-neutral-50"
                                         src="{{ $course->secondaryTeacher->thumbnail }}" alt="">
                                     <div class="min-w-0">
-                                        <p class="text-base font-medium leading-6 text-neutral-900">Michael Foster</p>
+                                        <p class="text-base font-medium leading-6 text-neutral-900">{{$course->secondaryTeacher->full_name}}</p>
                                         <p class="mt-1 truncate text-sm leading-5">
                                             {{ $course->secondaryTeacher->styles }}
                                         </p>
