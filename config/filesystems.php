@@ -36,6 +36,12 @@ return [
             'throw' => false,
         ],
 
+        'temporary' => [
+        'driver' => 'local',
+        'root' => storage_path('app/temporary'),
+        'visibility' => 'private',
+    ],
+        
         'spaces' => [
             'driver' => 's3',
             'key' => env('DO_SPACES_KEY'),

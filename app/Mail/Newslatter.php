@@ -58,10 +58,6 @@ class Newslatter extends Mailable
      */
     public function attachments(): array
     {
-        return array_map(function ($imagePath) {
-            return Attachment::fromStorageDisk('temporary', $imagePath)
-                ->as(basename($imagePath))
-                ->withMime(mime_content_type(Storage::disk('temporary')->path($imagePath)));
-        }, $this->images);
+        return [];
     }
 }

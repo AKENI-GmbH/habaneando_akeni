@@ -64,7 +64,6 @@ class Customer extends Authenticatable implements CanResetPassword
     ];
 
 
-
     protected static function boot()
     {
         parent::boot();
