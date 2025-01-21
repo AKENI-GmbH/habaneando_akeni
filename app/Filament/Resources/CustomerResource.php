@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 
 use App\Filament\Resources\CustomerResource\RelationManagers;
+use App\Mail\Newslatter;
 use Filament\Resources\RelationManagers\RelationGroup;
 use App\Filament\Resources\CustomerResource\Pages;
 use Illuminate\Database\Eloquent\Collection;
@@ -11,6 +12,7 @@ use Filament\Forms\Components\DatePicker;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Illuminate\Support\Facades\Mail;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
@@ -158,21 +160,14 @@ class CustomerResource extends Resource
                         ->action(
                             function (Collection $records, array $data) {
                                 foreach ($records as $customer) {
-
-                                    $template = 'mail.default-template';
-
-                                    $emailData = [
-                                        'name' => $customer->first_name . ' ' . $customer->last_name,
-                                        'content' => $data['body']
-                                    ];
-
-                                    app(Services\MailjetEmailService::class)->sendEmail(
-                                        $customer->email,
-                                        $data['subject'],
-                                        $template,
-                                        $emailData
-                                    );
+                                    Mail::to($customer)->send(new Newslatter($data['subject'], $data['body'], $customer));
                                 }
+
+                                \Filament\Notifications\Notification::make()
+                                    ->title(__('Emails Sent'))
+                                    ->body(__("Successfully sent emails to :count customers.", ['count' => $records->count()]))
+                                    ->success()
+                                    ->send();
                             }
                         )
                         ->slideOver(),
