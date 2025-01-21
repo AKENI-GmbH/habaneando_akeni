@@ -22,32 +22,38 @@ class CheckoutSuccess extends Component
   $this->session_id = $session_id;
   $this->handleSuccessfulPayment();
  }
-
  private function handleSuccessfulPayment()
  {
   Stripe::setApiKey(env('STRIPE_SECRET'));
 
   $checkout_session = StripeCheckoutSession::retrieve($this->session_id);
+  $customer = Auth::guard('customer')->user();
 
+  $existingSubscription = EventSubscription::where([
+   'customer_id' => $customer->id,
+   'event_id' => $checkout_session->metadata->event_id,
+   'ticket_id' => $checkout_session->metadata->ticket_id,
+   'tickets' => $checkout_session->metadata->quantity
+  ])->first();
 
-   $customer = Auth::guard('customer')->user();
+  if ($existingSubscription) {
+   return;
+  }
 
-   $subscription = EventSubscription::create([
-    'customer_id' => $customer->id,
-    'event_id' => $checkout_session->metadata->event_id,
-    'ticket_id' => $checkout_session->metadata->ticket_id,
-    'tickets' => $checkout_session->metadata->quantity,
-    'numberOfMen' => $checkout_session->metadata->quantity,
-    'numberOfWomen' => 0,
-    'amount' => $checkout_session->amount_total / 100,
-    'subscriptionType' => SubscriptionTypeEnum::SINGLE_PAYMENT,
-    'method' => PaymentMethodEnum::STRIPE,
-    'payment_status' => PaymentStatusEnum::ACCEPTED
-   ]);
+  $subscription = EventSubscription::create([
+   'customer_id' => $customer->id,
+   'event_id' => $checkout_session->metadata->event_id,
+   'ticket_id' => $checkout_session->metadata->ticket_id,
+   'tickets' => $checkout_session->metadata->quantity,
+   'numberOfMen' => $checkout_session->metadata->quantity,
+   'numberOfWomen' => 0,
+   'amount' => $checkout_session->amount_total / 100,
+   'subscriptionType' => SubscriptionTypeEnum::SINGLE_PAYMENT,
+   'method' => PaymentMethodEnum::STRIPE,
+   'payment_status' => PaymentStatusEnum::ACCEPTED
+  ]);
 
-
-   Mail::to($checkout_session->customer_email)->send(new EventPurchaseConfirmationEmail($subscription));
-
+  Mail::to($checkout_session->customer_email)->send(new EventPurchaseConfirmationEmail($subscription));
  }
 
  public function render()
