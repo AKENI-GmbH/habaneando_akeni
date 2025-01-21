@@ -91,19 +91,18 @@ class CustomerRegister extends Component
             'gender' => $this->user['gender'],
         ]);
 
+
+        $this->sendWelcomeEmail($this->user['email'], $customer->name);
+
         Auth::guard('customer')->login($customer);
-
-        Mail::to( $this->user['email'])->send(new WelcomeEmail());
-
-        $this->sendWelcomeEmail($this->user['email']);
 
         return redirect()->intended(route('frontend.konto'));
     }
 
-    public function sendWelcomeEmail($userEmail)
+    public function sendWelcomeEmail($userEmail, $name)
     {
 
-        Mail::to($userEmail)->send(new WelcomeEmail());
+        Mail::to($userEmail)->send(new WelcomeEmail($name));
         return 'Welcome email sent successfully.';
     }
 
