@@ -26,26 +26,33 @@ class CourseCheckout extends Component
     private function handleSuccessfulPayment()
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));
-
         $checkout_session = StripeCheckoutSession::retrieve($this->session_id);
+        $customer = Auth::guard('customer')->user();
 
-        if ($checkout_session->payment_status === 'paid') {
+        $existingSubscription = CourseSubscription::where([
+            'customer_id'   => $customer->id,
+            'course_id'     => $checkout_session->metadata->course_id,
+            'numberOfMen'   => $checkout_session->metadata->quantityMen,
+            'numberOfWomen' => $checkout_session->metadata->quantityWomen,
+        ])->first();
 
-            $customer = Auth::guard('customer')->user();
-
-            $subscription = CourseSubscription::create([
-                'customer_id' => $customer->id,
-                'course_id' => $checkout_session->metadata->course_id,
-                'numberOfMen' => $checkout_session->metadata->quantityMen,
-                'numberOfWomen' => $checkout_session->metadata->quantityWomen,
-                'amount' => $checkout_session->amount_total / 100,
-                'subscriptionType' => SubscriptionTypeEnum::SINGLE_PAYMENT,
-                'method' => PaymentMethodEnum::STRIPE,
-                'payment_status' => PaymentStatusEnum::ACCEPTED
-            ]);
-
-            Mail::to($checkout_session->customer_email)->send(new PurchaseConfirmationEmail($subscription));
+        if ($existingSubscription) {
+            return;
         }
+
+        $subscription = CourseSubscription::create([
+            'customer_id'       => $customer->id,
+            'course_id'         => $checkout_session->metadata->course_id,
+            'numberOfMen'       => $checkout_session->metadata->quantityMen,
+            'numberOfWomen'     => $checkout_session->metadata->quantityWomen,
+            'amount'            => $checkout_session->amount_total / 100,
+            'subscriptionType'  => SubscriptionTypeEnum::SINGLE_PAYMENT,
+            'method'            => PaymentMethodEnum::STRIPE,
+            'payment_status'    => PaymentStatusEnum::ACCEPTED,
+        ]);
+
+        Mail::to($checkout_session->customer_email)
+            ->send(new PurchaseConfirmationEmail($subscription));
     }
 
     public function render()
