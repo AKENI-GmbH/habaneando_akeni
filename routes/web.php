@@ -102,10 +102,12 @@ Route::group(['prefix' => '/events'], function () {
     Route::get('/{event}', EventSingle::class)->name('frontend.event.single');
 });
 
+Route::get('/test-error', function () {
+    throw new \Exception('Test error for logging.');
+});
+
 Route::group(['prefix' => '/checkout'], function () {
-    // Route::get('/course/success/{session_id}', CheckoutSuccess::class)->name('frontend.course.checkout');
     Route::get('/course/success/{session_id}', CourseCheckout::class)->name('frontend.checkout.success');
-    // Route::get('/success', CheckoutSuccess::class)->name('frontend.checkout.success');
     Route::get('/event/success/{session_id}', CheckoutSuccess::class)->name('frontend.checkout.event.success');
 });
 
