@@ -3,15 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\EventSubscriptionResource\Pages;
-use App\Filament\Resources\EventSubscriptionResource\RelationManagers;
+
 use App\Models\EventSubscription;
-use Filament\Forms;
+use Filament\Tables\Columns;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class EventSubscriptionResource extends Resource
 {
@@ -31,13 +29,35 @@ class EventSubscriptionResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Columns\TextColumn::make('customer.full_name')
+                    ->label(__('Customer'))
+                    ->sortable()
+                    ->searchable(),
+                Columns\TextColumn::make('event.name')
+                    ->label(__('Event'))
+                    ->sortable()
+                    ->searchable(),
+                Columns\TextColumn::make('ticket.ticketType.name')
+                    ->label(__('Ticket'))
+                    ->sortable()
+                    ->searchable(),
+                    Columns\TextColumn::make('amount')
+                    ->label(__('Total'))
+                    ->sortable()
+                    ->searchable(),
+                    Columns\IconColumn::make('status')
+                    ->boolean(),
+                    Columns\TextColumn::make('created_at')
+                    ->formatStateUsing(fn($state) => \Carbon\Carbon::parse($state)->format('d.m.Y'))
+                    ->sortable()
+                    ->label(__('Boocked at')),
             ])
             ->filters([
                 //
             ])
+            ->defaultSort('created_at', 'desc')
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -57,8 +77,8 @@ class EventSubscriptionResource extends Resource
     {
         return [
             'index' => Pages\ListEventSubscriptions::route('/'),
-            'create' => Pages\CreateEventSubscription::route('/create'),
-            'edit' => Pages\EditEventSubscription::route('/{record}/edit'),
+            // 'create' => Pages\CreateEventSubscription::route('/create'),
+            // 'edit' => Pages\EditEventSubscription::route('/{record}/edit'),
         ];
     }
 }
