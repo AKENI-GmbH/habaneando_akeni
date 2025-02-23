@@ -23,6 +23,7 @@ class CourseSubscription extends Model
         'method',
         'payment_status',
         'valid_to',
+        'transaction_id'
     ];
 
     protected $casts = [

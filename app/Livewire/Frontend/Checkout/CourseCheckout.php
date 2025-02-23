@@ -26,8 +26,17 @@ class CourseCheckout extends Component
     private function handleSuccessfulPayment()
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));
+
         $checkout_session = StripeCheckoutSession::retrieve($this->session_id);
         $customer = Auth::guard('customer')->user();
+
+        $existingSubscription = CourseSubscription::where([
+            'transaction_id' => $this->session_id,
+        ])->first();
+
+        if ($existingSubscription) {
+            return;
+        }
 
         $subscription = CourseSubscription::create([
             'customer_id' => $customer->id,
@@ -37,7 +46,8 @@ class CourseCheckout extends Component
             'amount' => $checkout_session->amount_total / 100,
             'subscriptionType' => SubscriptionTypeEnum::SINGLE_PAYMENT,
             'method' => PaymentMethodEnum::STRIPE,
-            'payment_status' => PaymentStatusEnum::ACCEPTED
+            'payment_status' => PaymentStatusEnum::ACCEPTED,
+            'transaction_id' => $this->session_id,
         ]);
 
         Mail::to($checkout_session->customer_email)->send(new PurchaseConfirmationEmail($subscription));
