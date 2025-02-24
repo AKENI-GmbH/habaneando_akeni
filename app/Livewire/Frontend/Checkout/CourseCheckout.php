@@ -4,7 +4,6 @@ namespace App\Livewire\Frontend\Checkout;
 
 use Stripe\Checkout\Session as StripeCheckoutSession;
 use App\Mail\PurchaseConfirmationEmail;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Models\CourseSubscription;
 use App\Enum\SubscriptionTypeEnum;
@@ -28,7 +27,7 @@ class CourseCheckout extends Component
         Stripe::setApiKey(env('STRIPE_SECRET'));
 
         $checkout_session = StripeCheckoutSession::retrieve($this->session_id);
-        $customer = Auth::guard('customer')->user();
+        $customer = auth()->guard('customer')->user();
 
 
         $existingSubscription = CourseSubscription::where([
@@ -40,7 +39,7 @@ class CourseCheckout extends Component
         }
 
         $subscription = CourseSubscription::create([
-            'customer_id' => $customer->id,
+            'customer_id' => $checkout_session->metadata->customer_id,
             'course_id' => $checkout_session->metadata->course_id,
             'numberOfMen' => $checkout_session->metadata->quantityMen,
             'numberOfWomen' => $checkout_session->metadata->quantityWomen,

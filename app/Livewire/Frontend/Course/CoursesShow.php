@@ -112,6 +112,7 @@ class CoursesShow extends Component
                 'quantity' => $this->quantityMen + $this->quantityWomen,
             ]],
             'metadata' => [
+                'customer_id' => $this->customer->id,
                 'course_id' => $this->course->id,
                 'quantityMen' => $this->quantityMen,
                 'quantityWomen' => $this->quantityWomen
