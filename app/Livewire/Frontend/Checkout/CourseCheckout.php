@@ -30,6 +30,7 @@ class CourseCheckout extends Component
         $checkout_session = StripeCheckoutSession::retrieve($this->session_id);
         $customer = Auth::guard('customer')->user();
 
+
         $existingSubscription = CourseSubscription::where([
             'transaction_id' => $this->session_id,
         ])->first();

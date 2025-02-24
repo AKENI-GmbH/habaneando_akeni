@@ -41,40 +41,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/send-event-confirmation-email', function () {
-//     $subscription = EventSubscription::first();
-//     Mail::to([''])->send(new EventPurchaseConfirmationEmail($subscription));
-//     return 'Kaufbestätigungs-E-Mail erfolgreich gesendet!';
-// });
-
-// Route::get('/send-purchase-confirmation-email', function () {
-
-//     $customer = Customer::find(1180);
-
-//     $subscription = CourseSubscription::first();
-
-//     Mail::to('')->send(new PurchaseConfirmationEmail( $subscription));
-
-//     return 'Kaufbestätigungs-E-Mail erfolgreich gesendet!';
-// });
-
-// Route::get('/send-welcome-email', function () {
-//     $userName = "Max Mustermann";
-
-//     Mail::to('')->send(new WelcomeEmail($userName)); // Replace with the actual recipient email address
-
-//     return 'Willkommens-E-Mail erfolgreich gesendet!';
-// });
-
-// Route::get('/send-test-email', function () {
-//     $userName = "John Doe"; // Dynamic user name
-//     $body = "Thank you for your purchase! We appreciate your business and hope you enjoy your purchase.";
-//     $closingMessage = "Best regards,\n\nSalsa Tanzschule Habaneando";
-
-//     Mail::to('')->send(new TestEmail($userName, $body, $closingMessage));
-
-//     return 'Email sent successfully!';
-// });
 Route::get('/forgot-password', ForgotPassword::class)->middleware('guest')->name('password.request');
 
 Route::get('/', HomeFrontPage::class)->name('frontend.home');
