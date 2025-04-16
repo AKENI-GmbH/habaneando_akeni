@@ -18,7 +18,7 @@
                             'styles' => $member->styles,
                             'instagram' => $member->instagram ?? null,
                             'facebook' => $member->facebook ?? null,
-                            'bio' => $member->bio ?? 'More details about the team member...',
+                            'bio' => $member->descroption,
                         ]) }})">
                         <img class="aspect-[3/2] w-full rounded-2xl object-cover"
                             src="{{ env('DO_CDN') . '/' . $member->thumbnail }}" alt="{{ $member->full_name }}">
