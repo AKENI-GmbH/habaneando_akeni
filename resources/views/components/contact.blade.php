@@ -10,6 +10,8 @@
         <div
             class="absolute bottom-0 right-0 w-72 p-4 mb-12 bg-white rounded-lg shadow-lg text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300 group-hover:flex flex-col hidden">
             <h3 class="text-lg font-semibold mb-2">Kontakt</h3>
+            <p>Wir sind derzeit auf einer Reise durch Kuba bis zum 28. April. Am besten erreichst du uns über WhatsApp
+                oder per Anruf. Alternativ kannst du auch eine Nachricht oder E-Mail senden!</p>
             <p>Email: <a href="mailto:info@habaneando.com" class="text-red-700 hover:underline">info@habaneando.com</a>
             </p>
             <p>Telefon: <a href="tel:+4917623296739" class="text-red-700 hover:underline">+49 0176 2329 6739</a></p>
