@@ -15,9 +15,10 @@
             <p>Email: <a href="mailto:info@habaneando.com" class="text-red-700 hover:underline">info@habaneando.com</a>
             </p>
             <p>Telefon: <a href="tel:+4917682201935" class="text-red-700 hover:underline">+49 176 8220 1935</a></p>
-            <p>WhatsApp: <a href="https://wa.me/4917682201935" class="text-red-700 hover:underline">WhatsApp (Wir
+            <p>WhatsApp: <a href="https://wa.me/4917682201935" target="_blank"
+                    class="text-red-700 hover:underline">WhatsApp (Wir
                     antworten sehr schnell)</a></p>
-            <p>Instagram: <a href="https://www.instagram.com/salsa.tanzschule/"
+            <p>Instagram: <a href="https://www.instagram.com/salsa.tanzschule/" target="_blank"
                     class="text-red-700 hover:underline">{{ __('@salsa.tanzschule') }}</a></p>
             <p>Adresse: Brunckstrasse 8, 67346, Speyer</p>
         </div>
