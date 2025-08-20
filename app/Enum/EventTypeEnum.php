@@ -6,6 +6,7 @@ enum EventTypeEnum: string
 {
     case PARTY = 'Party';
     case WORKSHOP = 'Workshop';
+    case CRASHCOURSE = 'Crashkurse';
 
     public static function toSelectArray(): array
     {
