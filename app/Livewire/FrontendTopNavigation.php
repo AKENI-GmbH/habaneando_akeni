@@ -36,12 +36,6 @@ class FrontendTopNavigation extends Component
             ->values()
             ->toArray();
 
-
-        $categories[] =  [
-            "label" => 'Betribsferien',
-            "link" => route('frontend.vacation'),
-            'position' => 4,
-        ];
         $categories[] =  [
             "label" => 'Privatunterricht',
             "link" => route('frontend.private.lessons'),
@@ -116,6 +110,11 @@ class FrontendTopNavigation extends Component
                     [
                         "label" => 'Gutscheine',
                         "link" => route('frontend.coupon', 'gutsheine'),
+                        'position' => 2,
+                    ],
+                    [
+                        "label" => 'Betribsferien',
+                        "link" => route('frontend.vacation'),
                         'position' => 3,
                     ],
                 ],
