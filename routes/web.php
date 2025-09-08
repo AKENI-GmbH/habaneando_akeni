@@ -63,7 +63,7 @@ Route::get('/tanzen/{courseCategory}', CategoryShow::class)->name('frontend.cour
 Route::get('/mitgliedschaft', MembershipCreate::class)->name('frontend.memebrship.create');
 
 Route::get('/workshop', WorkshopList::class)->name('frontend.workshops.list');
-Route::get('/crash-course', CrashCourseList::class)->name('frontend.crashcourse.list');
+Route::get('/crashkurse', CrashCourseList::class)->name('frontend.crashcourse.list');
 
 Route::group(['prefix' => '/events'], function () {
     Route::get('/', EventList::class)->name('frontend.event.list');
