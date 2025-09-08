@@ -80,6 +80,11 @@ class FrontendTopNavigation extends Component
                         "link" => route('frontend.workshops.list'),
                         'position' => 4,
                     ],
+                    [
+                        "label" => 'CrashKurse',
+                        "link" => route('frontend.crashcourse.list'),
+                        'position' => 4,
+                    ],
                     // [
                     //     "label" => 'Club events',
                     //     "link" => route('frontend.workshops.list'),

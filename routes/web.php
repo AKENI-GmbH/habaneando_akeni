@@ -12,6 +12,7 @@ use App\Livewire\DefaultPage;
 use App\Livewire\Frontend\Club\MembershipCreate;
 use App\Livewire\Frontend\Course\CategoryShow;
 use App\Livewire\Frontend\Course\CoursesShow;
+use App\Livewire\Frontend\Crashcourse\CrashCourseList;
 use App\Livewire\Frontend\Event\EventList;
 use App\Livewire\Frontend\Event\EventSingle;
 use App\Livewire\Frontend\HomeFrontPage;
@@ -62,6 +63,7 @@ Route::get('/tanzen/{courseCategory}', CategoryShow::class)->name('frontend.cour
 Route::get('/mitgliedschaft', MembershipCreate::class)->name('frontend.memebrship.create');
 
 Route::get('/workshop', WorkshopList::class)->name('frontend.workshops.list');
+Route::get('/crash-course', CrashCourseList::class)->name('frontend.crashcourse.list');
 
 Route::group(['prefix' => '/events'], function () {
     Route::get('/', EventList::class)->name('frontend.event.list');
