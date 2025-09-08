@@ -12,7 +12,7 @@ class CrashCourseList extends Component
 {
    use HasPage;
 
-    protected $identifier = 'workshops';
+    protected $identifier = 'crashkurse';
 
     public $events;
 
