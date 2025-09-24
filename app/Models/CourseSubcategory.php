@@ -14,7 +14,6 @@ class CourseSubcategory extends Model
     protected $fillable = [
         'name',
         'slug',
-        '',
         'category_id',
         'description',
         'amount',

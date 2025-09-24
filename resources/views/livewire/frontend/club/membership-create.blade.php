@@ -17,6 +17,32 @@
     <x-container>
 
 
+        <div class="mx-auto max-w-4xl text-center">
+            <p class="mt-2 text-4xl font-bold tracking-tight text-neutral-900 sm:text-4xl">Sei Teil von
+                Habaneando
+                Tanzschule</p>
+
+            <div class="p-4 mb-4 text-lg mt-5 text-yellow-800 rounded-lg bg-yellow-50 border-yellow-100 dark:bg-gray-800 dark:text-yellow-300"
+                role="alert">
+                Um der Mitgliedschaft beizutreten, ist ein Einstieg ab Mittelstufenniveau oder nach Abschluss
+                der Stufen A1, A2 und A3 möglich.
+            </div>
+
+
+            <div>
+
+                Vorteile und Ermäßigungen für Clubmitglieder:
+                ★ 10 € Rabatt auf Intensiv-Workshops
+                ★ 6-Wochen-Kurs: 15 € Rabatt
+                ★ 10 € Rabatt auf Privatunterricht
+                ★ 10 € Rabatt auf Tanzschuhe
+                ★ 50 € Rabatt auf Tanzreisen
+                ★ Rabatt auf Events & Workshops vor den Parties (Details vor Ort)
+                ★ Übungsabend inbegriffen
+            </div>
+
+        </div>
+
         @auth('customer')
             @if ($this->customer->clubMember)
                 <div class="text-center font-bold text-lg sm:text-xl mx-auto max-w-4xl">
@@ -25,20 +51,6 @@
                 </div>
             @else
                 @if ($showForm && !$showSuccess)
-                    <div class="mx-auto max-w-4xl text-center">
-                        <p class="mt-2 text-4xl font-bold tracking-tight text-neutral-900 sm:text-4xl">Sei Teil von
-                            Habaneando
-                            Tanzschule</p>
-
-                        <div class="p-4 mb-4 text-lg mt-5 text-yellow-800 rounded-lg bg-yellow-50 border-yellow-100 dark:bg-gray-800 dark:text-yellow-300"
-                            role="alert">
-                            Um der Mitgliedschaft beizutreten, ist ein Einstieg ab Mittelstufenniveau oder nach Abschluss
-                            der Stufen A1, A2 und A3 möglich.
-                        </div>
-
-
-                    </div>
-
                     <!-- Rate Categories -->
                     <di
                         class="mx-auto mt-10 text-center grid max-w-4xl grid-cols-1 gap-8 md:max-w-4xl md:grid-cols-2 lg:max-w-4xl xl:mx-auto xl:grid-cols-2">
@@ -209,7 +221,12 @@
                 @endif
             @endif
         @else
-            <div class="p-5 flex items-center justify-center mx-auto w-full max-w-96 lg:w-136">
+            {{-- <div class="text-center  mx-auto max-w-4xl">
+                <h2 class="font-bold text-lg sm:text-xl">Sie sind bereits Mitglied in unserem Tanzclub. Überprüfen Sie Ihr Profil, um Ihre
+                    Mitgliedschaftsinformationen zu überprüfen</h2>
+            </div> --}}
+
+            <div class="mt-10 p-5 flex items-center justify-center mx-auto w-full max-w-96 lg:w-136">
                 <div>
                     <h2 class="text-base mb-0 pb-0">Einloggen</h2>
                     <x-auth.login title="Melden Sie sich an, um diesen Kurs zu buchen" />

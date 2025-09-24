@@ -19,6 +19,7 @@ class CourseOverview extends BaseWidget
 
         $currentSubscriptions = $subscriptions->count();
 
+
         $women = $subscriptions->whereNotNull('numberOfWomen')->sum('numberOfWomen');
         $men = $subscriptions->whereNotNull('numberOfMen')->sum('numberOfMen');
 

@@ -7,6 +7,7 @@ use App\Models\ClubMember;
 use App\Models\CourseSubscription;
 use App\Models\Customer;
 use App\Models\EventSubscription;
+use App\Models\ContactMessage;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Carbon\Carbon;
@@ -30,12 +31,14 @@ class DashboardOverview extends BaseWidget
             ->orWhere('status', ClubMemberStatusEnum::PENDING)
             ->sum('amount'));
 
+        $messages = ContactMessage::where('read', false)->count();
+
         return [
             Stat::make('New Members', $membersCount),
             Stat::make('Total Memberships', $montlyIncome . '€'),
             Stat::make('Course Subscriptions',  $courseSubsCount),
             Stat::make('Event Subscriptions', $eventSubsCount),
-            Stat::make('New Messages', 1),
+            Stat::make('New Messages', $messages),
             Stat::make("{$currentMonthName}'s Birthdays", $birthdayCount),
         ];
     }

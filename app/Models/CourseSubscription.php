@@ -3,13 +3,13 @@
 namespace App\Models;
 
 use App\Enum\SubscriptionTypeEnum;
-use App\Enum\GenderEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class CourseSubscription extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'customer_id',
         'course_id',
@@ -23,46 +23,41 @@ class CourseSubscription extends Model
         'method',
         'payment_status',
         'valid_to',
-        'transaction_id'
+        'transaction_id',
     ];
 
     protected $casts = [
-        'student' => 'boolean',
-        'clubMember' => 'boolean',
-        'numberOfMen' => 'integer',
+        'student'       => 'boolean',
+        'clubMember'    => 'boolean',
+        'numberOfMen'   => 'integer',
         'numberOfWomen' => 'integer',
+        'valid_to'      => 'datetime',
     ];
 
     protected static function boot()
     {
         parent::boot();
 
-        static::updating(function ($subscription) {
-            if (empty($subscription->valid_to) && !empty($subscription->course->end_date)) {
-                $subscription->valid_to = $subscription->course->end_date;
-            }
-        });
-
         static::creating(function ($subscription) {
             if ($subscription->subscriptionType === SubscriptionTypeEnum::MEMBERSHIP) {
                 $subscription->clubMember = true;
             }
 
-            if (empty($subscription->valid_to) && !empty($subscription->course->end_date)) {
+            if (is_null($subscription->valid_to) && !empty($subscription->course?->end_date)) {
                 $subscription->valid_to = $subscription->course->end_date;
             }
 
-            if (!$subscription->created_at) {
-                $subscription->created_at = now();
+            $subscription->numberOfMen   = max(0, (int) ($subscription->numberOfMen   ?? 0));
+            $subscription->numberOfWomen = max(0, (int) ($subscription->numberOfWomen ?? 0));
+        });
+
+        static::updating(function ($subscription) {
+            if (is_null($subscription->valid_to) && !empty($subscription->course?->end_date)) {
+                $subscription->valid_to = $subscription->course->end_date;
             }
 
-            if ($subscription->customer->gender === GenderEnum::MALE) {
-                $subscription->numberOfMen = 1;
-                $subscription->numberOfWomen = 0;
-            } else {
-                $subscription->numberOfMen = 0;
-                $subscription->numberOfWomen = 1;
-            }
+            $subscription->numberOfMen   = max(0, (int) ($subscription->numberOfMen   ?? 0));
+            $subscription->numberOfWomen = max(0, (int) ($subscription->numberOfWomen ?? 0));
         });
     }
 
@@ -78,6 +73,6 @@ class CourseSubscription extends Model
 
     public function getIsActiveAttribute()
     {
-        return empty($this->valid_to) || $this->valid_to > Now();
+        return is_null($this->valid_to) || $this->valid_to > now();
     }
 }

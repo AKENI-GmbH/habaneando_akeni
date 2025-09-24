@@ -11,6 +11,7 @@ use App\Models\CourseSubcategory;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Split;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
@@ -49,6 +50,7 @@ class CourseSubcategoryResource extends Resource
                         ->schema([
                             TextInput::make('name')
                                 ->columnSpan(2),
+                                Textarea::make('description')->columnSpan(2),
                             Select::make('category_id')
                                 ->relationship('category', 'name'),
                             TextInput::make('amount'),

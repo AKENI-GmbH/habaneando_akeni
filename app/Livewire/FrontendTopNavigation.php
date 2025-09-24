@@ -48,6 +48,12 @@ class FrontendTopNavigation extends Component
             'position' => count($categories) + 1,
         ];
 
+        $categories[] =
+            [
+                "label" => 'Mitgliedschaft',
+                "link" => route('frontend.memebrship.create'),
+                'position' => 4,
+            ];
 
 
 
@@ -62,11 +68,7 @@ class FrontendTopNavigation extends Component
                 "submenu" => collect($categories),
                 'position' => 2,
             ],
-            [
-                "label" => 'Mitgliedschaft',
-                "link" => route('frontend.memebrship.create'),
-                'position' => 4,
-            ],
+
             [
                 "label" => 'Events',
                 "submenu" => [
@@ -84,6 +86,11 @@ class FrontendTopNavigation extends Component
                         "label" => 'CrashKurse',
                         "link" => route('frontend.crashcourse.list'),
                         'position' => 4,
+                    ],
+                    [
+                        "label" => 'Tanzreisen',
+                        "link" => url('https://salsatanzreise.de'),
+                        'position' => 5,
                     ],
                     // [
                     //     "label" => 'Club events',
@@ -123,11 +130,6 @@ class FrontendTopNavigation extends Component
                         'position' => 3,
                     ],
                 ],
-                'position' => 7,
-            ],
-            [
-                "label" => 'Tanzreisen',
-                "link" => url('https://salsatanzreise.de'),
                 'position' => 7,
             ],
             [

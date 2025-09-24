@@ -12,5 +12,6 @@ class CategoryShow extends Component
     public function mount(CourseCategory $courseCategory)
     {
         $this->category = $courseCategory;
+
     }
 }
