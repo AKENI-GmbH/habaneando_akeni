@@ -112,7 +112,7 @@ class FrontendTopNavigation extends Component
                 'position' => 6,
             ],
             [
-                "label" => 'Services',
+                "label" => 'Infos',
                 "submenu" => [
                     [
                         "label" => 'Preise',

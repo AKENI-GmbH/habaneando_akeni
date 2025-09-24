@@ -35,12 +35,12 @@ class Footer extends Component
                 "label" => "Habaneando",
                 "menu" => [
                     [
-                        "label" => "Betribsferien",
-                        "link" => route('frontend.home', 'betribsferien'),
+                        "label" => "Betriebsferien",
+                        "link" => route('frontend.vacation', 'betriebsferien'),
                     ],
                     [
-                        "label" => "Vermietung",
-                        "link" => route('frontend.home', 'vermietung'),
+                        "label" => "Mitgliedschaft",
+                        "link" => route('frontend.memebrship.create', 'mitgliedschaft'),
                     ]
                 ],
             ],
