@@ -70,7 +70,7 @@ class FrontendTopNavigation extends Component
             ],
 
             [
-                "label" => 'Events',
+                "label" => 'Events & Tanzreisen',
                 "submenu" => [
                     [
                         "label" => 'Party',

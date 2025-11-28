@@ -2,7 +2,7 @@
     <x-hero :title="$category->name" :description="$category->description" :header="$category->header" />
 
     <x-container>
-        @foreach ($category->subcategories->sortBy('name') as $subcategory)
+        @foreach ($category->subcategories->sortBy('sort_index') as $subcategory)
             @if ($subcategory->courses->isNotEmpty())
                 <div class="my-10 border-b-1 border-b-neutral-300 pb-10">
                     <div class="sm:flex sm:items-center">

@@ -18,11 +18,13 @@ class CourseSubcategory extends Model
         'description',
         'amount',
         'is_club',
-        'status'
+        'status',
+        'sort_index',
     ];
 
     protected $casts = [
         'is_club' => 'bool',
+        'sort_index' => 'integer',
     ];
 
     /**
