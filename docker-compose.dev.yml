@@ -1,0 +1,63 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    volumes:
+      - .:/var/www/html
+      - vendor:/var/www/html/vendor
+    user: "${UID:-1000}:${GID:-1000}"
+    environment:
+      PHP_OPCACHE_VALIDATE_TIMESTAMPS: 1
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    image: nginx:1.25-alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+      - vendor:/var/www/html/vendor
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      app:
+        condition: service_started
+
+  db:
+    image: postgres:15-alpine
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-habaneando}
+      POSTGRES_USER: ${POSTGRES_USER:-doadmin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-doadmin} -d ${POSTGRES_DB:-habaneando}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  vite:
+    image: node:20-alpine
+    working_dir: /var/www/html
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 5173"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/var/www/html
+      - vendor:/var/www/html/vendor
+      - node_modules:/var/www/html/node_modules
+    depends_on:
+      web:
+        condition: service_started
+
+volumes:
+  vendor:
+  node_modules:
+  pgdata:

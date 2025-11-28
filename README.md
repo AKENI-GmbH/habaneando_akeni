@@ -7,6 +7,16 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Local development (Docker)
+
+- Copy env for Docker: `cp .env.docker.example .env` (defaults: Postgres user/db `habaneando`, password `secret`).
+- Build and start stack (PHP-FPM + nginx + Postgres + Vite): `docker compose -f docker-compose.dev.yml up -d --build`.
+- Install PHP deps once: `docker compose -f docker-compose.dev.yml exec app composer install`.
+- Generate app key: `docker compose -f docker-compose.dev.yml exec app php artisan key:generate`.
+- Run migrations/seeds: `docker compose -f docker-compose.dev.yml exec app php artisan migrate`.
+- Web app is served at http://localhost:8080; Vite dev server runs on http://localhost:5173.
+- Stop services: `docker compose -f docker-compose.dev.yml down` (add `-v` to drop Postgres data).
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
