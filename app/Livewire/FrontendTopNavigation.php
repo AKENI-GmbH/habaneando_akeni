@@ -112,6 +112,11 @@ class FrontendTopNavigation extends Component
                 'position' => 6,
             ],
             [
+                "label" => 'Gutscheine',
+                "link" => route('frontend.coupon', 'gutsheine'),
+                'position' => 7,
+            ],
+            [
                 "label" => 'Infos',
                 "submenu" => [
                     [
@@ -119,23 +124,19 @@ class FrontendTopNavigation extends Component
                         "link" => route('frontend.preise'),
                         'position' => 1,
                     ],
-                    [
-                        "label" => 'Gutscheine',
-                        "link" => route('frontend.coupon', 'gutsheine'),
-                        'position' => 2,
-                    ],
+                    
                     [
                         "label" => 'Betribsferien',
                         "link" => route('frontend.vacation'),
                         'position' => 3,
                     ],
                 ],
-                'position' => 7,
+                'position' => 8,
             ],
             [
                 "label" => 'Mein Konto',
                 "submenu" => Auth::guard('customer')->check() ? $this->getAuthenticatedUserMenu() : $this->getGuestUserMenu(),
-                'position' => 8,
+                'position' => 9,
             ],
         ])->sortBy('position');
     }
