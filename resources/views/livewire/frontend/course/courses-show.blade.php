@@ -115,7 +115,7 @@
                             </dl>
                         </div>
 
-                        @if ($course->soldout)
+                        @if ($course->is_sold_out)
                             <p class="px-10 py-10 font-bold">Dieser Kurs ist ausverkauft</p>
                         @else
                             @auth('customer')

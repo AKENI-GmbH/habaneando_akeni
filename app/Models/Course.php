@@ -38,6 +38,7 @@ class Course extends Model
         'allowClub',
         'allowsinglePayment',
         'soldout',
+        'max_participants',
         'amount'
     ];
 
@@ -189,5 +190,33 @@ class Course extends Model
     public function getScheduleTimeToAttribute($value)
     {
         return Carbon::parse($value)->format('H');
+    }
+
+    /**
+     * Get current number of subscribed participants
+     */
+    public function getCurrentParticipantsAttribute()
+    {
+        return $this->subscriptions()->count();
+    }
+
+    /**
+     * Check if course is full based on max_participants
+     */
+    public function getIsFullAttribute()
+    {
+        if (!$this->max_participants) {
+            return false; // No limit set
+        }
+        
+        return $this->getCurrentParticipantsAttribute() >= $this->max_participants;
+    }
+
+    /**
+     * Check if course should be displayed as sold out
+     */
+    public function getIsSoldOutAttribute()
+    {
+        return $this->soldout || $this->getIsFullAttribute();
     }
 }
