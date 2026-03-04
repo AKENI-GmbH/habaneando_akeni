@@ -6,6 +6,7 @@ services:
     volumes:
       - .:/var/www/html
       - vendor:/var/www/html/vendor
+      - node_modules:/var/www/html/node_modules
     user: "${UID:-1000}:${GID:-1000}"
     environment:
       PHP_OPCACHE_VALIDATE_TIMESTAMPS: 1
@@ -20,6 +21,7 @@ services:
     volumes:
       - .:/var/www/html
       - vendor:/var/www/html/vendor
+      - node_modules:/var/www/html/node_modules
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
       app:
@@ -31,12 +33,12 @@ services:
       - "5434:5432"
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-habaneando}
-      POSTGRES_USER: ${POSTGRES_USER:-doadmin}
+      POSTGRES_USER: ${POSTGRES_USER:-habaneando}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-doadmin} -d ${POSTGRES_DB:-habaneando}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-habaneando} -d ${POSTGRES_DB:-habaneando}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -44,7 +46,7 @@ services:
   vite:
     image: node:20-alpine
     working_dir: /var/www/html
-    command: sh -c "npm install && npm run build -- --host 0.0.0.0 --port 5173"
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 5173"
     environment:
       - CHOKIDAR_USEPOLLING=true
     ports:
