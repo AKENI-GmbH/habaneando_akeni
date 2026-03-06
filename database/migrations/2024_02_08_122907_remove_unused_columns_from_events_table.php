@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('events', function (Blueprint $table) {
-            $table->dropColumn('cover');
-            $table->dropColumn('videoId');
-            $table->dropColumn('headerType');
-            $table->dropColumn('overlayColor');
-            $table->dropColumn('overlay');
-            $table->dropColumn('overlayOpacity');
+            $columns = ['cover', 'videoId', 'headerType', 'overlayColor', 'overlay', 'overlayOpacity'];
+            foreach ($columns as $column) {
+                if (Schema::hasColumn('events', $column)) {
+                    $table->dropColumn($column);
+                }
+            }
         });
     }
 

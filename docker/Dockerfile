@@ -21,6 +21,8 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
+RUN usermod -u 1000 www-data && groupmod -g 1000 www-data \
+    && mkdir -p /var/www/html/vendor /var/www/html/node_modules \
+    && chown -R www-data:www-data /var/www/html/vendor /var/www/html/node_modules
 
 CMD ["php-fpm"]

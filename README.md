@@ -9,13 +9,15 @@
 
 ## Local development (Docker)
 
-- Copy env for Docker: `cp .env.docker.example .env` (defaults: Postgres user/db `habaneando`, password `secret`).
-- Build and start stack (PHP-FPM + nginx + Postgres + Vite): `docker compose -f docker-compose.dev.yml up -d --build`.
-- Install PHP deps once: `docker compose -f docker-compose.dev.yml exec app composer install`.
-- Generate app key: `docker compose -f docker-compose.dev.yml exec app php artisan key:generate`.
-- Run migrations/seeds: `docker compose -f docker-compose.dev.yml exec app php artisan migrate`.
-- Web app is served at http://localhost:8080; Vite dev server runs on http://localhost:5173.
-- Stop services: `docker compose -f docker-compose.dev.yml down` (add `-v` to drop Postgres data).
+1. Copy env for Docker: `cp .env.docker.example .env` (defaults: Postgres user/db `habaneando`, password `secret`).
+2. Build and start stack (PHP-FPM + nginx + Postgres + Vite): `docker compose -f docker-compose.dev.yml up -d --build`.
+3. Install PHP deps: `docker compose -f docker-compose.dev.yml exec app composer install`.
+4. Generate app key: `docker compose -f docker-compose.dev.yml exec app php artisan key:generate`.
+5. Run migrations: `docker compose -f docker-compose.dev.yml exec app php artisan migrate`.
+6. Build frontend assets (wait ~30 s for `npm install` to finish first): `docker compose -f docker-compose.dev.yml exec vite npm run build`.
+7. Web app is served at http://localhost:8080; Vite dev server (HMR) runs on http://localhost:5173.
+
+Stop services: `docker compose -f docker-compose.dev.yml down` (add `-v` to also drop Postgres data and reinstall deps on next start).
 
 ## About Laravel
 

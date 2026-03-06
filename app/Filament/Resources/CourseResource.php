@@ -83,11 +83,29 @@ class CourseResource extends Resource
                         \Filament\Forms\Components\TimePicker::make('schedule_time_from')
                             ->required()
                             ->label(__('Start Time'))
+                            ->formatStateUsing(function ($state) {
+                                if (!$state) return null;
+                                // Wenn bereits im H:i Format, direkt verwenden
+                                if (strlen($state) > 2 && strpos($state, ':') !== false) {
+                                    return $state;
+                                }
+                                // Wenn nur Stunden (z.B. "20"), zu "20:00" erweitern
+                                return $state . ':00';
+                            })
                             ->columnSpan(1),
 
                         \Filament\Forms\Components\TimePicker::make('schedule_time_to')
                             ->required()
                             ->label(__('End Time'))
+                            ->formatStateUsing(function ($state) {
+                                if (!$state) return null;
+                                // Wenn bereits im H:i Format, direkt verwenden
+                                if (strlen($state) > 2 && strpos($state, ':') !== false) {
+                                    return $state;
+                                }
+                                // Wenn nur Stunden (z.B. "21"), zu "21:00" erweitern
+                                return $state . ':00';
+                            })
                             ->columnSpan(1),
                     ])->columns(4),
 
@@ -116,6 +134,28 @@ class CourseResource extends Resource
                         \Filament\Forms\Components\Toggle::make('soldout')
                             ->label(__('Soldout')),
                     ])->columns(5),
+
+                \Filament\Forms\Components\Section::make('Participant Management')
+                    ->schema([
+                        \Filament\Forms\Components\TextInput::make('max_participants')
+                            ->label('Max Participants')
+                            ->numeric()
+                            ->minValue(1)
+                            ->placeholder('No limit')
+                            ->helperText('Leave empty for unlimited participants')
+                            ->columnSpan(1),
+                        
+                        \Filament\Forms\Components\Placeholder::make('current_participants')
+                            ->label('Current Registrations')
+                            ->content(function ($record) {
+                                if (!$record) return '0';
+                                $current = $record->current_participants;
+                                $max = $record->max_participants;
+                                $status = $record->is_full ? ' (SOLD OUT)' : '';
+                                return $max ? "$current / $max$status" : "$current$status";
+                            })
+                            ->columnSpan(1),
+                    ])->columns(2),
             ])->columns();
     }
 
@@ -151,6 +191,23 @@ class CourseResource extends Resource
                     ->placeholder(__('Empty'))
                     ->label(__('Ends at')),
 
+                Columns\TextColumn::make('participants_info')
+                    ->label('Participants')
+                    ->getStateUsing(function (Course $record) {
+                        $current = $record->current_participants;
+                        $max = $record->max_participants;
+                        $isFull = $record->is_full;
+                        
+                        if ($max) {
+                            $color = $isFull ? 'red' : ($current / $max > 0.8 ? 'orange' : 'green');
+                            return "$current/$max";
+                        }
+                        return (string) $current;
+                    })
+                    ->badge()
+                    ->color(fn(Course $record) => $record->is_full ? 'danger' : ($record->max_participants && $record->current_participants / $record->max_participants > 0.8 ? 'warning' : 'success'))
+                    ->sortable(false)
+                    ->searchable(false),
 
                 Columns\IconColumn::make('status')->label(__('Status'))->boolean(),
             ])->defaultSort('start_date', 'asc')
