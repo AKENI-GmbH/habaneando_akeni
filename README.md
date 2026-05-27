@@ -19,6 +19,91 @@
 
 Stop services: `docker compose -f docker-compose.dev.yml down` (add `-v` to also drop Postgres data and reinstall deps on next start).
 
+## Auto rebuild on origin/testing updates
+
+This repository includes a one-cycle watcher script that:
+
+1. fetches `origin/testing`
+2. checks if the upstream commit SHA changed
+3. runs `docker compose -f docker-compose.dev.yml up -d --build app web` only when changed
+
+Runtime files are written to `.branch-watch/` (ignored by git).
+
+### Run once manually
+
+```sh
+./scripts/watch-testing-branch.sh
+```
+
+On first run, the script initializes the tracked SHA and does not restart containers.
+
+### macOS scheduler (launchd)
+
+1. Replace `__REPO_ROOT__` in the template and install it:
+
+```sh
+mkdir -p "$HOME/Library/LaunchAgents"
+sed "s|__REPO_ROOT__|$(pwd)|g" ops/launchd/com.habaneando.testing-watch.plist > "$HOME/Library/LaunchAgents/com.habaneando.testing-watch.plist"
+```
+
+2. Load and start:
+
+```sh
+launchctl unload "$HOME/Library/LaunchAgents/com.habaneando.testing-watch.plist" 2>/dev/null || true
+launchctl load "$HOME/Library/LaunchAgents/com.habaneando.testing-watch.plist"
+launchctl start com.habaneando.testing-watch
+```
+
+3. Check status/logs:
+
+```sh
+launchctl list | grep com.habaneando.testing-watch
+tail -f .branch-watch/watcher.log
+```
+
+4. Stop:
+
+```sh
+launchctl unload "$HOME/Library/LaunchAgents/com.habaneando.testing-watch.plist"
+```
+
+### Linux scheduler (systemd user timer)
+
+1. Install unit files for your user session:
+
+```sh
+mkdir -p "$HOME/.config/systemd/user"
+sed "s|__REPO_ROOT__|$(pwd)|g" ops/systemd/habaneando-testing-watch.service > "$HOME/.config/systemd/user/habaneando-testing-watch.service"
+cp ops/systemd/habaneando-testing-watch.timer "$HOME/.config/systemd/user/habaneando-testing-watch.timer"
+systemctl --user daemon-reload
+```
+
+2. Enable and start timer:
+
+```sh
+systemctl --user enable --now habaneando-testing-watch.timer
+```
+
+3. Check status/logs:
+
+```sh
+systemctl --user status habaneando-testing-watch.timer
+journalctl --user -u habaneando-testing-watch.service -f
+tail -f .branch-watch/watcher.log
+```
+
+4. Stop:
+
+```sh
+systemctl --user disable --now habaneando-testing-watch.timer
+```
+
+If your Linux host does not have user systemd timers, use cron:
+
+```cron
+*/5 * * * * cd /absolute/path/to/repo && ./scripts/watch-testing-branch.sh
+```
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

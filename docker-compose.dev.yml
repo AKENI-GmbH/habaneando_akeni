@@ -17,7 +17,7 @@ services:
   web:
     image: nginx:1.25-alpine
     ports:
-      - "8080:80"
+      - "8087:80"
     volumes:
       - .:/var/www/html
       - vendor:/var/www/html/vendor

@@ -1,0 +1,11 @@
+[Unit]
+Description=Run Habaneando origin/testing watcher every 5 minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+Persistent=true
+Unit=habaneando-testing-watch.service
+
+[Install]
+WantedBy=timers.target
