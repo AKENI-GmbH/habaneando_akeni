@@ -5,6 +5,7 @@ namespace App\Livewire\Frontend\Checkout;
 use Stripe\Checkout\Session as StripeCheckoutSession;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Customer;
 use App\Enum\SubscriptionTypeEnum;
 use App\Enum\PaymentMethodEnum;
 use App\Enum\PaymentStatusEnum;
@@ -27,7 +28,27 @@ class CheckoutSuccess extends Component
   Stripe::setApiKey(env('STRIPE_SECRET'));
 
   $checkout_session = StripeCheckoutSession::retrieve($this->session_id);
-  $customer = Auth::guard('customer')->user();
+
+    if (($checkout_session->payment_status ?? null) !== 'paid') {
+   return;
+  }
+
+    $authenticatedCustomer = Auth::guard('customer')->user();
+    $customerIdFromMetadata = $checkout_session->metadata->customer_id ?? null;
+
+    if ($customerIdFromMetadata) {
+     $customer = Customer::find($customerIdFromMetadata);
+    } else {
+     $customer = $authenticatedCustomer;
+    }
+
+    if (!$customer) {
+     return;
+    }
+
+    if ($authenticatedCustomer && (int) $authenticatedCustomer->id !== (int) $customer->id) {
+     return;
+    }
 
   $existingSubscription = EventSubscription::where([
    'customer_id' => $customer->id,

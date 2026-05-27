@@ -59,6 +59,10 @@ class EventSingle extends Component
 
     private function createCheckoutSession()
     {
+        if (!auth()->guard('customer')->check()) {
+            abort(403);
+        }
+
         Stripe::setApiKey(env('STRIPE_SECRET'));
 
         $appUrl = env('APP_URL');
@@ -77,6 +81,7 @@ class EventSingle extends Component
                 'quantity' => $this->quantity,
             ]],
             'metadata' => [
+                'customer_id' => $this->customer->id,
                 'event_id' => $this->event->id,
                 'ticket_id' => $this->ticket,
                 'quantity' => $this->quantity,
