@@ -12,17 +12,18 @@ class FrontendTopNavigation extends Component
     public $navigation;
 
     #[On('loggedIn')]
-    public function refresh()
+    #[On('loggedOut')]
+    public function refresh(): void
     {
-        $this->navigation = $this->buildNavidation();
+        $this->navigation = $this->buildNavigation();
     }
 
     public function mount()
     {
-        $this->navigation = $this->buildNavidation();
+        $this->navigation = $this->buildNavigation();
     }
 
-    private function buildNavidation()
+    private function buildNavigation()
     {
         $categories = CourseCategory::where('status', true)
             ->get()
@@ -145,7 +146,7 @@ class FrontendTopNavigation extends Component
     {
         return [
             [
-                "label" => 'Mein konto',
+                "label" => 'Mein Konto',
                 "link" => route('frontend.konto'),
                 'position' => 1,
             ],
