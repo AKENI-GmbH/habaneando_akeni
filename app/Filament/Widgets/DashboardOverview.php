@@ -8,6 +8,10 @@ use App\Models\CourseSubscription;
 use App\Models\Customer;
 use App\Models\EventSubscription;
 use App\Models\ContactMessage;
+use App\Filament\Resources\ContactMessageResource;
+use App\Filament\Resources\CourseResource;
+use App\Filament\Resources\CustomerResource;
+use App\Filament\Resources\EventSubscriptionResource;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Carbon\Carbon;
@@ -34,12 +38,12 @@ class DashboardOverview extends BaseWidget
         $messages = ContactMessage::where('read', false)->count();
 
         return [
-            Stat::make('New Members', $membersCount),
-            Stat::make('Total Memberships', $montlyIncome . '€'),
-            Stat::make('Course Subscriptions',  $courseSubsCount),
-            Stat::make('Event Subscriptions', $eventSubsCount),
-            Stat::make('New Messages', $messages),
-            Stat::make("{$currentMonthName}'s Birthdays", $birthdayCount),
+            Stat::make('New Members', $membersCount)->url(CustomerResource::getUrl('index')),
+            Stat::make('Total Memberships', $montlyIncome . '€')->url(CustomerResource::getUrl('index')),
+            Stat::make('Course Subscriptions',  $courseSubsCount)->url(CourseResource::getUrl('index')),
+            Stat::make('Event Subscriptions', $eventSubsCount)->url(EventSubscriptionResource::getUrl('index')),
+            Stat::make('New Messages', $messages)->url(ContactMessageResource::getUrl('index')),
+            Stat::make("{$currentMonthName}'s Birthdays", $birthdayCount)->url(CustomerResource::getUrl('index')),
         ];
     }
 }

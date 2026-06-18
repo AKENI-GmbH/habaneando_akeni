@@ -71,7 +71,7 @@ class FrontendTopNavigation extends Component
             ],
 
             [
-                "label" => 'Events & Tanzreisen',
+                "label" => 'Events & Partys',
                 "submenu" => [
                     [
                         "label" => 'Party',
@@ -88,11 +88,6 @@ class FrontendTopNavigation extends Component
                         "link" => route('frontend.crashcourse.list'),
                         'position' => 4,
                     ],
-                    [
-                        "label" => 'Tanzreisen',
-                        "link" => url('https://salsatanzreise.de'),
-                        'position' => 5,
-                    ],
                     // [
                     //     "label" => 'Club events',
                     //     "link" => route('frontend.workshops.list'),
@@ -108,6 +103,12 @@ class FrontendTopNavigation extends Component
             ],
 
             [
+                "label" => 'Tanzreisen',
+                "link" => url('https://salsatanzreise.de'),
+                'position' => 4,
+            ],
+
+            [
                 "label" => 'Team',
                 "link" => route('frontend.team'),
                 'position' => 6,
@@ -118,20 +119,8 @@ class FrontendTopNavigation extends Component
                 'position' => 7,
             ],
             [
-                "label" => 'Infos',
-                "submenu" => [
-                    [
-                        "label" => 'Preise',
-                        "link" => route('frontend.preise'),
-                        'position' => 1,
-                    ],
-                    
-                    [
-                        "label" => 'Betribsferien',
-                        "link" => route('frontend.vacation'),
-                        'position' => 3,
-                    ],
-                ],
+                "label" => 'Kontakt',
+                "link" => route('frontend.kontakt'),
                 'position' => 8,
             ],
             [
