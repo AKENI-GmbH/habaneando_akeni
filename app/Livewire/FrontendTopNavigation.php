@@ -34,6 +34,24 @@ class FrontendTopNavigation extends Component
                     'position' => $category->id,
                 ];
             })->sortBy('position')
+            ->values();
+
+        $categoryPositions = $categories->pluck('position', 'label');
+        $ruedaPosition = $categoryPositions->get('Rueda de Casino');
+        $ladyStylePosition = $categoryPositions->get('Lady Style');
+
+        $categories = $categories
+            ->sortBy(function ($category) use ($ruedaPosition, $ladyStylePosition) {
+                if ($category['label'] === 'Rueda de Casino') {
+                    return $ladyStylePosition ?? $category['position'];
+                }
+
+                if ($category['label'] === 'Lady Style') {
+                    return $ruedaPosition ?? $category['position'];
+                }
+
+                return $category['position'];
+            })
             ->values()
             ->toArray();
 
@@ -65,7 +83,7 @@ class FrontendTopNavigation extends Component
                 'position' => 1,
             ],
             [
-                "label" => 'Kurse',
+                "label" => 'Tanzkurse',
                 "submenu" => collect($categories),
                 'position' => 2,
             ],
@@ -114,8 +132,24 @@ class FrontendTopNavigation extends Component
                 'position' => 6,
             ],
             [
-                "label" => 'Gutscheine',
-                "link" => route('frontend.coupon', 'gutsheine'),
+                "label" => 'Infos',
+                "submenu" => [
+                    [
+                        "label" => 'Preise',
+                        "link" => route('frontend.preise'),
+                        'position' => 1,
+                    ],
+                    [
+                        "label" => 'Gutscheine',
+                        "link" => route('frontend.coupon'),
+                        'position' => 2,
+                    ],
+                    [
+                        "label" => 'FAQ',
+                        "link" => route('frontend.faq'),
+                        'position' => 3,
+                    ],
+                ],
                 'position' => 7,
             ],
             [

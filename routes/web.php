@@ -18,6 +18,7 @@ use App\Livewire\Frontend\Event\EventSingle;
 use App\Livewire\Frontend\HomeFrontPage;
 use App\Livewire\Frontend\Page\CouponPage;
 use App\Livewire\Frontend\Page\PricePage;
+use App\Livewire\Frontend\Page\FaqPage;
 use App\Livewire\Frontend\Page\ContactPage;
 use App\Livewire\Frontend\Page\PrivateLessonPage;
 use App\Livewire\Frontend\Page\TeamPage;
@@ -48,6 +49,7 @@ Route::get('/forgot-password', ForgotPassword::class)->middleware('guest')->name
 Route::get('/', HomeFrontPage::class)->name('frontend.home');
 Route::get('/team', TeamPage::class)->name('frontend.team');
 Route::get('/preise', PricePage::class)->name('frontend.preise');
+Route::get('/faq', FaqPage::class)->name('frontend.faq');
 Route::get('/kontakt', ContactPage::class)->name('frontend.kontakt');
 Route::get('/gutsheine', CouponPage::class)->name('frontend.coupon');
 Route::get('/betribsferien', VacationPage::class)->name('frontend.vacation');

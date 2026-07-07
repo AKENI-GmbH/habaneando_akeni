@@ -1,3 +1,10 @@
+<a href="{{ route('frontend.course.info') }}"
+    style="left: 1.5rem;"
+    class="fixed bottom-6 z-50 w-12 h-12 bg-red-500 rounded-full shadow-lg flex items-center justify-center hover:bg-red-600 transition-colors duration-300"
+    aria-label="Kursuebersicht oeffnen">
+    <x-icons.calendar class="w-6 h-6 text-white" />
+</a>
+
 <div class="fixed bottom-6 right-6">
     <div class="relative group">
         <div

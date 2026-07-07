@@ -1,23 +1,28 @@
 <section>
 
+<style>
+@media (min-width: 1024px) {
+    .hero-grid { grid-template-columns: 1fr 2fr; }
+    .kacheln-grid { grid-template-columns: repeat(3, 1fr) !important; }
+}
+</style>
     <div class="relative min-h-screen">
         <div style="background: radial-gradient(circle, #b50314, #270001); opacity: 1;" class="absolute inset-0 -z-10 h-full w-full object-cover">
         </div>
 
-        <div class="mx-auto grid min-h-screen max-w-7xl grid-cols-1 items-center gap-8 px-6 pb-28 pt-16 sm:py-20 lg:grid-cols-3 lg:px-8">
+        <div class="hero-grid mx-auto grid min-h-screen max-w-screen-2xl grid-cols-1 items-center gap-8 px-6 pb-28 pt-16 sm:py-20 lg:px-8">
             <div class="flex justify-center lg:justify-start">
                 <img src="{{ asset('images/header.png') }}" alt="" class="max-h-[70vh] w-full max-w-sm object-contain lg:max-w-2xl">
             </div>
-            <div class="text-center lg:col-span-2">
-                <div class="mx-auto max-w-3xl">
-                    <h1 class="text-xl font-semibold leading-tight text-white sm:text-2xl lg:text-3xl">
+            <div class="text-center">
+                <div class="mx-auto max-w-5xl">
+                    <h1 class="text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl">
                         Salsa & Bachata für Paare in Speyer –
-                        <span class="mt-3 block text-lg font-normal leading-snug sm:text-xl lg:text-2xl">für Anfänger, ganz ohne Vorkenntnisse.</span>
+                        <span class="mt-4 block text-2xl font-normal leading-snug sm:text-3xl lg:text-4xl">für Anfänger, ganz ohne Vorkenntnisse.</span>
                     </h1>
-                    <a href="{{ route('frontend.course.info') }}" class="mt-8 inline-flex items-center justify-center rounded-md bg-white px-5 py-3 text-sm font-semibold text-red-700 shadow-sm hover:bg-neutral-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Wöchentliches Tanzprogramm</a>
                 </div>
 
-                <div class="mt-8 grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
+                <div class="kacheln-grid" style="display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 2rem;">
                     <div class="rounded-md bg-white p-4 text-neutral-900 shadow-sm">
                         <h2 class="text-base font-semibold">Anfänger-Tanzkurse</h2>
                         <div class="my-3 border-t border-neutral-200"></div>
@@ -116,7 +121,7 @@
                                 <p class="mt-5 line-clamp-3 text-sm leading-6 text-neutral-600">{{ $category->short_text }}
                                 </p>
                             </div>
-                        </div> 
+                        </div>
                     </article>
                 @endforeach
             </div>
