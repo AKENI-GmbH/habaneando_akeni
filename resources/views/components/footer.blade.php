@@ -6,7 +6,7 @@
                 <img class="h-32" src="{{ asset('images/logo.png') }}" alt="Habaneando">
                 <div>
                     <p class="font-bold">Salsa Tanzschule Habaneando</p>
-                    <p class="text-sm leading-6 text-neutral-600">Brunckstrasse 8, 67346, Speyer</p>
+                    <p class="text-sm leading-6 text-neutral-600">Brunckstraße 8, 67346 Speyer</p>
                 </div>
                 <div class="flex space-x-6">
                     <a href="#" class="text-neutral-400 hover:text-neutral-500">
@@ -67,7 +67,7 @@
             </div>
         </div>
         <div class="mt-16 border-t border-neutral-900/10 pt-8 sm:mt-20 lg:mt-24">
-            <p class="text-xs leading-5 text-neutral-500">&copy; 2020 Your Company, Inc. All rights reserved.</p>
+            <p class="text-xs leading-5 text-neutral-500">&copy; 2026 Salsa Tanzschule Habaneando. All rights reserved.</p>
         </div>
     </div>
 </footer>
