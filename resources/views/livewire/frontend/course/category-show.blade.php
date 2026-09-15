@@ -18,12 +18,12 @@
                             <table class="min-w-full divide-y divide-neutral-300 table-alternate">
                                 <thead>
                                     <tr class="bg-red-600 text-white">
-                                        <th scope="col" class="py-3.5 pl-4 pr-3 text-left font-bold">Kursbezeichnung
+                                        <th scope="col" class="py-3.5 pl-4 pr-3 text-left font-bold">Tanzkurs
                                         </th>
                                         {{-- <th scope="col" class="px-3 py-3.5 text-left font-bold">Ort</th> --}}
                                         <th scope="col" class="px-3 py-3.5 text-left font-bold">Kursbeginn</th>
                                         <th scope="col" class="px-3 py-3.5 text-left font-bold">Uhrzeit</th>
-                                        <th scope="col" class="px-3 py-3.5 text-left font-bold">Ort</th>
+                                        {{-- <th scope="col" class="px-3 py-3.5 text-left font-bold">Ort</th> --}}
                                         <th scope="col" class="py-3.5 pl-3 pr-4"> </th>
                                     </tr>
                                 </thead>
@@ -48,8 +48,8 @@
                                                 <td class="whitespace-nowrap px-3 py-4 text-base text-neutral-500">
                                                     {{ $course->schedule_time_from }} bis
                                                     {{ $course->schedule_time_to }} Uhr</td>
-                                                <td class="whitespace-nowrap px-3 py-4 text-base text-neutral-500">
-                                                    {{ $course->location->city }}</td>
+                                                {{-- <td class="whitespace-nowrap px-3 py-4 text-base text-neutral-500">
+                                                    {{ $course->location->city }}</td> --}}
                                                 <td
                                                     class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-base font-medium">
                                                     <a href="{{ route('frontend.course.show', $course) }}"

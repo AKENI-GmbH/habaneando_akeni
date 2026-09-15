@@ -32,7 +32,7 @@ class Footer extends Component
                 ],
             ],
             [
-                "label" => "Habaneando",
+                "label" => "Salsa Tanzschule",
                 "menu" => [
                     [
                         "label" => "Betriebsferien",
@@ -41,6 +41,10 @@ class Footer extends Component
                     [
                         "label" => "Mitgliedschaft",
                         "link" => route('frontend.memebrship.create', 'mitgliedschaft'),
+                    ],
+                    [
+                        "label" => "Preise",
+                        "link" => route('frontend.preise'),
                     ]
                 ],
             ],

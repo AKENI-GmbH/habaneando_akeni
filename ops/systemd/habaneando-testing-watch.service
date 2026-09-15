@@ -1,0 +1,9 @@
+[Unit]
+Description=Habaneando origin/testing Docker watcher
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=__REPO_ROOT__
+ExecStart=__REPO_ROOT__/scripts/watch-testing-branch.sh

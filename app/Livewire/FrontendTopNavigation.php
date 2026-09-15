@@ -12,17 +12,18 @@ class FrontendTopNavigation extends Component
     public $navigation;
 
     #[On('loggedIn')]
-    public function refresh()
+    #[On('loggedOut')]
+    public function refresh(): void
     {
-        $this->navigation = $this->buildNavidation();
+        $this->navigation = $this->buildNavigation();
     }
 
     public function mount()
     {
-        $this->navigation = $this->buildNavidation();
+        $this->navigation = $this->buildNavigation();
     }
 
-    private function buildNavidation()
+    private function buildNavigation()
     {
         $categories = CourseCategory::where('status', true)
             ->get()
@@ -33,6 +34,24 @@ class FrontendTopNavigation extends Component
                     'position' => $category->id,
                 ];
             })->sortBy('position')
+            ->values();
+
+        $categoryPositions = $categories->pluck('position', 'label');
+        $ruedaPosition = $categoryPositions->get('Rueda de Casino');
+        $ladyStylePosition = $categoryPositions->get('Lady Style');
+
+        $categories = $categories
+            ->sortBy(function ($category) use ($ruedaPosition, $ladyStylePosition) {
+                if ($category['label'] === 'Rueda de Casino') {
+                    return $ladyStylePosition ?? $category['position'];
+                }
+
+                if ($category['label'] === 'Lady Style') {
+                    return $ruedaPosition ?? $category['position'];
+                }
+
+                return $category['position'];
+            })
             ->values()
             ->toArray();
 
@@ -64,13 +83,13 @@ class FrontendTopNavigation extends Component
                 'position' => 1,
             ],
             [
-                "label" => 'Kurse',
+                "label" => 'Tanzkurse',
                 "submenu" => collect($categories),
                 'position' => 2,
             ],
 
             [
-                "label" => 'Events & Tanzreisen',
+                "label" => 'Events & Partys',
                 "submenu" => [
                     [
                         "label" => 'Party',
@@ -87,11 +106,6 @@ class FrontendTopNavigation extends Component
                         "link" => route('frontend.crashcourse.list'),
                         'position' => 4,
                     ],
-                    [
-                        "label" => 'Tanzreisen',
-                        "link" => url('https://salsatanzreise.de'),
-                        'position' => 5,
-                    ],
                     // [
                     //     "label" => 'Club events',
                     //     "link" => route('frontend.workshops.list'),
@@ -107,14 +121,15 @@ class FrontendTopNavigation extends Component
             ],
 
             [
+                "label" => 'Tanzreisen',
+                "link" => url('https://salsatanzreise.de'),
+                'position' => 4,
+            ],
+
+            [
                 "label" => 'Team',
                 "link" => route('frontend.team'),
                 'position' => 6,
-            ],
-            [
-                "label" => 'Gutscheine',
-                "link" => route('frontend.coupon', 'gutsheine'),
-                'position' => 7,
             ],
             [
                 "label" => 'Infos',
@@ -124,13 +139,22 @@ class FrontendTopNavigation extends Component
                         "link" => route('frontend.preise'),
                         'position' => 1,
                     ],
-                    
                     [
-                        "label" => 'Betribsferien',
-                        "link" => route('frontend.vacation'),
+                        "label" => 'Gutscheine',
+                        "link" => route('frontend.coupon'),
+                        'position' => 2,
+                    ],
+                    [
+                        "label" => 'FAQ',
+                        "link" => route('frontend.faq'),
                         'position' => 3,
                     ],
                 ],
+                'position' => 7,
+            ],
+            [
+                "label" => 'Kontakt',
+                "link" => route('frontend.kontakt'),
                 'position' => 8,
             ],
             [
@@ -145,7 +169,7 @@ class FrontendTopNavigation extends Component
     {
         return [
             [
-                "label" => 'Mein konto',
+                "label" => 'Mein Konto',
                 "link" => route('frontend.konto'),
                 'position' => 1,
             ],
