@@ -10,8 +10,8 @@ export default defineConfig({
             ignored: ["**/storage/**", "**/bootstrap/cache/**"],
         },
         hmr: {
-            host: "dev05.akeni.net",
-            clientPort: 8087,
+            host: process.env.VITE_HMR_HOST || "dev05.akeni.net",
+            clientPort: Number(process.env.VITE_HMR_PORT) || 8087,
             path: "/vite-hmr",
         },
     },
