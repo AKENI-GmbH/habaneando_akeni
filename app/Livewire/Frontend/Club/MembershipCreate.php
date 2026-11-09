@@ -42,8 +42,10 @@ class MembershipCreate extends Component
 
     public function mount()
     {
-        $this->rateCategory = RateCategory::whereHas('activeRates')->with('activeRates')->orderBy('position')->get();
+        $this->rateCategory = RateCategory::all();
         $this->selectedCategory = $this->rateCategory->first()->id ?? null;
+        $this->selectedRate = $this->rateCategory->first()->activeRates->first()->id ?? null;
+        $this->updateRateInfo($this->selectedRate);
 
         if (auth()->guard('customer')->check()) {
             $this->customer = auth()->guard('customer')->user();
