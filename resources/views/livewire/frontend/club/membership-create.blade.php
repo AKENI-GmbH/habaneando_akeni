@@ -52,40 +52,63 @@
             @else
                 @if ($showForm && !$showSuccess)
                     <!-- Rate Categories -->
-                    <di
-                        class="mx-auto mt-10 text-center grid max-w-4xl grid-cols-1 gap-8 md:max-w-4xl md:grid-cols-2 lg:max-w-4xl xl:mx-auto xl:grid-cols-2">
-                        @foreach ($rateCategory->take(2) as $category)
-                            <div class="rounded-xl border border-neutral-200 p-4">
-                                <h2 class="text-lg font-semibold leading-6 text-neutral-900">{{ $category->name }}</h2>
+                    @php
+                        $subtitles = [
+                            6 => 'Beliebt und günstig',
+                            12 => 'Dein bester Preis',
+                            1 => 'Flexibel starten',
+                        ];
+                    @endphp
 
-                                <!-- Radio Button Group -->
-                                <div class="-space-y-px rounded-md bg-white mt-2">
-                                    @foreach ($category->activeRates->sortBy('limit') as $rate)
-                                        <labelj
-                                            class="relative flex items-center cursor-pointer border-none p-4 focus:outline-none {{ $selectedRate == $rate->id ? 'bg-red-100' : '' }}">
-                                            <input wire:model.lazy="selectedRate" type="radio" value="{{ $rate->id }}"
-                                                class="h-4 w-4 cursor-pointer text-red-600 border-neutral-300 focus:ring-red-600">
-                                            <span class="ml-3 flex flex-col">
-                                                <span id="rate-{{ $loop->index }}-label"
-                                                    class="block text-base font-regular text-neutral-900">{{ $rate->name }}
-                                                    pro Woche, <span
-                                                        class="font-bold">{{ formatPriceGerman($rate->amount) }},€</span></span>
-                                            </span>
-                                        </labelj>
-                                    @endforeach
+                    <div class="mx-auto mt-10 max-w-5xl">
+                        <p class="mb-6 text-center text-sm text-neutral-600 md:text-right">Alle Preise pro Monat</p>
+
+                        <div class="grid grid-cols-1 gap-8 text-center md:grid-cols-3 md:gap-4">
+                            @foreach ($rateCategory->sortBy('position') as $category)
+                                @php $isBestOffer = (int) $category->duration === 12; @endphp
+
+                                <div
+                                    class="relative rounded-xl border p-4 {{ $isBestOffer ? 'border-yellow-300 bg-yellow-50' : 'border-neutral-200' }}">
+                                    @if ($isBestOffer)
+                                        <span
+                                            class="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-red-600 px-3 py-1 text-xs font-semibold uppercase text-white">
+                                            ★ Unser bestes Angebot
+                                        </span>
+                                    @endif
+
+                                    <h2 class="mt-2 text-lg font-semibold uppercase leading-6 text-neutral-900">
+                                        {{ $category->name }}</h2>
+                                    <p class="mt-1 text-sm text-neutral-600">{{ $subtitles[$category->duration] ?? '' }}
+                                    </p>
+
+                                    <!-- Radio Button Group -->
+                                    <div class="mt-3 space-y-1">
+                                        @foreach ($category->activeRates->sortBy('amount') as $rate)
+                                            <label wire:key="rate-{{ $rate->id }}"
+                                                class="flex cursor-pointer items-center rounded-md p-3 text-left {{ $selectedRate == $rate->id ? 'bg-red-100' : '' }}">
+                                                <input wire:model.live="selectedRate" type="radio" name="selectedRate"
+                                                    value="{{ $rate->id }}"
+                                                    class="h-4 w-4 cursor-pointer border-neutral-300 text-red-600 focus:ring-red-600">
+                                                <span class="ml-3 text-base text-neutral-900">{{ $rate->name }}{{ $rate->limit > 0 ? '/Woche' : '' }}</span>
+                                                <span
+                                                    class="ml-auto whitespace-nowrap pl-2 font-bold text-neutral-900">{{ formatPriceGerman($rate->amount) }}
+                                                    €</span>
+                                            </label>
+                                        @endforeach
+                                    </div>
                                 </div>
+                            @endforeach
+                        </div>
 
-                                <!-- Buy Plan Button -->
-                                <a href="#" wire:click.prevent="purchasePlan({{ $selectedRate }})"
-                                    class="block mt-4 rounded-md py-2 px-3 text-sm font-semibold leading-6 text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring focus:ring-red-500 focus:ring-opacity-50">
-                                    Anmelden
-                                </a>
-
-                            </div>
-                        @endforeach
-
-
-                    </di>
+                        <!-- Buy Plan Button -->
+                        <div class="mt-8 text-center">
+                            <button type="button" wire:click="purchasePlan({{ $selectedRate ?? 'null' }})"
+                                @disabled(!$selectedRate)
+                                class="w-full rounded-md bg-red-600 px-6 py-2 text-sm font-semibold leading-6 text-white hover:bg-red-700 focus:outline-none focus:ring focus:ring-red-500 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-neutral-400 sm:w-auto">
+                                Anmelden
+                            </button>
+                        </div>
+                    </div>
                 @elseif (!$showForm && $showSuccess)
                     <div class="bg-white">
                         <div class="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
@@ -124,7 +147,7 @@
                                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                         <dt class="text-sm font-medium leading-6 text-neutral-900">Mitgliedschaft</dt>
                                         <dd class="mt-1 text-sm leading-6 text-neutral-700 sm:col-span-2 sm:mt-0">
-                                            {{ $rate->category->name }} Vertrag</dd>
+                                            {{ $rate->category->name }} Laufzeit</dd>
                                     </div>
                                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                         <dt class="text-sm font-medium leading-6 text-neutral-900">Limit pro Woche</dt>
@@ -138,7 +161,7 @@
                                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                         <dt class="text-sm font-medium leading-6 text-neutral-900">Preis</dt>
                                         <dd class="mt-1 text-sm leading-6 text-neutral-700 sm:col-span-2 sm:mt-0">
-                                            {{ $rate->amount }}, € / Monatlich</dd>
+                                            {{ formatPriceGerman($rate->amount) }} € / Monatlich</dd>
                                     </div>
 
 
