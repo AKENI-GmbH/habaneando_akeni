@@ -21,7 +21,7 @@ services:
         condition: service_healthy
 
   web:
-    image: nginx:1.25-alpine
+    image: nginx:1.27-alpine
     ports:
       - "8087:80"
     volumes:
@@ -55,6 +55,8 @@ services:
     command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 5173"
     environment:
       - CHOKIDAR_USEPOLLING=true
+      - VITE_HMR_HOST=${VITE_HMR_HOST:-dev05.akeni.net}
+      - VITE_HMR_PORT=${VITE_HMR_PORT:-8087}
     ports:
       - "5173:5173"
     volumes:
