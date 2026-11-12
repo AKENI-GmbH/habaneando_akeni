@@ -132,19 +132,25 @@ class ShowCourse extends Page implements Tables\Contracts\HasTable
                         ->icon('heroicon-s-envelope')
                         ->form(function () {
                             return [
-                                TextInput::make('subject')->label(__('Subject')),
-                                Components\TextArea::make('body')->label(__('Body'))
+                                TextInput::make('subject')->label(__('Subject'))->required(),
+                                Components\Textarea::make('body')->label(__('Body'))
+                                    ->required()
                                     ->rows(10)
                                     ->cols(20),
                             ];
                         })
                         ->action(
                             function (Collection $records, array $data) {
-                                foreach ($records as $customer) {
-                                    Mail::to($customer)->send(new CustomerNotification($data['subject'], $data['body']));
+                                foreach ($records->load('customer') as $subscription) {
+                                    $email = $subscription->customer?->email;
+                                    if (! $email) {
+                                        continue;
+                                    }
+                                    Mail::to($email)->send(new CustomerNotification($data['subject'], $data['body']));
                                 }
                             }
                         )
+                        ->deselectRecordsAfterCompletion()
                         ->slideOver(),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
