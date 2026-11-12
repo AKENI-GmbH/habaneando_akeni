@@ -106,21 +106,25 @@ class ShowEvent extends Page implements Tables\Contracts\HasTable
                         ->icon('heroicon-s-envelope')
                         ->form(function () {
                             return [
-                                Components\TextInput::make('subject')->label(__('Subject')),
-                                Components\TextArea::make('body')->label(__('Body'))
+                                Components\TextInput::make('subject')->label(__('Subject'))->required(),
+                                Components\Textarea::make('body')->label(__('Body'))
+                                    ->required()
                                     ->rows(10)
                                     ->cols(20),
                             ];
                         })
                         ->action(
                             function (Collection $records, array $data) {
-                                dd($records);
-                                foreach ($records as $customer) {
-                                    dd($records);
-                                    Mail::to($customer->email)->send(new NotificationEmail($data['subject'], $data['body']));
+                                foreach ($records->load('customer') as $subscription) {
+                                    $email = $subscription->customer?->email;
+                                    if (! $email) {
+                                        continue;
+                                    }
+                                    Mail::to($email)->send(new NotificationEmail($data['subject'], $data['body']));
                                 }
                             }
                         )
+                        ->deselectRecordsAfterCompletion()
                         ->slideOver(),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
