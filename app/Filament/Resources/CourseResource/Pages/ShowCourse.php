@@ -19,7 +19,7 @@ use Jenssegers\Date\Date;
 use Filament\Tables;
 use App\Models;
 use App\Enum;
-use App\Mail\CustomerNotification;
+use App\Mail\NotificationEmail;
 use Filament\Forms\Components\TextInput;
 
 class ShowCourse extends Page implements Tables\Contracts\HasTable
@@ -146,7 +146,7 @@ class ShowCourse extends Page implements Tables\Contracts\HasTable
                                     if (! $email) {
                                         continue;
                                     }
-                                    Mail::to($email)->send(new CustomerNotification($data['subject'], $data['body']));
+                                    Mail::to($email)->send(new NotificationEmail($data['subject'], $data['body']));
                                 }
                             }
                         )

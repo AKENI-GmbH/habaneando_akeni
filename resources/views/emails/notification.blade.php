@@ -1,5 +1,5 @@
 @extends('emails.email')
 
 @section('content')
-<p>{{ $body }}</p>
+<p>{!! nl2br(e($body)) !!}</p>
 @endsection
