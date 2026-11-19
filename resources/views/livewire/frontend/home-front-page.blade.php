@@ -90,17 +90,16 @@
             <p class="mt-4 text-lg leading-8 text-neutral-600">Probiere eine Stunde aus und überzeuge dich selbst – wir
                 freuen uns auf dich!</p>
 
-            <div class="mt-10 flex items-center justify-center gap-x-6">
-                <a href="{{ route('frontend.course.info') }}"
-                    class="rounded-md bg-red-600 px-3.5 py-2.5 text-base font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">Kursübersicht
+            <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-x-6">
+                <a href="/tanzen/schnupperstunde"
+                    class="rounded-md bg-red-600 px-6 py-3 text-base font-semibold text-white shadow-md transition hover:-translate-y-0.5 hover:bg-red-500 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">Jetzt
+                    Schnupperstunde sichern <span aria-hidden="true">→</span>
                 </a>
-                {{-- <a href="#"
-                    class="rounded-md bg-red-600 px-3.5 py-2.5 text-base font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">Kursinfo
-                </a> --}}
-                <a href="{{ route('frontend.memebrship.create') }}"
-                    class="text-base font-semibold leading-6 text-neutral-900">Zur Mitgliedschaftsinfo <span
-                        aria-hidden="true">→</span></a>
+                <a href="{{ route('frontend.course.info') }}"
+                    class="rounded-md bg-white px-6 py-3 text-base font-semibold text-red-600 shadow-sm ring-1 ring-inset ring-red-600 hover:bg-red-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">Kursübersicht
+                </a>
             </div>
+            <p class="mt-4 text-sm text-neutral-600">Einfach ausprobieren – den Rest macht die Musik.</p>
         </div>
     </div>
 
