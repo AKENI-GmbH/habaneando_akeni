@@ -10,7 +10,7 @@
         <div style="background: radial-gradient(circle, #b50314, #270001); opacity: 1;" class="absolute inset-0 -z-10 h-full w-full object-cover">
         </div>
 
-        <div class="hero-grid mx-auto grid min-h-[60vh] max-w-screen-2xl grid-cols-1 items-center gap-8 px-6 pb-24 pt-12 sm:pt-16 lg:px-8">
+        <div class="hero-grid mx-auto grid min-h-[70vh] max-w-screen-2xl grid-cols-1 items-center gap-8 px-6 pb-24 pt-32 lg:px-8">
             <div class="flex justify-center lg:justify-start">
                 <img src="{{ asset('images/header.png') }}" alt="" class="max-h-[55vh] w-full max-w-sm object-contain lg:max-w-2xl">
             </div>
