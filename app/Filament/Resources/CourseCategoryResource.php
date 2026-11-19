@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Forms\Components\ImageUpload;
 use App\Filament\Resources\CourseCategoryResource\RelationManagers\SubcategoriesRelationManager;
 use App\Filament\Resources\CourseCategoryResource\Pages;
 use Filament\Tables\Actions\ActionGroup;
@@ -46,7 +47,7 @@ class CourseCategoryResource extends Resource
                                 Fieldset::make(__('Page header'))
                                     ->relationship('header')
                                     ->schema([
-                                        FileUpload::make('cover')->columnSpan(2),
+                                        ImageUpload::make('cover')->columnSpan(2),
                                         Radio::make('mediaType')
                                             ->options([
                                                 'image' => 'Image',

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Forms\Components\ImageUpload;
 use App\Filament\Resources\PageResource\Pages;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
@@ -37,7 +38,7 @@ class PageResource extends Resource
                         Tabs\Tab::make(__('Page'))
                             ->schema([
                                 Section::make([
-                                    FileUpload::make('image')
+                                    ImageUpload::make('image')
                                         ->disk('spaces'),
                                     TextInput::make('name'),
                                     RichEditor::make('body')
@@ -68,7 +69,7 @@ class PageResource extends Resource
                                 Fieldset::make(__('Page header'))
                                     ->relationship('header')
                                     ->schema([
-                                        FileUpload::make('cover')
+                                        ImageUpload::make('cover')
                                         ->disk('spaces')->columnSpan(2),
                                         Radio::make('mediaType')
                                             ->options([
