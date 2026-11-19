@@ -187,8 +187,8 @@
                         <h2 class="text-xl font-semibold">Tanzlehrer</h2>
                         <ul role="list" class="divide-y divide-neutral-100 mt-4">
                             <li class="flex gap-x-4 ">
-                                <img class="h-12 w-12 flex-none rounded-full bg-neutral-50"
-                                    src="{{ $course->primaryTeacher->thumbnail }}" alt="">
+                                <img class="h-12 w-12 flex-none rounded-full bg-neutral-50 object-cover object-top"
+                                    src="{{ $course->primaryTeacher->thumbnail_url }}" alt="">
                                 <div class="min-w-0">
                                     <p class="text-base font-medium leading-6 text-neutral-900">
                                         {{ $course->primaryTeacher->full_name }}</p>
@@ -202,8 +202,8 @@
                             @if (isset($course->secondaryTeacher))
                                 <li class="flex gap-x-4 py-5">
 
-                                    <img class="h-12 w-12 flex-none rounded-full bg-neutral-50"
-                                        src="{{ $course->secondaryTeacher->thumbnail }}" alt="">
+                                    <img class="h-12 w-12 flex-none rounded-full bg-neutral-50 object-cover object-top"
+                                        src="{{ $course->secondaryTeacher->thumbnail_url }}" alt="">
                                     <div class="min-w-0">
                                         <p class="text-base font-medium leading-6 text-neutral-900">{{$course->secondaryTeacher->full_name}}</p>
                                         <p class="mt-1 truncate text-sm leading-5">

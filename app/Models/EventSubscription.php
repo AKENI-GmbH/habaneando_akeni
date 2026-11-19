@@ -13,6 +13,7 @@ class EventSubscription extends Model
         'customer_id',
         'event_id',
         'ticket_id',
+        'stripe_session_id',
         'tickets',
         'numberOfMen',
         'numberOfWomen',
@@ -28,7 +29,13 @@ class EventSubscription extends Model
 
 
         static::creating(function ($subscription) {
-            $subscription->tickets = $subscription->numberOfMen + $subscription->numberOfWomen;
+            // Only derive the ticket count from men/women when those were given
+            // (admin form). Online checkouts pass the ticket count directly.
+            if ($subscription->numberOfMen !== null || $subscription->numberOfWomen !== null) {
+                $subscription->tickets = (int) $subscription->numberOfMen + (int) $subscription->numberOfWomen;
+            }
+
+            $subscription->tickets = (int) $subscription->tickets;
             $subscription->status = true;
         });
     }

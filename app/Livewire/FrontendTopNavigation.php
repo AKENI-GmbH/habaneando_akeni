@@ -89,7 +89,7 @@ class FrontendTopNavigation extends Component
             ],
 
             [
-                "label" => 'Events & Partys',
+                "label" => 'Events',
                 "submenu" => [
                     [
                         "label" => 'Party',
@@ -149,13 +149,18 @@ class FrontendTopNavigation extends Component
                         "link" => route('frontend.faq'),
                         'position' => 3,
                     ],
+                    [
+                        "label" => 'Betriebsferien',
+                        "link" => route('frontend.vacation', 'betriebsferien'),
+                        'position' => 4,
+                    ],
+                    [
+                        "label" => 'Kontakt',
+                        "link" => route('frontend.kontakt'),
+                        'position' => 5,
+                    ],
                 ],
                 'position' => 7,
-            ],
-            [
-                "label" => 'Kontakt',
-                "link" => route('frontend.kontakt'),
-                'position' => 8,
             ],
             [
                 "label" => 'Mein Konto',

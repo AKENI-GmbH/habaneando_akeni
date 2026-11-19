@@ -4,6 +4,9 @@
 <head>
     <meta charset="utf-8">
     <title>{{ config('app.name', 'Habaneando') }} @yield('title')</title>
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" sizes="192x192">
+    <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 

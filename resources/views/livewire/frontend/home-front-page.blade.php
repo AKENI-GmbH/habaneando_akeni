@@ -6,27 +6,28 @@
     .kacheln-grid { grid-template-columns: repeat(3, 1fr) !important; }
 }
 </style>
-    <div class="relative min-h-screen">
+    <div class="relative">
         <div style="background: radial-gradient(circle, #b50314, #270001); opacity: 1;" class="absolute inset-0 -z-10 h-full w-full object-cover">
         </div>
 
-        <div class="hero-grid mx-auto grid min-h-screen max-w-screen-2xl grid-cols-1 items-center gap-8 px-6 pb-28 pt-16 sm:py-20 lg:px-8">
+        <div class="hero-grid mx-auto grid min-h-[60vh] max-w-screen-2xl grid-cols-1 items-center gap-8 px-6 pb-24 pt-12 sm:pt-16 lg:px-8">
             <div class="flex justify-center lg:justify-start">
-                <img src="{{ asset('images/header.png') }}" alt="" class="max-h-[70vh] w-full max-w-sm object-contain lg:max-w-2xl">
+                <img src="{{ asset('images/header.png') }}" alt="" class="max-h-[55vh] w-full max-w-sm object-contain lg:max-w-2xl">
             </div>
             <div class="text-center">
                 <div class="mx-auto max-w-5xl">
                     <h1 class="text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl">
-                        Salsa & Bachata für Paare in Speyer –
-                        <span class="mt-4 block text-2xl font-normal leading-snug sm:text-3xl lg:text-4xl">für Anfänger, ganz ohne Vorkenntnisse.</span>
+                        Salsa & Bachata in Speyer
+                        <span class="mt-8 block text-2xl font-normal leading-snug sm:text-3xl lg:text-4xl">Ob als Paar oder alleine –</span>
+                        <span class="block text-2xl font-normal leading-snug sm:text-3xl lg:text-4xl">für Anfänger, ganz ohne Vorkenntnisse.</span>
                     </h1>
                 </div>
 
-                <div class="kacheln-grid" style="display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 2rem;">
+                <div class="kacheln-grid" style="display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 3.5rem;">
                     <div class="rounded-md bg-white p-4 text-neutral-900 shadow-sm">
                         <h2 class="text-base font-semibold">Anfänger-Tanzkurse</h2>
                         <div class="my-3 border-t border-neutral-200"></div>
-                        <p class="text-sm text-neutral-700">Wähle deinen Rhytmus</p>
+                        <p class="text-sm text-neutral-700">Wähle deinen Rhythmus</p>
                         <div class="my-3 border-t border-neutral-200"></div>
                         <p class="text-sm font-medium">
                             <a class="hover:text-red-700" href="/tanzen/salsa">Salsa</a>
@@ -35,16 +36,20 @@
                             <span class="text-neutral-400"> | </span>
                             <a class="hover:text-red-700" href="/tanzen/solo-tanz">Solo-Tanz</a>
                         </p>
+                        <div class="my-3 border-t border-neutral-200"></div>
+                        <a class="inline-block rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" href="/tanzen/schnupperstunde">Probestunde buchen →</a>
                     </div>
 
                     <div class="rounded-md bg-white p-4 text-neutral-900 shadow-sm">
-                        <h2 class="text-base font-semibold">Aktuelles</h2>
+                        <h2 class="text-base font-semibold">Events</h2>
                         <div class="my-3 border-t border-neutral-200"></div>
                         <p class="text-sm font-medium">
                             <a class="hover:text-red-700" href="/workshop">Workshops</a>
                             <span class="text-neutral-400"> | </span>
                             <a class="hover:text-red-700" href="/events">Partys</a>
                         </p>
+                        <div class="my-3 border-t border-neutral-200"></div>
+                        <a class="text-sm font-medium hover:text-red-700" href="{{ route('frontend.coupon') }}">Gutscheine</a>
                     </div>
 
                     <div class="rounded-md bg-white p-4 text-neutral-900 shadow-sm">
@@ -76,8 +81,14 @@
             <p class="text-2xl font-regular leading-7 uppercase">Erlebe Kuba Hautnah</p>
             <h2 class="mt-4 text-3xl font-normal uppercase tracking-tight sm:text-4xl sm:leading-tight">Salsa und
                 Bachata Kurse in Speyer</h2>
-            <p class="mt-4 text-lg leading-8 text-neutral-600">Tanzen ist das perfekte Gegengewicht zum Alltag. Diese
-                karibischen Rhythmen stehen für Lebensfreude, Gemeinschaft, Sinnlichkeit.</p>
+            <p class="mt-4 text-lg leading-8 text-neutral-600">Ob als Paar oder alleine: Unsere authentischen
+                Tanzlehrer begleiten dich mit viel Geduld und Leidenschaft – Schritt für Schritt, auch ohne
+                Vorkenntnisse.<br>Nach einer Stunde voller Musik und Bewegung gehst du mit neuer Energie und einem
+                Lächeln nach Hause.</p>
+            <p class="mt-4 text-lg leading-8 text-neutral-600">Unser Motto: Mit Spaß tanzen lernen und in jeder
+                Stunde Fortschritte machen.</p>
+            <p class="mt-4 text-lg leading-8 text-neutral-600">Probiere eine Stunde aus und überzeuge dich selbst – wir
+                freuen uns auf dich!</p>
 
             <div class="mt-10 flex items-center justify-center gap-x-6">
                 <a href="{{ route('frontend.course.info') }}"

@@ -89,12 +89,26 @@ class EventSingle extends Component
             'billing_address_collection' => 'required',
             'customer_email' => $this->customer->email,
             'mode' => 'payment',
+            'payment_intent_data' => [
+                'description' => $this->getPaymentDescription(),
+            ],
             'locale' => 'de',
             'success_url' => $appUrl . '/checkout/event/success/{CHECKOUT_SESSION_ID}',
             'cancel_url' => $appUrl,
         ]);
 
         return $checkout_session->url;
+    }
+
+    private function getPaymentDescription(): string
+    {
+        if (!$this->event->date_from) {
+            return $this->event->name;
+        }
+
+        $date = Carbon::parse($this->event->date_from)->format('d.m.Y');
+
+        return $this->event->name . ' - ' . $date;
     }
 
     private function validateInput()

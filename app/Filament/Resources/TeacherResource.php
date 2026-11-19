@@ -56,7 +56,9 @@ class TeacherResource extends Resource
             ->columns([
                 ImageColumn::make('thumbnail')
                     ->width(100)
-                    ->disk('spaces'),
+                    ->disk('spaces')
+                    // Skip the per-row API call to Spaces; the CDN URL is enough.
+                    ->checkFileExistence(false),
                 TextColumn::make('full_name')->label(__('Name')),
                 IconColumn::make('is_staff')
                     ->label(__('Staff'))
