@@ -3,6 +3,18 @@
 
 <head>
     <meta charset="utf-8">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18587260157">
+    </script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'AW-18587260157');
+    </script>
+
     <title>{{ config('app.name', 'Habaneando') }} @yield('title')</title>
     <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="32x32">
     <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" sizes="192x192">
