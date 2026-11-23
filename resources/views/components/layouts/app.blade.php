@@ -4,10 +4,14 @@
 <head>
     <meta charset="utf-8">
 
+    <!-- Cookiebot -->
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="068f8454-d3b3-4ce1-96a8-15597bb068ab"
+        data-blockingmode="manual" type="text/javascript"></script>
+
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18587260157">
-    </script>
-    <script>
+    <script type="text/plain" data-cookieconsent="marketing" async
+        src="https://www.googletagmanager.com/gtag/js?id=AW-18587260157"></script>
+    <script type="text/plain" data-cookieconsent="marketing">
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
