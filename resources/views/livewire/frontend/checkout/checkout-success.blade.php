@@ -21,4 +21,15 @@
 
     </div>
 
+    @if (!empty($adsConversion))
+        <!-- Google Ads: Conversion Schnupperstunde (lädt erst nach Einwilligung in Marketing-Cookies) -->
+        <script type="text/plain" data-cookieconsent="marketing">
+            gtag('event', 'conversion', {
+                'send_to': 'AW-18587260157/e9iyCMHqqb0dEP2pjJ9F',
+                'value': {{ (float) $adsConversion['value'] }},
+                'currency': 'EUR',
+                'transaction_id': @json($adsConversion['transaction_id'])
+            });
+        </script>
+    @endif
 </div>
