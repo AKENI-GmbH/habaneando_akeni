@@ -43,6 +43,8 @@
 
         </div>
 
+        <x-cta.probestunde class="mt-10" />
+
         @auth('customer')
             @if ($this->customer->clubMember)
                 <div class="text-center font-bold text-lg sm:text-xl mx-auto max-w-4xl">

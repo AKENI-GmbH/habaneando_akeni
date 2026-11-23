@@ -1,6 +1,8 @@
 <div>
     <x-hero :title="$page->name" :header="$page->header" />
     <x-container>
+        <x-cta.probestunde class="mb-12" />
+
         <div>
             {!! $page->body !!}
         </div>

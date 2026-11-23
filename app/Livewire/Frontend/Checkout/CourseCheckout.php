@@ -5,6 +5,7 @@ namespace App\Livewire\Frontend\Checkout;
 use Stripe\Checkout\Session as StripeCheckoutSession;
 use App\Mail\PurchaseConfirmationEmail;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Course;
 use App\Models\CourseSubscription;
 use App\Enum\SubscriptionTypeEnum;
 use App\Enum\PaymentMethodEnum;
@@ -15,6 +16,11 @@ use Stripe\Stripe;
 class CourseCheckout extends Component
 {
     public $session_id;
+
+    /**
+     * Daten für die Google-Ads-Conversion (nur bei Schnupperstunde), sonst null.
+     */
+    public ?array $adsConversion = null;
 
     public function mount($session_id)
     {
@@ -28,6 +34,8 @@ class CourseCheckout extends Component
 
         $checkout_session = StripeCheckoutSession::retrieve($this->session_id);
         $customer = auth()->guard('customer')->user();
+
+        $this->prepareAdsConversion($checkout_session);
 
 
         $existingSubscription = CourseSubscription::where([
@@ -51,6 +59,20 @@ class CourseCheckout extends Component
         ]);
 
         Mail::to($checkout_session->customer_email)->send(new PurchaseConfirmationEmail($subscription));
+    }
+
+    private function prepareAdsConversion($checkout_session): void
+    {
+        $course = Course::with('subcategory.category')->find($checkout_session->metadata->course_id ?? null);
+
+        if ($course?->subcategory?->category?->slug !== 'schnupperstunde') {
+            return;
+        }
+
+        $this->adsConversion = [
+            'value' => $checkout_session->amount_total / 100,
+            'transaction_id' => $this->session_id,
+        ];
     }
 
     public function render()

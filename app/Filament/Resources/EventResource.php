@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Forms\Components\ImageUpload;
 use App\Filament\Resources\EventResource\RelationManagers\TeachersRelationManager;
 use App\Filament\Resources\EventResource\Pages;
 use Illuminate\Database\Eloquent\Builder;
@@ -97,7 +98,7 @@ class EventResource extends Resource
                                         ]),
                                 ]),
                                 Section::make([
-                                    FileUpload::make('thumbnail')
+                                    ImageUpload::make('thumbnail')
                                         ->disk('spaces'),
 
                                     Section::make([
@@ -122,7 +123,7 @@ class EventResource extends Resource
                                     ->relationship('header')
                                     ->schema([
 
-                                        FileUpload::make('cover')
+                                        ImageUpload::make('cover')
                                             ->disk('spaces')->columnSpan(2),
                                         Components\Radio::make('mediaType')
                                             ->options([

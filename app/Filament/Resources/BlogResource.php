@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Forms\Components\ImageUpload;
 use App\Filament\Resources\BlogResource\Pages;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\BulkAction;
@@ -31,7 +32,7 @@ class BlogResource extends Resource
                             ->schema([
                                 Components\Split::make([
                                     Components\Section::make([
-                                        FileUpload::make('thumbnail')
+                                        ImageUpload::make('thumbnail')
                                             ->previewable(true)
                                             ->directory('blog'),
                                         Components\TextInput::make('name'),
@@ -49,7 +50,7 @@ class BlogResource extends Resource
                                 Components\Fieldset::make('')
                                     ->relationship('header')
                                     ->schema([
-                                        Components\FileUpload::make('cover')->columnSpan(2),
+                                        ImageUpload::make('cover')->columnSpan(2),
                                         Components\Radio::make('mediaType')
                                             ->options([
                                                 'image' => 'Image',

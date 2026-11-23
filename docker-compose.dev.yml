@@ -7,6 +7,7 @@ services:
       - .:/var/www/html
       - vendor:/var/www/html/vendor
       - node_modules:/var/www/html/node_modules
+      - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
     user: "${UID:-1000}:${GID:-1000}"
     environment:
       PHP_OPCACHE_VALIDATE_TIMESTAMPS: 1

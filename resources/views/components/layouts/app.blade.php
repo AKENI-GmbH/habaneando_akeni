@@ -3,7 +3,26 @@
 
 <head>
     <meta charset="utf-8">
+
+    <!-- Cookiebot -->
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="068f8454-d3b3-4ce1-96a8-15597bb068ab"
+        data-blockingmode="manual" type="text/javascript"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script type="text/plain" data-cookieconsent="marketing" async
+        src="https://www.googletagmanager.com/gtag/js?id=AW-18587260157"></script>
+    <script type="text/plain" data-cookieconsent="marketing">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'AW-18587260157');
+    </script>
+
     <title>{{ config('app.name', 'Habaneando') }} @yield('title')</title>
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" sizes="192x192">
+    <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 

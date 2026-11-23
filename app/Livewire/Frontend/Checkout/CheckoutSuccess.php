@@ -6,9 +6,7 @@ use Stripe\Checkout\Session as StripeCheckoutSession;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Customer;
-use App\Enum\SubscriptionTypeEnum;
 use App\Enum\PaymentMethodEnum;
-use App\Enum\PaymentStatusEnum;
 use App\Mail\EventPurchaseConfirmationEmail;
 use App\Models\EventSubscription;
 use Livewire\Component;
@@ -50,29 +48,23 @@ class CheckoutSuccess extends Component
      return;
     }
 
-  $existingSubscription = EventSubscription::where([
-   'customer_id' => $customer->id,
-   'event_id' => $checkout_session->metadata->event_id,
-   'ticket_id' => $checkout_session->metadata->ticket_id,
-   'tickets' => $checkout_session->metadata->quantity
-  ])->first();
+  // One Stripe checkout session = one subscription. Reloading this page
+  // (refresh, back button, in-app browsers) must not create duplicates.
+  $subscription = EventSubscription::createOrFirst(
+   ['stripe_session_id' => $checkout_session->id],
+   [
+    'customer_id' => $customer->id,
+    'event_id' => $checkout_session->metadata->event_id,
+    'ticket_id' => $checkout_session->metadata->ticket_id,
+    'tickets' => (int) $checkout_session->metadata->quantity,
+    'amount' => $checkout_session->amount_total / 100,
+    'method' => PaymentMethodEnum::STRIPE,
+   ]
+  );
 
-  if ($existingSubscription) {
+  if (!$subscription->wasRecentlyCreated) {
    return;
   }
-
-  $subscription = EventSubscription::create([
-   'customer_id' => $customer->id,
-   'event_id' => $checkout_session->metadata->event_id,
-   'ticket_id' => $checkout_session->metadata->ticket_id,
-   'tickets' => $checkout_session->metadata->quantity,
-   'numberOfMen' => $checkout_session->metadata->quantityMen,
-   'numberOfWomen' => $checkout_session->metadata->quantityWomen,
-   'amount' => $checkout_session->amount_total / 100,
-   'subscriptionType' => SubscriptionTypeEnum::SINGLE_PAYMENT,
-   'method' => PaymentMethodEnum::STRIPE,
-   'payment_status' => PaymentStatusEnum::ACCEPTED
-  ]);
 
   Mail::to($checkout_session->customer_email)->send(new EventPurchaseConfirmationEmail($subscription));
  }

@@ -30,6 +30,22 @@ class Teacher extends Model
         return $this->first_name . ' ' . $this->last_name;
     }
 
+    /**
+     * Full CDN URL of the teacher's photo, or null if none was uploaded.
+     */
+    public function getThumbnailUrlAttribute(): ?string
+    {
+        if (empty($this->thumbnail)) {
+            return null;
+        }
+
+        if (str_starts_with($this->thumbnail, 'http')) {
+            return $this->thumbnail;
+        }
+
+        return rtrim(env('DO_CDN'), '/') . '/' . ltrim($this->thumbnail, '/');
+    }
+
     protected static function boot()
     {
         parent::boot();

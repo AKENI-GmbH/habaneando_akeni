@@ -18,3 +18,5 @@ yarn-error.log
 /.idea
 /.vscode
 /.branch-watch
+/CLAUDE.md
+/docs

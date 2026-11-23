@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Forms\Components\ImageUpload;
 use App\Filament\Resources\TeacherResource\Pages;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\FileUpload;
@@ -40,7 +41,7 @@ class TeacherResource extends Resource
                             TextInput::make('styles')->columnSpan(2),
                     ])->columns(2),
                     Section::make([
-                        FileUpload::make('thumbnail')
+                        ImageUpload::make('thumbnail')
                                             ->disk('spaces'),
                         TextInput::make('show_name')->label(__('Display as')),
                         TextInput::make('origin')->label(__('Origin')),
@@ -56,7 +57,9 @@ class TeacherResource extends Resource
             ->columns([
                 ImageColumn::make('thumbnail')
                     ->width(100)
-                    ->disk('spaces'),
+                    ->disk('spaces')
+                    // Skip the per-row API call to Spaces; the CDN URL is enough.
+                    ->checkFileExistence(false),
                 TextColumn::make('full_name')->label(__('Name')),
                 IconColumn::make('is_staff')
                     ->label(__('Staff'))
