@@ -22,7 +22,7 @@ services:
         condition: service_healthy
 
   web:
-    image: nginx:1.25-alpine
+    image: nginx:1.30-alpine
     ports:
       - "8087:80"
     volumes:
@@ -35,7 +35,7 @@ services:
         condition: service_healthy
 
   db:
-    image: postgres:15-alpine
+    image: postgres:18-alpine
     ports:
       - "5434:5432"
     environment:
@@ -43,7 +43,9 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-habaneando}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      # Ab Postgres 18 liegt PGDATA unter /var/lib/postgresql/18/docker,
+      # daher wird das übergeordnete Verzeichnis gemountet (neues Volume für v18).
+      - pgdata18:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-habaneando} -d ${POSTGRES_DB:-habaneando}"]
       interval: 10s
@@ -69,4 +71,5 @@ services:
 volumes:
   vendor:
   node_modules:
-  pgdata:
+  pgdata:      # alte Postgres-15-Daten, kann nach erfolgreicher Umstellung entfernt werden
+  pgdata18:
