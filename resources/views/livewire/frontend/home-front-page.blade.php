@@ -37,7 +37,7 @@
                             <a class="hover:text-red-700" href="/tanzen/solo-tanz">Solo-Tanz</a>
                         </p>
                         <div class="my-3 border-t border-neutral-200"></div>
-                        <a class="inline-block rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" href="/tanzen/schnupperstunde">Probestunde buchen →</a>
+                        <a class="inline-block rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" href="/tanzen/probestunde">Probestunde buchen →</a>
                     </div>
 
                     <div class="rounded-md bg-white p-4 text-neutral-900 shadow-sm">
@@ -91,7 +91,7 @@
                 freuen uns auf dich!</p>
 
             <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-x-6">
-                <a href="/tanzen/schnupperstunde"
+                <a href="/tanzen/probestunde"
                     class="rounded-md bg-red-600 px-6 py-3 text-base font-semibold text-white shadow-md transition hover:-translate-y-0.5 hover:bg-red-500 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">Jetzt
                     Schnupperstunde sichern <span aria-hidden="true">→</span>
                 </a>

@@ -65,7 +65,7 @@ class CourseCheckout extends Component
     {
         $course = Course::with('subcategory.category')->find($checkout_session->metadata->course_id ?? null);
 
-        if ($course?->subcategory?->category?->slug !== 'schnupperstunde') {
+        if ($course?->subcategory?->category?->slug !== 'probestunde') {
             return;
         }
 
